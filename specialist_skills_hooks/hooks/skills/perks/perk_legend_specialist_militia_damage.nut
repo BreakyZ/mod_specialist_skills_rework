@@ -16,5 +16,10 @@
 			_properties.DamageRegularMin += actor.calculateSpecialistMultiplier(0.04, specialistWeapon);
 			_properties.DamageRegularMax += actor.calculateSpecialistMultiplier(0.107, specialistWeapon);
 		}
+		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Crossbow))
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistMultiplier(0.04, false);
+			_properties.DamageRegularMax += actor.calculateSpecialistMultiplier(0.107, false);
+		}
 	}
 });

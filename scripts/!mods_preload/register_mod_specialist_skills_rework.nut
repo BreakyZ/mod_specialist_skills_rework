@@ -1,7 +1,7 @@
 ::ModSpecialistSkillsRework <- {
 	ID = "mod_specialist_skills_rework",
 	Name = "Mod Specialist Skills Rework",
-	Version = "1.0.8"
+	Version = "1.0.9"
 };
 
 ::ModSpecialistSkillsRework.HooksMod <- ::Hooks.register(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
@@ -15,6 +15,8 @@
 {
 	// define mod class of this mod
 	::ModSpecialistSkillsRework.Mod <- ::MSU.Class.Mod(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
+	::ModSpecialistSkillsRework.Mod.Registry.addModSource(::MSU.System.Registry.ModSourceDomain.GitHub, "https://github.com/BreakyZ/battle_brothers_specialist_skills_rework");
+	::ModSpecialistSkillsRework.Mod.Registry.setUpdateSource(::MSU.System.Registry.ModSourceDomain.GitHub);
 
 	// load hook files
 	::include("specialist_skills_hooks/load.nut");

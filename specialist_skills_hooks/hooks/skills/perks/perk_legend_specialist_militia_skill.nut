@@ -16,5 +16,10 @@
 			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
 			_properties.MeleeDefense += actor.calculateSpecialistMultiplier(0.04, specialistWeapon);
 		}
+
+		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Crossbow))
+		{
+			_properties.RangedSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
+		}
 	}
 });
