@@ -6,6 +6,7 @@ Smallish mod that reworks almost all the specialist weapon perks (Poacher's arm 
 * Scythe specialization applies to 2 handed swords.
 * Butcher's perks will apply to all cleavers.
 * Musical instrument specialisation will apply to 1h maces.
-* Ninetails perks have overall been nerfed since now there's a scaling ceiling so I gave them some extra headshot damage.
+* Ninetails perks have overall been nerfed since now there's a scaling ceiling so I gave them some extra headshot damage. Will apply to 3 headed flail and berserker chain now.
+* Added crossbows to militia perks
 
 Requires Modern Hooks and is Save Compatible. Compatible with SSU.

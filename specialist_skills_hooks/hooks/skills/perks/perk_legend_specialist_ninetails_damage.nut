@@ -6,7 +6,7 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
 
-		if (item != null && (item.isItemType(this.Const.Items.ItemType.Cultist) || item.getID() == "weapon.orc_flail_2h" || item.getID() == 'named_orc_flail_2h'))
+		if (item != null && (item.isItemType(this.Const.Items.ItemType.Cultist) || item.getID() == "weapon.orc_flail_2h" || item.getID() == "weapon.named_orc_flail_2h"))
 		{
 
 			if (item.getID() == "weapon.legend_cat_o_nine_tails")

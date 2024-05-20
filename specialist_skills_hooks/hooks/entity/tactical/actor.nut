@@ -2,7 +2,7 @@
 {
 	q.getHighestStat <- function()
 	{	
-		local stats = [this.getFatigueMax(), this.getInitiative(), this.getHitpointsMax()]
+		local stats = [this.getFatigueMax(), this.getInitiative(), this.getHitpointsMax(), this.getBravery()]
 		local highest_stat = 0
 		for( local i = 0; i < stats.len(); i = ++i )
 		{
