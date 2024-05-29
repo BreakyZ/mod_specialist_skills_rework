@@ -5,11 +5,19 @@
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
-
-		if (item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && (item.getID() == "weapon.legend_grisly_scythe" || item.getID() == "weapon.legend_scythe" || item.getID() == "weapon.warscythe" || item.getID() == "weapon.named_warscythe") || item.isWeaponType(this.Const.Items.WeaponType.Sword))
+		local isScythe = false
+		if (item != null)
 		{
+			return
+		}
+		if (item.getID() == "weapon.legend_grisly_scythe" || item.getID() == "weapon.legend_scythe" || item.getID() == "weapon.warscythe" || item.getID() == "weapon.named_warscythe")
+		{
+			isScythe = true
+		}
 
-			if (item.getID() == "weapon.legend_grisly_scythe" || item.getID() == "weapon.legend_scythe" || item.getID() == "weapon.warscythe" || item.getID() == "weapon.named_warscythe")
+		if (item.isItemType(this.Const.Items.ItemType.TwoHanded) && (isScythe || item.isWeaponType(this.Const.Items.WeaponType.Sword)))
+		{
+			if (isScythe)
 			{
 				specialistWeapon = true
 			}
