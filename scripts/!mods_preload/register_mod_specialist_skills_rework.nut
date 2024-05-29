@@ -1,7 +1,7 @@
 ::ModSpecialistSkillsRework <- {
 	ID = "mod_specialist_skills_rework",
 	Name = "Mod Specialist Skills Rework",
-	Version = "1.0.9"
+	Version = "1.0.11"
 };
 
 ::ModSpecialistSkillsRework.HooksMod <- ::Hooks.register(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
@@ -11,7 +11,7 @@
 ::ModSpecialistSkillsRework.HooksMod.require("mod_msu >= 1.2.6", "mod_modern_hooks");
 
 // like above you can add as many parameters to determine the queue order of the mod before adding the parameter to run the callback function. 
-::ModSpecialistSkillsRework.HooksMod.queue(">mod_msu", ">mod_legends", ">mod_sellswords", function()
+::ModSpecialistSkillsRework.HooksMod.queue(">mod_msu", ">mod_legends", ">mod_sellswords" ">mod_fantasybro_rotu", function()
 {
 	// define mod class of this mod
 	::ModSpecialistSkillsRework.Mod <- ::MSU.Class.Mod(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
