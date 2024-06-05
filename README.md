@@ -15,4 +15,4 @@ Smallish mod that reworks almost all the specialist weapon perks (Poacher's arm 
 
 TODO: add unique bonuses to all the perks.
 
-Requires Modern Hooks and is Save Compatible. Compatible with SSU.
+Requires Modern Hooks and is maybe/probably not safe to add mid run. Compatible with SSU.
