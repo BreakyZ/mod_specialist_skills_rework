@@ -1,6 +1,6 @@
-Smallish mod that reworks almost all the specialist weapon perks (Poacher's arm ie) to scale with stats for all the weapons it normally impacts. 
+Smallish mod that reworks almost all the specialist weapon perks (Poacher's arm ie).  
 
-* Will scale 10% per level with highest 0 bonuses for non specialist weapon at 1 and 100% at 11. Has a menu option if you want to have it scale by 5% weekly (SSU style).
+* Will scale 10% per level with 0 bonuses for non specialist weapon at 1 and 100% at 11. Has a menu option if you want to have it scale by 5% weekly (SSU style).
 * The specialist weapons will always receive 100%.
 * Damage specialist perks are merged into skill specialist perks and will unlock when you take the respective weapon mastery.
 * Sickle specialization applies to all swords.
