@@ -6,19 +6,40 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
 
-		if (item != null && (item.isItemType(this.Const.Items.ItemType.Cultist) || item.getID() == "weapon.orc_flail_2h" || item.getID() == "weapon.named_orc_flail_2h"))
+		switch (true) 
 		{
-			if (item.getID() == "weapon.legend_cat_o_nine_tails")
-			{
-				specialistWeapon = true
-			}
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
-			_properties.DamageAgainstMult[this.Const.BodyPart.Head] += 0.01 * actor.calculateSpecialistMultiplier(0.1, specialistWeapon);
+			case item == null:
+				return;
+			case item.getID() == "weapon.orc_flail_2h" || item.getID() == "weapon.named_orc_flail_2h":
+				return handleNoneCultist();
+			case !item.isItemType(this.Const.Items.ItemType.Cultist):
+				return;
+			case item.getID() == "weapon.legend_cat_o_nine_tails":
+				specialistWeapon = true;
 		}
-		if (item != null && item.getID() == "weapon.three_headed_flail")
+
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+		_properties.DamageAgainstMult[this.Const.BodyPart.Head] += actor.calculateSpecialistBonus(0.15, specialistWeapon);
+
+		if (actor.getCurrentProperties().IsSpecializedInFlails)
 		{
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.04, false);
-			_properties.DamageAgainstMult[this.Const.BodyPart.Head] += 0.01 * actor.calculateSpecialistMultiplier(0.05, false);
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
 		}
+	}
+
+	q.handleNoneCultist <- function( _properties )
+	{
+		local actor = this.getContainer().getActor();
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(8, false);
+		_properties.DamageAgainstMult[this.Const.BodyPart.Head] += actor.calculateSpecialistBonus(0.1, false);
+
+		if (actor.getCurrentProperties().IsSpecializedInFlails || actor.getCurrentProperties().IsSpecializedInCleavers)
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(4, specialistWeapon);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(12, specialistWeapon);
+		}
+
+
 	}
 });

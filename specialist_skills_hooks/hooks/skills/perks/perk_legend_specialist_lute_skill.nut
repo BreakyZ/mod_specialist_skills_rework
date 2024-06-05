@@ -4,20 +4,38 @@
 	{
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
+		local specialistWeapon = false
 
-		if (item != null && (item.isWeaponType(this.Const.Items.WeaponType.Musical) || (item.isWeaponType(this.Const.Items.WeaponType.Mace) && item.isItemType(this.Const.Items.ItemType.OneHanded))))
-		{	
-			if (item.isWeaponType(this.Const.Items.WeaponType.Musical))
-			{
-				_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.07, true);
-				_properties.MeleeDefense += actor.calculateSpecialistMultiplier(0.07, true);
-				_properties.DamageArmorMult += actor.calculateSpecialistMultiplier(0.34, true) * 0.01;
-			}
-			else
-			{
-				_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08);
-				_properties.FatigueDealtPerHitMult += actor.calculateSpecialistMultiplier(0.014);		
-			}
+		switch (true) 
+		{
+			case item == null:
+				return;
+			case item.isWeaponType(this.Const.Items.WeaponType.Mace) && item.isItemType(this.Const.Items.ItemType.OneHanded):
+				return handleMaces( _properties );
+			case (!item.isWeaponType(this.Const.Items.WeaponType.Musical)):
+				return;
+		}
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(10, true);
+		_properties.MeleeDefense += actor.calculateSpecialistBonus(10, true);
+		_properties.DamageArmorMult += actor.calculateSpecialistBonus(0.5, true);
+
+		if (actor.getCurrentProperties().IsSpecializedInStaves)
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(10, true);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(10, true);
+		}
+	}	
+
+	q.handleMaces <- function( _properties )
+	{
+		local actor = this.getContainer().getActor();
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(12);
+		_properties.FatigueDealtPerHitMult += actor.calculateSpecialistBonus(2);
+
+		if (actor.getCurrentProperties().IsSpecializedInMaces)
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16);
 		}
 	}
 });

@@ -5,21 +5,18 @@
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
-		local isScythe = false
-		if (item == null)
+
+		if (item == null || !(item.getID() == "weapon.legend_grisly_scythe" || item.getID() == "weapon.legend_scythe" || item.getID() == "weapon.warscythe" || item.getID() == "weapon.named_warscythe"))
 		{
-			return
-		}
-		if (item.getID() == "weapon.legend_grisly_scythe" || item.getID() == "weapon.legend_scythe" || item.getID() == "weapon.warscythe" || item.getID() == "weapon.named_warscythe")
-		{
-			isScythe = true
-			specialistWeapon = true
+			return;
 		}
 
-		if (item.isItemType(this.Const.Items.ItemType.TwoHanded) && (isScythe || item.isWeaponType(this.Const.Items.WeaponType.Sword)))
+		_properties.MeleeSkill += 15;
+
+		if (actor.getCurrentProperties().IsSpecializedInPolearms || actor.getCurrentProperties().IsSpecializedInCleavers)
 		{
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
-			_properties.DamageArmorMult += actor.calculateSpecialistMultiplier(0.17, specialistWeapon) * 0.01;
+			_properties.DamageRegularMin += 10;
+			_properties.DamageRegularMax += 15;
 		}
 	}
 });

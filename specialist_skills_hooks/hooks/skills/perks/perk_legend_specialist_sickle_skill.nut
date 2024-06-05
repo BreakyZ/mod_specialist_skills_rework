@@ -6,15 +6,23 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
 
-		if (item != null && item.isItemType(this.Const.Items.ItemType.OneHanded) && item.isWeaponType(this.Const.Items.WeaponType.Sword))
+		switch (true) 
 		{
+			case item == null:
+				return;
+			case !item.isWeaponType(this.Const.Items.WeaponType.Sword):
+				return;
+			case item.getID() == "weapon.sickle" || item.getID() == "weapon.goblin_notched_blade"  || item.getID() == "weapon.legend_named_sickle":
+				specialistWeapon = true;
+		}
 
-			if (item.getID() == "weapon.sickle" || item.getID() == "weapon.goblin_notched_blade"  || item.getID() == "weapon.legend_named_sickle")
-			{
-				specialistWeapon = true
-			}
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
-			_properties.DamageArmorMult += actor.calculateSpecialistMultiplier(0.17, specialistWeapon) * 0.01;
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+		_properties.DamageDirectMult += actor.calculateSpecialistBonus(0.25, specialistWeapon);
+
+		if (actor.getCurrentProperties().IsSpecializedInSwords || actor.getCurrentProperties().IsSpecializedInGreatSwords)
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
 		}
 	}
 });

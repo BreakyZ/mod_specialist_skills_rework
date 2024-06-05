@@ -1,48 +1,25 @@
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/entity/tactical/actor", function ( q )
 {
-	q.getHighestStat <- function()
-	{	
-		local stats = [this.getFatigueMax(), this.getInitiative(), this.getHitpointsMax(), this.getBravery()]
-		local highest_stat = 0
-		for( local i = 0; i < stats.len(); i = ++i )
-		{
-			if (stats[i] > highest_stat)
-			{
-				highest_stat = stats[i]
-			}
-		}
-		if (highest_stat >= 150)
-		{
-			return 150;
-		}
-		else
-		{
-			return highest_stat;
-		}
-	}
-
-	q.calculateSpecialistMultiplier <- function( _multiplier, _specialistWeapon = false )
+	q.calculateSpecialistBonus <- function( _stat, _specialistWeapon = false)
 	{
-		local buffValue = 0
-		local bonus = this.getHighestStat()
-		if (_specialistWeapon && bonus < 150)
+		if (_specialistWeapon)
 		{
-			bonus = 150
+			return _stat
 		}
-		else if (_specialistWeapon)
+		local dc;
+		if (::ModSpecialistSkillsRework.Mod.ModSettings.getSetting("SSUStyle").getValue())
 		{
-			bonus += 20
-		}
-
-		if (bonus > 100)
-		{
-			buffValue += (bonus - 100) * _multiplier * 2.0
-			buffValue += 100 * _multiplier / 2.0
+			if (this.isPlayerControlled())
+			{
+				dc = this.getDaysWithCompany();
+			}
+		
+			dc = this.Math.floor(dc / 7);
+			return this.Math.floor(0.01 * this.Math.min(5 * dc + 25, 100) * _stat);
 		}
 		else
 		{
-			buffValue += bonus * _multiplier / 2.0
+			return this.Math.floor((this.Math.min(11, this.getLevel()) - 1) * 0.1 * _stat);
 		}
-		return this.Math.floor(buffValue)
 	}
 });

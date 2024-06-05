@@ -6,15 +6,24 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
 
-		if (item != null && (item.isWeaponType(this.Const.Items.ItemType.Pitchfork) || item.isWeaponType(this.Const.Items.WeaponType.Polearm)))
+		switch (true) 
 		{
-
-			if (item.isItemType(this.Const.Items.ItemType.Pitchfork))
-			{
+			case item == null:
+				return;
+			case item.isItemType(this.Const.Items.ItemType.Pitchfork):
 				specialistWeapon = true
-			}
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
-			_properties.DamageArmorMult += actor.calculateSpecialistMultiplier(0.17, specialistWeapon) * 0.01;
+				break;
+			case !item.isWeaponType(this.Const.Items.WeaponType.Polearm):
+				return;
+		}
+
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+		_properties.DamageArmorMult += actor.calculateSpecialistBonus(0.25, specialistWeapon);
+
+		if (actor.getCurrentProperties().IsSpecializedInPolearms)
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(9, specialistWeapon);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(24, specialistWeapon);
 		}
 	}
 });

@@ -6,14 +6,25 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
 
-		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Hammer) && (item.isItemType(this.Const.Items.ItemType.TwoHanded) || item.getID() == "weapon.pickaxe"))
+		switch (true) 
 		{
+			case item == null:
+				return;
+			case !item.isWeaponType(this.Const.Items.WeaponType.Hammer):
+				return;
+			case item.getID() == "weapon.pickaxe" || item.getID() == "weapon.military_pick":
+				specialistWeapon = true;
+				break;
+			case !item.isItemType(this.Const.Items.ItemType.TwoHanded):
+				return;
+		}
 
-			if (item.getID() == "weapon.pickaxe")
-			{
-				specialistWeapon = true
-			}
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+
+		if (actor.getCurrentProperties().IsSpecializedInHammers)
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
 		}
 	}
 });

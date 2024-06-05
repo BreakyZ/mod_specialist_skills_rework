@@ -6,13 +6,22 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
 
-		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Axe))
+		switch (true) 
 		{
-			if (item.getID() == "weapon.woodcutters_axe" || item.getID() == "weapon.legend_saw")
-			{
-				specialistWeapon = true
-			}
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
+			case item == null:
+				return;
+			case !item.isWeaponType(this.Const.Items.WeaponType.Axe):
+				return;
+			case item.getID() == "weapon.woodcutters_axe" || item.getID() == "weapon.legend_saw":
+				specialistWeapon = true;
+		}
+
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+
+		if (actor.getCurrentProperties().IsSpecializedInAxes)
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
 		}
 	}
 });

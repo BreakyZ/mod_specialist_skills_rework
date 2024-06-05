@@ -6,14 +6,24 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
 
-		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Mace) && item.isItemType(this.Const.Items.ItemType.TwoHanded))
+		switch (true) 
 		{
+			case item == null:
+				return;
+			case !item.isItemType(this.Const.Items.ItemType.TwoHanded):
+				return;
+			case !item.isWeaponType(this.Const.Items.WeaponType.Mace):
+				return;
+			case item.getID() == "weapon.legend_shovel" || item.getID() == "weapon.legend_named_shovel":
+				specialistWeapon = true;
+		}
 
-			if (item.getID() == "weapon.legend_shovel" || item.getID() == "weapon.legend_named_shovel")
-			{
-				specialistWeapon = true
-			}
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+
+		if (actor.getCurrentProperties().IsSpecializedInMaces)
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
 		}
 	}
 

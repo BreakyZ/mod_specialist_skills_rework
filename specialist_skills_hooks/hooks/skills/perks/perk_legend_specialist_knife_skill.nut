@@ -6,15 +6,23 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
 
-		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Dagger))
+		switch (true) 
 		{
+			case item == null:
+				return;
+			case !item.isWeaponType(this.Const.Items.WeaponType.Dagger):
+				return;
+			case item.getID() == "weapon.knife" || item.getID() == "weapon.legend_shiv":
+				specialistWeapon = true;
+		}
 
-			if (item.getID() == "weapon.knife" || item.getID() == "weapon.legend_shiv")
-			{
-				specialistWeapon = true
-			}
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
-			_properties.DamageDirectMult += actor.calculateSpecialistMultiplier(0.27, specialistWeapon) * 0.01;
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+		_properties.DamageDirectMult += actor.calculateSpecialistBonus(0.4, specialistWeapon);
+
+		if (actor.getCurrentProperties().IsSpecializedInDaggers)
+		{
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
 		}
 	}
 });

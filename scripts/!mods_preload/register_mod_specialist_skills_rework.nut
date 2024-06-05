@@ -1,7 +1,7 @@
 ::ModSpecialistSkillsRework <- {
 	ID = "mod_specialist_skills_rework",
 	Name = "Mod Specialist Skills Rework",
-	Version = "1.0.11"
+	Version = "1.1.1"
 };
 
 ::ModSpecialistSkillsRework.HooksMod <- ::Hooks.register(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
@@ -17,6 +17,9 @@
 	::ModSpecialistSkillsRework.Mod <- ::MSU.Class.Mod(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
 	::ModSpecialistSkillsRework.Mod.Registry.addModSource(::MSU.System.Registry.ModSourceDomain.GitHub, "https://github.com/BreakyZ/battle_brothers_specialist_skills_rework");
 	::ModSpecialistSkillsRework.Mod.Registry.setUpdateSource(::MSU.System.Registry.ModSourceDomain.GitHub);
+
+	local page = ::ModSpecialistSkillsRework.Mod.ModSettings.addPage("Specialist Skill Rework");
+	page.addElement(::MSU.Class.BooleanSetting("SSUStyle", false, "SSU style", "Picking this will enable SSU style specialist skill scaling - weekly growth."));
 
 	// load hook files
 	::include("specialist_skills_hooks/load.nut");

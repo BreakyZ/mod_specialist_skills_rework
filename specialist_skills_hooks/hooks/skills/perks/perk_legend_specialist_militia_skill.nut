@@ -6,20 +6,23 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false
 
-		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Spear))
+		switch (true) 
 		{
-
-			if (item.getID() == "weapon.militia_spear" || item.getID() == "weapon.legend_wooden_spear" || item.getID() == "weapon.ancient_spear")
-			{
-				specialistWeapon = true
-			}
-			_properties.MeleeSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
-			_properties.MeleeDefense += actor.calculateSpecialistMultiplier(0.04, specialistWeapon);
+			case item == null:
+				return;
+			case !item.isWeaponType(this.Const.Items.WeaponType.Spear):
+				return;
+			case item.getID() == "weapon.militia_spear" || item.getID() == "weapon.legend_wooden_spear" || item.getID() == "weapon.ancient_spear":
+				specialistWeapon = true;
 		}
 
-		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Crossbow))
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+		_properties.MeleeDefense += actor.calculateSpecialistBonus(6, specialistWeapon);
+
+		if (actor.getCurrentProperties().IsSpecializedInSpears)
 		{
-			_properties.RangedSkill += actor.calculateSpecialistMultiplier(0.08, specialistWeapon);
+			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
+			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
 		}
 	}
 });
