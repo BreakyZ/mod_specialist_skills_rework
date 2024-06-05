@@ -1,4 +1,4 @@
-::Mod_Adaptive.HooksMod.hook("scripts/skills/perks/perk_legend_adaptive", function( q ) 
+::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/perks/perk_legend_adaptive", function( q ) 
 {	
 	q.getWeaponPerkTree = @(__original) function( _item )
 	{

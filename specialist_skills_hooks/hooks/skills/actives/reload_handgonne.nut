@@ -3,7 +3,7 @@
 
 	q.onAfterUpdate = @( __original ) function( _properties )
 	{
-		__original();
+		__original( _properties );
 		if (_properties.isInventorSpecialist)
 		{
 			this.m.ActionPointCost -= 1;
