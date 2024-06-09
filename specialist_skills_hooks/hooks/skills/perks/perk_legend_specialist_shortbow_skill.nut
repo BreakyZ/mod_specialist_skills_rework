@@ -17,7 +17,7 @@
 		}
 
 		_properties.RangedSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-		_properties.DamageDirectAdd += actor.calculateSpecialistBonus(0.25, specialistWeapon);
+		_properties.DamageDirectAdd += 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon);
 
 		if (actor.getCurrentProperties().IsSpecializedInBows)
 		{

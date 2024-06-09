@@ -17,7 +17,7 @@
 		}
 
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-		_properties.DamageDirectMult += actor.calculateSpecialistBonus(0.4, specialistWeapon);
+		_properties.DamageDirectMult += 0.01 * actor.calculateSpecialistBonus(40, specialistWeapon);
 
 		if (actor.getCurrentProperties().IsSpecializedInDaggers)
 		{

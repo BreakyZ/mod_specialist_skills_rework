@@ -42,3 +42,19 @@
 		[]
 	]
 };
+::Const.Perks.SpecialistBodyguardTree <- {
+	ID = "SpecialistBodyguardTree",
+	Name = "Specialist Bodyguard",
+	Descriptions = [
+		"bodyguard"
+	],
+	Tree = [
+		[::Const.Perks.PerkDefs.SpecialistBodyguard],
+		[],
+		[],
+		[::Const.Perks.PerkDefs.LegendSpecGreatSword],
+		[],
+		[],
+		[]
+	]
+};

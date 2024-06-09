@@ -16,9 +16,16 @@
 				specialistWeapon = true;
 		}
 
-		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-		_properties.MeleeDefense += actor.calculateSpecialistBonus(6, specialistWeapon);
-
+		if (item.isWeaponType(this.Const.Items.WeaponType.Throwing))
+		{
+			_properties.RangedSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+		}
+		else
+		{
+			_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+			_properties.MeleeDefense += actor.calculateSpecialistBonus(6, specialistWeapon);
+		}
+		
 		if (actor.getCurrentProperties().IsSpecializedInSpears)
 		{
 			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);

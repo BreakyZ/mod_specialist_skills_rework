@@ -45,6 +45,10 @@
 				case _item.isWeaponType(this.Const.Items.WeaponType.Firearm):
 					return this.Const.Perks.SpecialistInventorTree;
 
+			//Bodyguard
+				case _item.getID() == "weapon.legend_longsword":
+					return this.Const.Perks.SpecialistInventorTree;
+
 			//Pitchfork
 				case _item.isItemType(this.Const.Items.ItemType.Pitchfork):
 					return this.Const.Perks.PitchforkClassTree;

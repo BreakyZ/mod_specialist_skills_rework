@@ -17,7 +17,7 @@
 		}
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(10, true);
 		_properties.MeleeDefense += actor.calculateSpecialistBonus(10, true);
-		_properties.DamageArmorMult += actor.calculateSpecialistBonus(0.5, true);
+		_properties.DamageArmorMult += 0.01 * actor.calculateSpecialistBonus(50, true);
 
 		if (actor.getCurrentProperties().IsSpecializedInStaves)
 		{

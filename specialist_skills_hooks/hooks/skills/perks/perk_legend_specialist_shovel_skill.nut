@@ -42,5 +42,4 @@
 	{
 		this.getContainer().getActor().getSkills().removeByID("actives.knock_out");
 	}
-
 });

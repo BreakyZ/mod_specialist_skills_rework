@@ -19,7 +19,7 @@
 		}
 
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-		_properties.DamageArmorMult += actor.calculateSpecialistBonus(0.4, specialistWeapon);
+		_properties.DamageArmorMult += 0.01 * actor.calculateSpecialistBonus(40, specialistWeapon);
 
 		if (actor.getCurrentProperties().IsSpecializedInHammers)
 		{
