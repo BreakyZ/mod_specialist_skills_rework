@@ -1,7 +1,7 @@
 ::ModSpecialistSkillsRework <- {
 	ID = "mod_specialist_skills_rework",
 	Name = "Mod Specialist Skills Rework",
-	Version = "1.2.0"
+	Version = "1.2.1"
 };
 
 ::ModSpecialistSkillsRework.HooksMod <- ::Hooks.register(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);

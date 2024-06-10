@@ -3,6 +3,6 @@
 	q.create = @(__original) function()
 	{
 		__original();
-		this.m.PerkTreeDynamic.Class <- [this.Const.Perks.LegendSpecialistPitchforkSkill]
+		this.m.PerkTreeDynamic.Class <- [this.Const.Perks.PitchforkClassTree]
 	}
 });
