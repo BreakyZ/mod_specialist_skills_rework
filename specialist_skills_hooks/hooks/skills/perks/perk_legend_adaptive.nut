@@ -47,7 +47,7 @@
 
 			//Bodyguard
 				case _item.getID() == "weapon.legend_longsword":
-					return this.Const.Perks.SpecialistInventorTree;
+					return this.Const.Perks.SpecialistBodyguardTree;
 
 			//Pitchfork
 				case _item.isItemType(this.Const.Items.ItemType.Pitchfork):
