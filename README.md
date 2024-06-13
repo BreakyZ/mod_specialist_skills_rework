@@ -11,13 +11,14 @@ Smallish mod that reworks almost all the specialist weapon perks (Poacher's arm 
 * Scythe is merged into pitchfork.
 * Added a new Inventor Specialist perk which applies to Firearms, Firelances and Crossbows. No damage bonus unless you're using Firelances, but will reduce reload speed by 1 when taking Crossbow mastery. Added to Adaptive perk when Firearm or Firelance is equipped.
 * Added a new 2 handed sword perk for Sellswords and Retired Soldiers.
+* Added another crossbow perk group to Witchhunters and Youngbloods.
 * Axe and spear perks will apply to throwing weapons with new Legends update.
 * Daytaller now has the pitchfork perks.
 * Perk descriptions edited in Rygar's style
 
 TODO:
 * add unique bonuses to all the perks.
-* add breditor and ptr support
+* add breditor support
 * change which perk sellswords get from SSU.
 
 Requires Modern Hooks and is maybe/probably not safe to add mid run. Compatible with SSU.

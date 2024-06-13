@@ -58,3 +58,19 @@
 		[]
 	]
 };
+::Const.Perks.SpecialistInquisitionTree <- {
+	ID = "SpecialistInquisitionTree",
+	Name = "Specialist Inquisition",
+	Descriptions = [
+		"inquisition"
+	],
+	Tree = [
+		[::Const.Perks.PerkDefs.SpecialistInquisition],
+		[],
+		[],
+		[::Const.Perks.PerkDefs.SpecCrossbow],
+		[],
+		[],
+		[]
+	]
+};

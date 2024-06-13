@@ -17,7 +17,7 @@ this.perk_specialist_bodyguard <- this.inherit("scripts/skills/skill", {
 	{
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
-		local specialistWeapon = false
+		local specialistWeapon = false;
 
 		switch (true) 
 		{

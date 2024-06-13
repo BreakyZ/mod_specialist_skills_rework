@@ -16,5 +16,14 @@
 		Icon = "ui/perks/favoured_knight_01.png",
 		IconDisabled = "ui/perks/favoured_knight_bw.png",
 		Const = "SpecialistBodyguard"
+	},
+	{
+		ID = "perk.specialist_inquisition",
+		Script = "scripts/skills/perks/perk_specialist_inquisition",
+		Name = this.Const.Strings.PerkName.SpecialistInquisition,
+		Tooltip = this.Const.Strings.PerkDescription.SpecialistInquisition,
+		Icon = "ui/perks/specialist_inquisition.png",
+		IconDisabled = "ui/perks/specialist_inquisition_sw.png",
+		Const = "SpecialistInquisition"
 	}
 ]);

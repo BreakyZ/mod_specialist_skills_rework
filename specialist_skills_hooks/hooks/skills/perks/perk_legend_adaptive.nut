@@ -49,6 +49,10 @@
 				case _item.getID() == "weapon.legend_longsword":
 					return this.Const.Perks.SpecialistBodyguardTree;
 
+			//Inquisition
+				case _item.getID() == "weapon.legend_wooden_stake":
+					return this.Const.Perks.SpecialistInquisitionTree;
+
 			//Pitchfork
 				case _item.isItemType(this.Const.Items.ItemType.Pitchfork):
 					return this.Const.Perks.PitchforkClassTree;
