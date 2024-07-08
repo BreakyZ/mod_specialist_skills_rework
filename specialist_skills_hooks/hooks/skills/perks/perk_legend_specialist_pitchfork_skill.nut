@@ -10,11 +10,10 @@
 		{
 			case item == null:
 				return;
-			case item.isItemType(this.Const.Items.ItemType.Pitchfork):
-				specialistWeapon = true
-				break;
 			case !item.isWeaponType(this.Const.Items.WeaponType.Polearm):
 				return;
+			case item.isItemType(this.Const.Items.ItemType.Pitchfork):
+				specialistWeapon = true
 		}
 
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);

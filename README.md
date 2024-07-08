@@ -1,4 +1,4 @@
-Smallish mod that reworks almost all the specialist weapon perks (Poacher's arm ie).  
+Mod that reworks almost all the specialist weapon perks (Poacher's arm ie).  
 
 * Will scale 10% per level with 0 bonuses for non specialist weapon at 1 and 100% at 11. Has a menu option if you want to have it scale by 5% weekly (SSU style).
 * The specialist weapons will always receive 100%.

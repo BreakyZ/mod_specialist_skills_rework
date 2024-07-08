@@ -1,1 +1,0 @@
-::Const.CharacterProperties.isInventorSpecialist <- false;

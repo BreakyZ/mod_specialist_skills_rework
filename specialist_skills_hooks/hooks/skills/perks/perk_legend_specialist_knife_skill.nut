@@ -17,12 +17,21 @@
 		}
 
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-		_properties.DamageDirectMult += 0.01 * actor.calculateSpecialistBonus(40, specialistWeapon);
+
+		if (!actor.getFlags().has("knifeSpecialist"))
+		{
+			actor.getFlags().add("knifeSpecialist");
+		}
 
 		if (actor.getCurrentProperties().IsSpecializedInDaggers)
 		{
 			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
 			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
 		}
+	}
+
+	q.onRemoved()
+	{
+		actor.getFlags().remove("knifeSpecialist");
 	}
 });

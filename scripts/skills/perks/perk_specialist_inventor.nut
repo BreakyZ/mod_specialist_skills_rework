@@ -33,15 +33,9 @@ this.perk_specialist_inventor <- this.inherit("scripts/skills/skill", {
 
 		_properties.RangedSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
 
-		if (actor.getCurrentProperties().IsSpecializedInCrossbows)
+		if (actor.getCurrentProperties().IsSpecializedInCrossbows && !actor.getFlags().has("inventorSpecialist"))
 		{
-			actor.isInventorSpecialist = true;
-
-			// might be this or something different
-			// if (!this.m.Container.hasSkill("actives.launch_fire_bomb_skill"))
-			// {
-			// 	this.m.Container.add(this.new("scripts/skills/actives/launch_fire_bomb_skill"));
-			// }
+			actor.getFlags().add("inventorSpecialist");
 		}
 	}
 

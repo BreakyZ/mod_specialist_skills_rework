@@ -9,11 +9,11 @@
 		switch (true) 
 		{
 			case item == null:
-				return;
+				return this.skill.onRemoved();
 			case !item.isItemType(this.Const.Items.ItemType.TwoHanded):
-				return;
+				return this.skill.onRemoved();
 			case !item.isWeaponType(this.Const.Items.WeaponType.Mace):
-				return;
+				return this.skill.onRemoved();
 			case item.getID() == "weapon.legend_shovel" || item.getID() == "weapon.legend_named_shovel":
 				specialistWeapon = true;
 		}
@@ -36,10 +36,15 @@
 		{
 			item.addSkill(this.new("scripts/skills/actives/knock_out"));
 		}
+		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Mace) && item.isItemType(this.Const.Items.ItemType.TwoHanded) && !actor.getSkills().hasSkill("effects.gravedigging_effect"))
+		{
+			actor.getSkills().add(this.new("scripts/skills/effects/gravedigging_effect"));
+		}
 	}
 
-	function onRemoved()
+	q.onRemoved = @( __original ) function()
 	{
 		this.getContainer().getActor().getSkills().removeByID("actives.knock_out");
+		this.getContainer().getActor().getSkills().removeByID("effects.gravedigging_effect");
 	}
 });

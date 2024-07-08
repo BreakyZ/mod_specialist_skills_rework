@@ -51,7 +51,7 @@ this.perk_specialist_inquisition <- this.inherit("scripts/skills/skill", {
 
 	function validTarget( _targetID)
 	{
-		if (_targetID == this.Const.EntityType.Hexe || _targetID == this.Const.EntityType.Alps)
+		if (_targetID == this.Const.EntityType.Hexe || _targetID == this.Const.EntityType.Alp)
 		{
 			return true;
 		}

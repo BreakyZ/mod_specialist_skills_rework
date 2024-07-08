@@ -12,7 +12,7 @@
 				return;
 			case !item.isWeaponType(this.Const.Items.WeaponType.Hammer):
 				return;
-			case item.getID() == "weapon.pickaxe" || item.getID() == "weapon.military_pick":
+			case item.getID() == "weapon.pickaxe" || item.getID() == "weapon.military_pick" || item.getID() == "weapon.heavy_mining_pick":
 				specialistWeapon = true;
 				break;
 			case !item.isItemType(this.Const.Items.ItemType.TwoHanded):

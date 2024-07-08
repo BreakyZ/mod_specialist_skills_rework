@@ -25,6 +25,11 @@
 ::Const.Perks.BardClassTree.Tree[3] = [::Const.Perks.PerkDefs.LegendMasteryStaves, ::Const.Perks.PerkDefs.SpecMace];
 ::Const.Perks.ScytheClassTree.Tree[2] = [];
 ::Const.Perks.ScytheClassTree.Tree[3] = [::Const.Perks.PerkDefs.SpecCleaver, ::Const.Perks.PerkDefs.SpecPolearm];
+::Const.Perks.StaffTree.Tree[0] = [::Const.Perks.PerkDefs.LegendSpecStaffSkill];
+::Const.Perks.StaffTree.Tree[2] = []
+::Const.Perks.StaffTree.Tree[3] = [::Const.Perks.PerkDefs.LegendMasteryStaves];
+
+::Const.Perks.SlingTree.Tree[4] = [];
 
 ::Const.Perks.SpecialistInventorTree <- {
 	ID = "SpecialistInventorTree",
@@ -36,7 +41,7 @@
 		[::Const.Perks.PerkDefs.SpecialistInventor],
 		[],
 		[],
-		[::Const.Perks.PerkDefs.SpecSpear, ::Const.Perks.PerkDefs.SpecCrossbow],
+		[::Const.Perks.PerkDefs.SpecCrossbow],
 		[],
 		[],
 		[]
@@ -74,3 +79,47 @@
 		[]
 	]
 };
+::Const.Perks.SpecialistClubTree <- {
+	ID = "SpecialistBrowbeaterTree",
+	Name = "Browbeater Club",
+	Descriptions = [
+		"browbeater"
+	],
+	Tree = [
+		[::Const.Perks.PerkDefs.SpecialistClub],
+		[],
+		[],
+		[::Const.Perks.PerkDefs.SpecMace],
+		[],
+		[],
+		[]
+	]
+};
+
+::Const.Perks.ClassTrees.Tree = [
+	::Const.Perks.BeastClassTree,
+	::Const.Perks.BardClassTree,
+	::Const.Perks.HealerClassTree,
+	::Const.Perks.FaithClassTree,
+	::Const.Perks.FistsClassTree,
+	::Const.Perks.ChefClassTree,
+	::Const.Perks.RepairClassTree,
+	::Const.Perks.BarterClassTree,
+	::Const.Perks.KnifeClassTree,
+	::Const.Perks.ButcherClassTree,
+	::Const.Perks.HammerClassTree,
+	::Const.Perks.MilitiaClassTree,
+	::Const.Perks.PickaxeClassTree,
+	::Const.Perks.PitchforkClassTree,
+	::Const.Perks.ShortbowClassTree,
+	::Const.Perks.WoodaxeClassTree,
+	::Const.Perks.SickleClassTree,
+	::Const.Perks.NinetailsClassTree,
+	::Const.Perks.JugglerClassTree,
+	::Const.Perks.HoundmasterClassTree,
+	// ::Const.Perks.ScytheClassTree, only for necro origin
+	::Const.Perks.SpecialistClubTree,
+	::Const.Perks.SpecialistInquisitionTree,
+	::Const.Perks.SpecialistBodyguardTree,
+	::Const.Perks.SpecialistInventorTree		
+]

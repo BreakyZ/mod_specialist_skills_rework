@@ -2,7 +2,7 @@
 {
 	q.calculateSpecialistBonus <- function( _stat, _specialistWeapon = false)
 	{
-		if (_specialistWeapon)
+		if (_specialistWeapon || !this.isPlayerControlled())
 		{
 			return _stat
 		}

@@ -19,7 +19,10 @@
 		}
 
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-		_properties.DamageArmorMult += 0.01 * actor.calculateSpecialistBonus(40, specialistWeapon);
+		if (actor.getCurrentProperties().IsSpecializedInHammers && !actor.getFlags().has("blacksmithSpecialist"))
+		{
+			actor.getFlags().add("blacksmithSpecialist");
+		}
 
 		if (actor.getCurrentProperties().IsSpecializedInHammers)
 		{

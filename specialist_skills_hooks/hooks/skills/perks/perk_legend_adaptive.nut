@@ -22,7 +22,7 @@
 					return this.Const.Perks.HammerClassTree;
 
 			//Pickaxe
-				case _item.getID() == "weapon.pickaxe":
+				case _item.getID() == "weapon.pickaxe" || _item.getID() == "weapon.heavy_mining_pick":
 					return this.Const.Perks.PickaxeClassTree;
 
 			//Butcher
@@ -53,13 +53,13 @@
 				case _item.getID() == "weapon.legend_wooden_stake":
 					return this.Const.Perks.SpecialistInquisitionTree;
 
+			//Club
+				case _item.getID() == "weapon.wooden_stick":
+					return this.Const.Perks.SpecialistClubTree;
+
 			//Pitchfork
 				case _item.isItemType(this.Const.Items.ItemType.Pitchfork):
 					return this.Const.Perks.PitchforkClassTree;
-
-			//Musical
-				case _item.isWeaponType(this.Const.Items.WeaponType.Musical):
-					return this.Const.Perks.BardClassTree;
 
 			//Shortbow
 				case _item.isItemType(this.Const.Items.ItemType.Shortbow):
@@ -82,7 +82,6 @@
 						Cleaver = this.Const.Perks.CleaverTree,
 						Crossbow = this.Const.Perks.CrossbowTree,
 						Dagger = this.Const.Perks.DaggerTree,
-						Firearm = this.Const.Perks.CrossbowTree,
 						Flail = this.Const.Perks.FlailTree,
 						Hammer = this.Const.Perks.HammerTree,
 						Mace = this.Const.Perks.MaceTree,

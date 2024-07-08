@@ -4,7 +4,7 @@
 	{
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
-		local specialistWeapon = false
+		local specialistWeapon = false;
 
 		switch (true) 
 		{
@@ -24,6 +24,11 @@
 		{
 			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
 			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
+		}
+
+		if (!actor.getFlags().has("cleaverSpecialist"))
+		{
+			actor.getFlags().add("cleaverSpecialist");
 		}
 	}
 });
