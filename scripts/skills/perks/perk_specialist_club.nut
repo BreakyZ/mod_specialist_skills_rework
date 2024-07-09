@@ -1,5 +1,7 @@
 this.perk_specialist_club <- this.inherit("scripts/skills/skill", {
-	m = {},
+	m = {
+			Divisible = [100, 80, 60, 40, 20, 0]
+		},
 	function create()
 	{
 		this.m.ID = "perk.specialist_club";
@@ -30,8 +32,18 @@ this.perk_specialist_club <- this.inherit("scripts/skills/skill", {
 			case item.getID() == "weapon.wooden_stick" || item.getID() == "weapon.bludgeon":
 				specialistWeapon = true;
 		}
+
+		// please don't tell people i'm a programmer, the damn fatperhit calc are divisible by 5 and i can't round it properly
+		local fatPerHit = actor.calculateSpecialistBonus(100, specialistWeapon);
+		foreach (num in divisible)
+		{
+			if (fatPerHit >= num)
+			{
+				_properties.FatigueDealtPerHitMult += 0.01 * fatPerHit;
+				break;
+			}
+		}
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-		_properties.FatigueDealtPerHitMult += actor.calculateSpecialistBonus(1, specialistWeapon);
 
 		if (actor.getCurrentProperties().IsSpecializedInMaces)
 		{

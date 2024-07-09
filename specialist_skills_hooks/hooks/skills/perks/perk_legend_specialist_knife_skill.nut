@@ -30,8 +30,8 @@
 		}
 	}
 
-	q.onRemoved()
+	q.onRemoved <- function()
 	{
-		actor.getFlags().remove("knifeSpecialist");
+		this.getContainer().getActor().getFlags().remove("knifeSpecialist");
 	}
 });

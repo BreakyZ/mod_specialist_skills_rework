@@ -19,7 +19,7 @@
 		}
 
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-		_properties.HitChance[this.Const.BodyPart.Head] += 0.01 * actor.calculateSpecialistBonus(15, specialistWeapon);
+		_properties.HitChance[this.Const.BodyPart.Head] += actor.calculateSpecialistBonus(15, specialistWeapon);
 
 		if (actor.getCurrentProperties().IsSpecializedInFlails)
 		{
@@ -32,7 +32,7 @@
 	{
 		local actor = this.getContainer().getActor();
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(8, false);
-		_properties.DamageAgainstMult[this.Const.BodyPart.Head] += 0.01 * actor.calculateSpecialistBonus(10, false);
+		_properties.HitChance[this.Const.BodyPart.Head] += actor.calculateSpecialistBonus(10, false);
 
 		if (actor.getCurrentProperties().IsSpecializedInFlails || actor.getCurrentProperties().IsSpecializedInCleavers)
 		{
