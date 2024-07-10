@@ -25,9 +25,11 @@
 
 		];
 		local rand = this.Math.rand(0, 13);
-		if (rand <= len(classTrees))
-			this.m.PerkTreeDynamic.Class.append(classTrees[rand]);
-			this.m.PerkTreeDynamic.Weapon.append(weaponTrees[rand]);
+		if (rand <= 6)
+		{
+			this.m.PerkTreeDynamic.Class.push(classTrees[rand]);
+			this.m.PerkTreeDynamic.Weapon.push(weaponTrees[rand]);
+		}
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/daytaler_southern_background", function( q ) {
@@ -57,9 +59,11 @@
 
 		];
 		local rand = this.Math.rand(0, 13);
-		if (rand <= len(classTrees))
-			this.m.PerkTreeDynamic.Class.append(classTrees[rand]);
-			this.m.PerkTreeDynamic.Weapon.append(weaponTrees[rand]);
+		if (rand <= 6)
+		{
+			this.m.PerkTreeDynamic.Class.push(classTrees[rand]);
+			this.m.PerkTreeDynamic.Weapon.push(weaponTrees[rand]);
+		}
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/legend_inventor_background", function( q ) {
@@ -67,7 +71,7 @@
 	q.create = @(__original) function()
 	{
 		__original();
-		this.m.PerkTreeDynamic.Classs.append(this.Const.Perks.SpecialistBodyguardTree);
+		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistBodyguardTree);
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/legend_inventor_commander_background", function( q ) {
@@ -85,8 +89,8 @@
 		__original();
 		this.m.HiringCost += 30;
 
-		this.m.PerkTreeDynamic.Class.append(this.Const.Perks.SpecialistBodyguardTree);
-		this.m.PerkTreeDynamic.Weapon.append(this.Const.Perks.GreatSwordTree);
+		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistBodyguardTree);
+		this.m.PerkTreeDynamic.Weapon.push(this.Const.Perks.GreatSwordTree);
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/sellsword_background", function( q ) {
@@ -106,10 +110,9 @@
 			this.Const.Perks.MaceTree
 
 		];
-		local rand = this.Math.rand(0, len(classTrees) - 1)
-		if (rand <= len(classTrees))
-			this.m.PerkTreeDynamic.Class.append(classTrees[rand]);
-			this.m.PerkTreeDynamic.Weapon.append(weaponTrees[rand]);
+		local rand = this.Math.rand(0, 1)
+		this.m.PerkTreeDynamic.Class.push(classTrees[rand]);
+		this.m.PerkTreeDynamic.Weapon.push(weaponTrees[rand]);
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/witchhunter_background", function( q ) {
@@ -118,7 +121,7 @@
 	{
 		__original();
 		this.m.HiringCost += 10;
-		this.m.PerkTreeDynamic.Class.append(this.Const.Perks.SpecialistInquisitionTree);
+		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistInquisitionTree);
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/legend_youngblood_background", function( q ) {
@@ -127,7 +130,7 @@
 	{
 		__original();
 		this.m.HiringCost += 5;
-		this.m.PerkTreeDynamic.Class.append(this.Const.Perks.SpecialistInquisitionTree);
+		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistInquisitionTree);
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/wildman_background", function( q ) {
@@ -136,7 +139,7 @@
 	{
 		__original();
 		this.m.HiringCost += 5;
-		this.m.PerkTreeDynamic.Class.append(this.Const.Perks.SpecialistClubTree);
+		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistClubTree);
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/wildwoman_background", function( q ) {
@@ -145,7 +148,7 @@
 	{
 		__original();
 		this.m.HiringCost += 5;
-		this.m.PerkTreeDynamic.Class.append(this.Const.Perks.SpecialistClubTree);
+		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistClubTree);
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/vagabond_background", function( q ) {
@@ -154,8 +157,8 @@
 	{
 		__original();
 		this.m.HiringCost += 5;
-		this.m.PerkTreeDynamic.Weapon.append(this.Const.Perks.MaceTree)
-		this.m.PerkTreeDynamic.Class.append(this.Const.Perks.SpecialistClubTree);
+		this.m.PerkTreeDynamic.Weapon.push(this.Const.Perks.MaceTree)
+		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistClubTree);
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/caravan_hand_background", function( q ) {
@@ -164,7 +167,7 @@
 	{
 		__original();
 		this.m.HiringCost += 10;
-		this.m.PerkTreeDynamic.Weapon.append(this.Const.Perks.MaceTree);
-		this.m.PerkTreeDynamic.Class.append(this.Const.Perks.SpecialistClubTree);
+		this.m.PerkTreeDynamic.Weapon.push(this.Const.Perks.MaceTree);
+		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistClubTree);
 	}
 });

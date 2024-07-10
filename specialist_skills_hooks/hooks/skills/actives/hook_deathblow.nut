@@ -1,5 +1,6 @@
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/actives/deathblow_skill", function( q ) 
-{
+{	
+	q.m.IsHidden = true;
 	q.getTooltip = @(__original) function()
 	{
 		local actor = this.getContainer().getActor();
@@ -27,26 +28,22 @@
 		return ret;
 	}
 
-	function isHidden()
+	q.isHidden <- function()
 	{
-		local actor = this.getContainer().getActor();
-		if (actor == null) return true;
-		
-		local item = actor.getMainhandItem()
+		local actor = this.getContainer().getActor();		
+		local item = actor.getMainhandItem();
 
 		switch (true)
 		{
 			case item == null:
 				return true;
-			case !item.isWeaponType(this.Const.Items.WeaponType.Dagger):
-				return true;
 			case item.getID() == "weapon.qatal_dagger" || item.getID() == "weapon.named_qatal_dagger":
 				return false;
-			case !actor.getFlags().has("knifeSpecialist"):
+			case actor.getFlags().has("knifeSpecialist") && item.isWeaponType(this.Const.Items.WeaponType.Dagger):
 				return false;
 		}
 
-		return true;
+		return this.skill.isHidden();
 	}
 
 	q.onAnySkillUsed = @(__original) function ( _skill, _targetEntity, _properties )

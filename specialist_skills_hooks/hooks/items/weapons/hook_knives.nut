@@ -1,4 +1,4 @@
-daggers = [
+local daggers = [
 	"knife",
 	"dagger",
 	"legend_katar",
@@ -8,14 +8,14 @@ daggers = [
 	"legendary/obsidian_dagger",
 	"named/named_dagger",
 	"named/named_katar"
-]
+];
 if (Is_SSU_Exist)
 {
 	daggers.extend(["special/ssu_legendary_dagger"])
-}
+};
 foreach (dagger in daggers)
 {
-	::ModReworkCca.HooksMod.hook("scripts/items/weapons/" + dagger, function( q )
+	::ModSpecialistSkillsRework.HooksMod.hook("scripts/items/weapons/" + dagger, function( q )
 	{	
 		q.onEquip = @(__original) function()
 		{
