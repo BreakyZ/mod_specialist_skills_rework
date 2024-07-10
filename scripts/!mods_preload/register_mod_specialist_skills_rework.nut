@@ -1,7 +1,7 @@
 ::ModSpecialistSkillsRework <- {
 	ID = "mod_specialist_skills_rework",
 	Name = "Mod Specialist Skills Rework",
-	Version = "1.3.0"
+	Version = "1.3.1"
 };
 
 ::ModSpecialistSkillsRework.HooksMod <- ::Hooks.register(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
@@ -9,6 +9,8 @@
 
 // add which mods are needed to run this mod
 ::ModSpecialistSkillsRework.HooksMod.require("mod_msu >= 1.2.6", "mod_modern_hooks");
+
+::Mod_Sellswords.HooksMod.conflictWith("mod_legends_PTR");
 
 // like above you can add as many parameters to determine the queue order of the mod before adding the parameter to run the callback function. 
 ::ModSpecialistSkillsRework.HooksMod.queue(">mod_msu", ">mod_legends", ">mod_sellswords", ">mod_breditor", ">mod_fantasybro_rotu", ">mod_legends_PTR", function()

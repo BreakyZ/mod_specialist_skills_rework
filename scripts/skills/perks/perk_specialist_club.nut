@@ -35,7 +35,7 @@ this.perk_specialist_club <- this.inherit("scripts/skills/skill", {
 
 		// please don't tell people i'm a programmer, the damn fatperhit calc are divisible by 5 and i can't round it properly
 		local fatPerHit = actor.calculateSpecialistBonus(100, specialistWeapon);
-		foreach (num in divisible)
+		foreach (num in this.m.Divisible)
 		{
 			if (fatPerHit >= num)
 			{

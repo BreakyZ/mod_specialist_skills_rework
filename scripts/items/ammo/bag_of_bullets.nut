@@ -9,7 +9,7 @@ this.bag_of_bullets <- this.inherit("scripts/items/ammo/ammo", {
 		this.m.IconEmpty = "ammo/bag_of_pebbles_empty.png";
 		this.m.SlotType = this.Const.ItemSlot.Ammo;
 		this.m.ItemType = this.Const.Items.ItemType.Ammo;
-		this.m.AmmoType = this.Const.Items.AmmoType.Bullets;
+		this.m.AmmoType = this.Const.Items.AmmoType.Pebbles;
 		// this.m.ShowOnCharacter = true;
 		// this.m.ShowQuiver = true;
 		this.m.Value = 35;

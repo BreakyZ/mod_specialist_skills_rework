@@ -45,7 +45,7 @@
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false;
-		if (item == null && !item.isWeaponType(this.Const.Items.WeaponType.Bow))
+		if (item == null || !item.isWeaponType(this.Const.Items.WeaponType.Bow))
 		{
 			return;
 		}

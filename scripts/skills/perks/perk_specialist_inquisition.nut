@@ -68,7 +68,7 @@ this.perk_specialist_inquisition <- this.inherit("scripts/skills/skill", {
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false;
-		if (item == null && !item.isWeaponType(this.Const.Items.WeaponType.Crossbow))
+		if (item == null || !item.isWeaponType(this.Const.Items.WeaponType.Crossbow))
 		{
 			return;
 		}

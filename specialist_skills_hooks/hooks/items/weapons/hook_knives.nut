@@ -6,12 +6,11 @@ local daggers = [
 	"legend_shiv",
 	"rondel_dagger",
 	"legendary/obsidian_dagger",
-	"named/named_dagger",
-	"named/named_katar"
+	"named/named_dagger"
 ];
 if (Is_SSU_Exist)
 {
-	daggers.extend(["special/ssu_legendary_dagger"])
+	daggers.extend(["special/ssu_legendary_dagger", "named/named_katar"])
 };
 foreach (dagger in daggers)
 {
