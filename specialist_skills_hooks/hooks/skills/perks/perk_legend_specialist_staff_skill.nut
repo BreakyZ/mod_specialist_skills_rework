@@ -33,6 +33,7 @@
 
 	q.handleHybrid <- function( _properties )
 	{
+		local actor = this.getContainer().getActor();
 		_properties.MeleeDefense += actor.calculateSpecialistBonus(8);
 		_properties.RangedDefense += actor.calculateSpecialistBonus(8);
 	}
