@@ -9,10 +9,7 @@
 		local dc;
 		if (::ModSpecialistSkillsRework.Mod.ModSettings.getSetting("SSUStyle").getValue())
 		{
-			if (this.isPlayerControlled())
-			{
-				dc = this.getDaysWithCompany();
-			}
+			dc = this.getDaysWithCompany();
 		
 			dc = this.Math.floor(dc / 7);
 			return this.Math.floor(0.01 * this.Math.min(5 * dc + 25, 100) * _stat);
