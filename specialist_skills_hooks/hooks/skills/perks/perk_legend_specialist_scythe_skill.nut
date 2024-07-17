@@ -4,7 +4,7 @@
 	{
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
-		local specialistWeapon = false
+		local specialistWeapon = false;
 
 		if (item == null || !(item.getID() == "weapon.legend_grisly_scythe" || item.getID() == "weapon.legend_scythe" || item.getID() == "weapon.warscythe" || item.getID() == "weapon.named_warscythe"))
 		{

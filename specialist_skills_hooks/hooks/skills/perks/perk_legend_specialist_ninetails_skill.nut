@@ -4,7 +4,7 @@
 	{
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
-		local specialistWeapon = false
+		local specialistWeapon = false;
 
 		switch (true) 
 		{

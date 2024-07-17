@@ -5,8 +5,8 @@
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
 		local off = actor.getOffhandItem();
-		local specialistWeapon = false
-		local isGlaive = false
+		local specialistWeapon = false;
+		local isGlaive = false;
 
 		switch (true) 
 		{
@@ -17,7 +17,7 @@
 			case item.getID() == "weapon.militia_spear" || item.getID() == "weapon.legend_wooden_spear" || item.getID() == "weapon.ancient_spear":
 				specialistWeapon = true;
 			case this.canDoubleGrip() && this.isGlaive():
-				isGlaive = true 
+				isGlaive = true ;
 		}
 
 		if (item.isWeaponType(this.Const.Items.WeaponType.Throwing))

@@ -87,7 +87,7 @@ this.gravedigging_effect <- this.inherit("scripts/skills/skill", {
 			this.m.IsHidden = true;
 			return;
 		}
-		this.m.GraveStacks += getCorpses()
+		this.m.GraveStacks += getCorpses();
 
 		if (!(item.getID() == "weapon.legend_shovel" || item.getID() == "weapon.legend_named_shovel") && this.m.GraveStacks > 5)
 		{

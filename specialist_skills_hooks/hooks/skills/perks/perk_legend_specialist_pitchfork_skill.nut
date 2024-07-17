@@ -4,16 +4,16 @@
 	{
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
-		local specialistWeapon = false
+		local specialistWeapon = false;
 
 		switch (true) 
 		{
 			case item == null:
 				return;
-			case !item.isWeaponType(this.Const.Items.WeaponType.Polearm) || !item.isItemType(this.Const.Items.ItemType.Pitchfork):
+			case !(item.isWeaponType(this.Const.Items.WeaponType.Polearm) && item.isItemType(this.Const.Items.ItemType.Pitchfork)):
 				return;
 			case item.isItemType(this.Const.Items.ItemType.Pitchfork):
-				specialistWeapon = true
+				specialistWeapon = true;
 		}
 
 		_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
