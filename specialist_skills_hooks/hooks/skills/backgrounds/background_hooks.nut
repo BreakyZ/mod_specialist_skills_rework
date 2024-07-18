@@ -71,7 +71,7 @@
 	q.create = @(__original) function()
 	{
 		__original();
-		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistInventor);
+		this.m.PerkTreeDynamic.Class.push(this.Const.Perks.SpecialistInventorTree);
 	}
 });
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/legend_inventor_commander_background", function( q ) {

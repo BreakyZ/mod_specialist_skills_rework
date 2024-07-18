@@ -51,17 +51,21 @@ this.gravedigging_effect <- this.inherit("scripts/skills/skill", {
 
 	function getCorpses()
 	{
+
 		if (!this.getContainer().getActor().isPlacedOnMap()) return 0;
 		local count = 0;
 
-		foreach ( c in ::Tactical.Entities.getCorpses() )
+		local size = this.Tactical.getMapSize();
+		for ( local x = 0; x < size.X; x = ++x )
 		{
-			if (!this.isViableTile(c))
-				continue;
-
-			++count;
+			for( local y = 0; y < size.Y; y = ++y )
+			{
+				local tile = this.Tactical.getTileSquare(x, y);
+				if (tile.Properties.get("Corpse"))
+					count += 1;
+			}
 		}
-		
+
 		return this.Math.floor(count / 2);
 	}
 	
@@ -87,7 +91,7 @@ this.gravedigging_effect <- this.inherit("scripts/skills/skill", {
 			this.m.IsHidden = true;
 			return;
 		}
-		this.m.GraveStacks += getCorpses();
+		this.m.GraveStacks = getCorpses();
 
 		if (!(item.getID() == "weapon.legend_shovel" || item.getID() == "weapon.legend_named_shovel") && this.m.GraveStacks > 5)
 		{
