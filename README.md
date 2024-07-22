@@ -7,11 +7,11 @@ Mod that reworks almost all the specialist weapon perks (Poacher's arm ie).
 * Butcher's perk will apply to all cleavers and do up to 2 extra bleed on each attack that applies bleed.
 * Ninetails perk have overall been nerfed since now there's a scaling ceiling so I gave them 15% headshot chance. Will apply to 3 headed flail and berserker chain now.
 * Militia perk give 6 bonus defense. Glaives will receive 12 bonus defense when double gripped.
-* Shortbow perk will deal double damage vs beasts but remove the armor penetration bonus.
+* Shortbow perk will deal double damage when fighting beasts but remove the armor penetration bonus. Unchanged against other enemies.
 * Hammer perk will deal extra hp damage that ignores armor.
-* Knife perk will give deathblow to any knife equipped and a bonus to Qatal daggers.
+* Knife perk will give deathblow to any knife equipped and a bonus to Qatal daggers. They lose their direct damage bonus.
 * Shovel perk will give you the Gravedigging effect which applies a bonus increasing with every body on the battlefield.
-* Woodaxe perk will deal double damage vs Schratts.
+* Woodaxe perk will deal double damage vs Schratts. Unchanged against other enemies.
 * Pickaxe will apply to Military Pick as well.
 * Scythe is merged into pitchfork. Will now only appear in a certain origin.
 * Added a new `Inventor's Armaments` perk which applies to Firearms, Firelances and Crossbows. No damage bonus unless you're using Firelances, but will reduce reload speed by 1 when taking Crossbow mastery on crossbows and handgonnes. Added to Adaptive perk when Firearm or Firelance is equipped. Will show up on Inventors.
