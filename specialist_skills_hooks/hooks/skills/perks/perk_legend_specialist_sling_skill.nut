@@ -17,26 +17,12 @@
 		}
 
 		_properties.RangedSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-
-		if (item.getID() == "weapon.legend_slingstaff" || item.getID() == "weapon.named_northern_sling")
-		{
-			_properties.DamageArmorMult += 0.01 * actor.calculateSpecialistBonus(50, specialistWeapon);
-		}
-		else
-		{
-			_properties.DamageArmorMult += 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon)
-		}
+		_properties.DamageArmorMult += 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon)
 
 		if (actor.getCurrentProperties().IsSpecializedInSlings)
 		{
 			_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
 			_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
-
-			if (item.getID() == "weapon.legend_slingstaff" || item.getID() == "weapon.named_northern_sling")
-			{
-				_properties.DamageRegularMin += actor.calculateSpecialistBonus(15, specialistWeapon);
-				_properties.DamageRegularMax += actor.calculateSpecialistBonus(30, specialistWeapon);
-			}
 		}
 	}
 

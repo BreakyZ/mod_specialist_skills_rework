@@ -21,8 +21,8 @@ foreach (hammer_skill in [
 			local items = actor.getItems();
 			local condition = 0
 
-			condition += items.getItemAtSlot(this.Const.ItemSlot.Head) ? items.getItemAtSlot(this.Const.ItemSlot.Head).getConditionMax() : 0;
-			condition += items.getItemAtSlot(this.Const.ItemSlot.Body) ? items.getItemAtSlot(this.Const.ItemSlot.Body).getConditionMax() : 0;
+			condition += items.getItemAtSlot(this.Const.ItemSlot.Head) != null ? items.getItemAtSlot(this.Const.ItemSlot.Head).getConditionMax() : 0;
+			condition += items.getItemAtSlot(this.Const.ItemSlot.Body) != null ? items.getItemAtSlot(this.Const.ItemSlot.Body).getConditionMax() : 0;
 
 			return this.Math.floor(0.01 * condition);
 		}
@@ -30,11 +30,12 @@ foreach (hammer_skill in [
 		q.getTooltip = @( __original ) function ()
 		{
 			local ret = this.getDefaultTooltip();
+			local bonus = getBonus();
 			ret.push({
 				id = 7,
 				type = "text",
 				icon = "ui/icons/special.png",
-				text = "Always inflicts at least [color=" + this.Const.UI.Color.DamageValue + "]" + 10 + getBonus() + "[/color] damage to hitpoints, regardless of armor"
+				text = "Always inflicts at least [color=" + this.Const.UI.Color.DamageValue + "]" + 10 + bonus + "[/color] damage to hitpoints, regardless of armor"
 			});
 			return ret;
 		}

@@ -29,7 +29,16 @@
 ::Const.Perks.StaffTree.Tree[2] = []
 ::Const.Perks.StaffTree.Tree[3] = [::Const.Perks.PerkDefs.LegendMasteryStaves];
 
-::Const.Perks.SlingTree.Tree[4] = [];
+::Const.Perks.SlingTree.Tree = 
+[
+	[],
+	[::Const.Perks.PerkDefs.],
+	[],
+	[gt.Const.Perks.PerkDefs.LegendMasterySlings],
+	[],
+	[],
+	[]
+]
 
 ::Const.Perks.SpecialistInventorTree <- {
 	ID = "SpecialistInventorTree",

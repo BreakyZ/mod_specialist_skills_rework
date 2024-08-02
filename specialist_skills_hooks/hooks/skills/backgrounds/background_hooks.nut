@@ -110,7 +110,7 @@
 			this.Const.Perks.MaceTree
 
 		];
-		local rand = this.Math.rand(0, 1)
+		local rand = this.Math.rand(0, 1);
 		this.m.PerkTreeDynamic.Class.push(classTrees[rand]);
 		this.m.PerkTreeDynamic.Weapon.push(weaponTrees[rand]);
 	}

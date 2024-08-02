@@ -34,6 +34,24 @@
 		Icon = "ui/perks/perk_spec_mace.png",
 		IconDisabled = "ui/perks/perk_spec_mace_bw.png",
 		Const = "SpecialistClub"
+	},
+	{
+		ID = "perk.slinger_spins",
+		Script = "scripts/skills/perks/perk_slinger_spins",
+		Name = this.Const.Strings.PerkName.SlingerSpins,
+		Tooltip = this.Const.Strings.PerkDescription.SlingerSpins,
+		Icon = "ui/perks/sling_01.png",
+		IconDisabled = "ui/perks/sling_bw.png",
+		Const = "SlingerSpins"
+	},
+	{
+		ID = "perk.barrage",
+		Script = "scripts/skills/perks/perk_barrage",
+		Name = this.Const.Strings.PerkName.Barrage,
+		Tooltip = this.Const.Strings.PerkDescription.Barrage,
+		Icon = "ui/perks/catapult_circle.png",
+		IconDisabled = "ui/perks/catapult_circle_bw.png",
+		Const = "Barrage"
 	}
 ]);
 

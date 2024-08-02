@@ -130,7 +130,8 @@ if (Is_SSU_Exist)
 			local target = _targetTile.getEntity();
 			local ret = this.attackEntity(_user, target);
 			local hp = target.getHitpoints();
-			local damage = this.getContainer().getActor().getCurrentProperties().IsSpecializedInCleavers ? 10 : 5
+			local actor = this.getContainer().getActor();
+			local damage = actor.getCurrentProperties().IsSpecializedInCleavers ? 10 : 5
 			if (actor.getFlags().has("cleaverSpecialist")) damage += 2;
 
 			if (this.Tactical.TurnSequenceBar.getActiveEntity().getID() == _user.getID() && (!_user.isHiddenToPlayer() || _targetTile.IsVisibleForPlayer))

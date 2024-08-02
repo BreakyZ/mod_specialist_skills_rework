@@ -3,18 +3,18 @@
 	q.onAfterUpdate = @( __original) function ( _properties )
 	{
 		this.m.MaxRange = this.m.Item.getRangeMax() + (_properties.IsSpecializedInSlings ? 1 : 0);
-		this.m.AdditionalAccuracy = _properties.IsSpecializedInSlings ? 0 : -5;
+		this.m.AdditionalAccuracy -= _properties.IsSpecializedInSlings ? 0 : -5;
 		this.m.AdditionalHitChance = _properties.IsSpecializedInSlings ? -2 : -4;
 		this.m.FatigueCostMult = _properties.IsSpecializedInSlings ? this.Const.Combat.WeaponSpecFatigueMult : 1.0;
-		if (this.getContainer().hasSkill("perk.legend_mastery_slings") && this.getContainer().hasSkill("perk.legend_specialist_sling_skill"))
+		if (this.getContainer().hasSkill("perk.legend_mastery_slings"))
 		{
-			this.m.ActionPointCost = 7;
-			this.m.FatigueCost = 25;
+			this.m.ActionPointCost += 1;
+			this.m.FatigueCost += 4;
 		}
-		else if (this.getContainer().hasSkill("perk.legend_specialist_sling_skill"))
+		if (this.getContainer().hasSkill("perk.barrage"))
 		{
-			this.m.ActionPointCost = 6;
-			this.m.FatigueCost = 21;
+			this.m.ActionPointCost += 1;
+			this.m.FatigueCost = 4;
 		}
 	}
 

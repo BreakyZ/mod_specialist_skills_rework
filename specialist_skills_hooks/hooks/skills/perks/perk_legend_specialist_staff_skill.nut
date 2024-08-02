@@ -25,7 +25,7 @@
 		_properties.MeleeDefense += actor.calculateSpecialistBonus(16, specialistWeapon);
 		_properties.RangedDefense += actor.calculateSpecialistBonus(16, specialistWeapon);
 
-		if (actor.getCurrentProperties().IsSpecializedInStaves && !item.isWeaponType(this.Const.Items.WeaponType.Sling))
+		if (actor.getCurrentProperties().IsSpecializedInStaves)
 		{
 			_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
 		}
@@ -36,5 +36,10 @@
 		local actor = this.getContainer().getActor();
 		_properties.MeleeDefense += actor.calculateSpecialistBonus(8);
 		_properties.RangedDefense += actor.calculateSpecialistBonus(8);
+		_properties.MeleeSkill += actor.calculateSpecialistBonus(6, specialistWeapon);
+		if (actor.getCurrentProperties().IsSpecializedInStaves)
+		{
+			_properties.MeleeSkill += actor.calculateSpecialistBonus(6, specialistWeapon);
+		}
 	}
 });

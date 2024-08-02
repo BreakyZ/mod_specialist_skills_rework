@@ -4,9 +4,8 @@
 	{
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
-		local off = actor.getOffhandItem();
 		local specialistWeapon = false;
-		local isGlaive = false;
+		local skill = actor.getSkills().getsk
 
 		switch (true) 
 		{
@@ -16,8 +15,6 @@
 				return;
 			case item.getID() == "weapon.militia_spear" || item.getID() == "weapon.legend_wooden_spear" || item.getID() == "weapon.ancient_spear":
 				specialistWeapon = true;
-			case this.canDoubleGrip() && this.isGlaive():
-				isGlaive = true ;
 		}
 
 		if (item.isWeaponType(this.Const.Items.WeaponType.Throwing))
@@ -28,7 +25,7 @@
 		{
 			_properties.MeleeSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
 			_properties.MeleeDefense += actor.calculateSpecialistBonus(6, specialistWeapon);
-			if (isGlaive)
+			if (canDoubleGrip() && isGlaive())
 			{
 				_properties.MeleeDefense += actor.calculateSpecialistBonus(6, specialistWeapon);
 				_properties.RangedDefense += actor.calculateSpecialistBonus(6, specialistWeapon);
@@ -53,7 +50,7 @@
 
 	q.isGlaive <- function()
 	{
-		local mainId = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand).getID();
+		local mainId = this.getContainer().getActor().getMainhandItem().getID();
 
 		foreach (glaiveId in [
 			"weapon.legend_glaive",
