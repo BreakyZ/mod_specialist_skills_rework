@@ -65,6 +65,14 @@
 				case _item.isItemType(this.Const.Items.ItemType.Shortbow):
 					return this.Const.Perks.ShortbowClassTree;
 
+			//Sling
+				case _item.getID() == "weapon.wooden_stick" || _item.getID() == "weapon.legend_slingshot":
+					return this.Const.Perks.SpecialistSlingTree;
+
+			//Staff
+				case _item.getID() == "weapon.legend_staff" || _item.getID() == "weapon.legend_tipstaff":
+					return this.Const.Perks.SpecialistStaffTree;
+
 			//Militia
 				case _item.getID() == "weapon.militia_spear" || _item.getID() == "weapon.legend_wooden_spear" || _item.getID() == "weapon.ancient_spear":
 					return this.Const.Perks.MilitiaClassTree;

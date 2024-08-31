@@ -1,5 +1,5 @@
-::ModSpecialistSkillsRework.HooksMod.hook("scripts/entity/tactical/actor", function ( q )
-{
+::ModSpecialistSkillsRework.HooksMod.hook("scripts/entity/tactical/temp_model", function( q ) {
+
 	q.calculateSpecialistBonus <- function( _stat, _specialistWeapon = false)
 	{
 		if (_specialistWeapon || !this.isPlayerControlled())
@@ -23,4 +23,5 @@
 			return 0;
 		}
 	}
+
 });

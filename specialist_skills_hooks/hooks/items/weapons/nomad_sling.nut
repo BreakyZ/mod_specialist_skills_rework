@@ -1,4 +1,4 @@
-::ModSpecialistSkillsRework.HooksMod.hook("scripts/items/weapons/nomad_sling", function( q )
+::ModSpecialistSkillsRework.HooksMod.hook("scripts/items/weapons/oriental/nomad_sling", function( q )
 {	
 	q.create = @(__original) function()
 	{
@@ -16,7 +16,6 @@
 		this.m.Condition = 80.0;
 		this.m.ConditionMax = 80.0;
 		this.m.WeaponType = this.Const.Items.WeaponType.Sling | this.Const.Items.WeaponType.Staff;
-		this.m.AdditionalAccuracy = -10;
 	}
 
 	q.onEquip = @( __original ) function()

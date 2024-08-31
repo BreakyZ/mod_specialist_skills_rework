@@ -25,20 +25,80 @@
 ::Const.Perks.BardClassTree.Tree[3] = [::Const.Perks.PerkDefs.LegendMasteryStaves, ::Const.Perks.PerkDefs.SpecMace];
 ::Const.Perks.ScytheClassTree.Tree[2] = [];
 ::Const.Perks.ScytheClassTree.Tree[3] = [::Const.Perks.PerkDefs.SpecCleaver, ::Const.Perks.PerkDefs.SpecPolearm];
-::Const.Perks.StaffTree.Tree[0] = [::Const.Perks.PerkDefs.LegendSpecStaffSkill];
-::Const.Perks.StaffTree.Tree[2] = []
-::Const.Perks.StaffTree.Tree[3] = [::Const.Perks.PerkDefs.LegendMasteryStaves];
+
+::Const.Perks.BardClassTree.Tree = 
+[
+	[
+		::Const.Perks.PerkDefs.LegendCheerOn,
+		::Const.Perks.PerkDefs.LegendSpecialistLuteSkill
+	],
+	[::Const.Perks.PerkDefs.LegendDaze],
+	[],
+	[
+		::Const.Perks.PerkDefs.LegendMasteryStaves,
+		::Const.Perks.PerkDefs.SpecMace,
+		::Const.Perks.PerkDefs.LegendEntice
+	],
+	[::Const.Perks.PerkDefs.LegendPush],
+	[::Const.Perks.PerkDefs.LegendMinnesanger],
+	[::Const.Perks.PerkDefs.LegendMeistersinger]
+]
+
+::Const.Perks.StaffTree.Tree = 
+[
+	[],
+	[],
+	[],
+	[::Const.Perks.PerkDefs.LegendMasteryStaves],
+	[::Const.Perks.PerkDefs.LegendSpecStaffStun],
+	[::Const.Perks.PerkDefs.LegendStaffBlock],
+	[]
+]
 
 ::Const.Perks.SlingTree.Tree = 
 [
 	[],
-	[::Const.Perks.PerkDefs.],
+	[::Const.Perks.PerkDefs.LegendSlingerSpins],
 	[],
-	[gt.Const.Perks.PerkDefs.LegendMasterySlings],
+	[::Const.Perks.PerkDefs.LegendMasterySlings],
 	[],
-	[],
+	[::Const.Perks.PerkDefs.LegendBarrage],
 	[]
 ]
+
+::Const.Perks.SpecialistSlingTree <- {
+	ID = "SpecialistSlingTree",
+	Name = "Specialist Shepherd",
+	Descriptions = [
+		"shepherd"
+	],
+	Tree = [
+		[::Const.Perks.PerkDefs.LegendSpecialistSlingSkill],
+		[],
+		[],
+		[::Const.Perks.PerkDefs.LegendMasterySlings],
+		[],
+		[],
+		[]
+	]
+};
+
+::Const.Perks.SpecialistStaffTree <- {
+	ID = "SpecialistStaffTree",
+	Name = "Specialist Self-Defense",
+	Descriptions = [
+		"self-defense"
+	],
+	Tree = [
+		[],
+		[],
+		[::Const.Perks.PerkDefs.LegendSpecStaffSkill],
+		[::Const.Perks.PerkDefs.LegendMasteryStaves],
+		[],
+		[],
+		[]
+	]
+};
 
 ::Const.Perks.SpecialistInventorTree <- {
 	ID = "SpecialistInventorTree",
@@ -47,7 +107,7 @@
 		"inventor"
 	],
 	Tree = [
-		[::Const.Perks.PerkDefs.SpecialistInventor],
+		[::Const.Perks.PerkDefs.LegendSpecialistInventor],
 		[],
 		[],
 		[::Const.Perks.PerkDefs.SpecCrossbow],
@@ -63,7 +123,7 @@
 		"bodyguard"
 	],
 	Tree = [
-		[::Const.Perks.PerkDefs.SpecialistBodyguard],
+		[::Const.Perks.PerkDefs.LegendSpecialistBodyguard],
 		[],
 		[],
 		[::Const.Perks.PerkDefs.LegendSpecGreatSword],
@@ -79,7 +139,7 @@
 		"inquisition"
 	],
 	Tree = [
-		[::Const.Perks.PerkDefs.SpecialistInquisition],
+		[::Const.Perks.PerkDefs.LegendSpecialistInquisition],
 		[],
 		[],
 		[::Const.Perks.PerkDefs.SpecCrossbow],
@@ -95,7 +155,7 @@
 		"browbeater"
 	],
 	Tree = [
-		[::Const.Perks.PerkDefs.SpecialistClub],
+		[::Const.Perks.PerkDefs.LegendSpecialistClub],
 		[],
 		[],
 		[::Const.Perks.PerkDefs.SpecMace],
@@ -130,5 +190,7 @@
 	::Const.Perks.SpecialistClubTree,
 	::Const.Perks.SpecialistInquisitionTree,
 	::Const.Perks.SpecialistBodyguardTree,
-	::Const.Perks.SpecialistInventorTree		
+	::Const.Perks.SpecialistInventorTree,
+	::Const.Perks.SpecialistStaffTree,
+	::Const.Perks.SpecialistSlingTree	
 ]

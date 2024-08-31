@@ -1,57 +1,84 @@
 ::Const.Perks.addPerkDefObjects([
 	{
-		ID = "perk.specialist_inventor",
-		Script = "scripts/skills/perks/perk_specialist_inventor",
-		Name = this.Const.Strings.PerkName.SpecialistInventor,
-		Tooltip = this.Const.Strings.PerkDescription.SpecialistInventor,
+		ID = "perk.legend_specialist_inventor",
+		Script = "scripts/skills/perks/perk_legend_specialist_inventor",
+		Name = this.Const.Strings.PerkName.LegendSpecialistInventor,
+		Tooltip = this.Const.Strings.PerkDescription.LegendSpecialistInventor,
 		Icon = "ui/perks/perk_spec_firearm.png",
 		IconDisabled = "ui/perks/perk_spec_firearm_bw.png",
-		Const = "SpecialistInventor"
+		Const = "LegendSpecialistInventor"
 	},
 	{
-		ID = "perk.specialist_bodyguard",
-		Script = "scripts/skills/perks/perk_specialist_bodyguard",
-		Name = this.Const.Strings.PerkName.SpecialistBodyguard,
-		Tooltip = this.Const.Strings.PerkDescription.SpecialistBodyguard,
+		ID = "perk.legend_specialist_bodyguard",
+		Script = "scripts/skills/perks/perk_legend_specialist_bodyguard",
+		Name = this.Const.Strings.PerkName.LegendSpecialistBodyguard,
+		Tooltip = this.Const.Strings.PerkDescription.LegendSpecialistBodyguard,
 		Icon = "ui/perks/perk_spec_2hsword.png",
 		IconDisabled = "ui/perks/perk_spec_2hsword_bw.png",
-		Const = "SpecialistBodyguard"
+		Const = "LegendSpecialistBodyguard"
 	},
 	{
-		ID = "perk.specialist_inquisition",
-		Script = "scripts/skills/perks/perk_specialist_inquisition",
-		Name = this.Const.Strings.PerkName.SpecialistInquisition,
-		Tooltip = this.Const.Strings.PerkDescription.SpecialistInquisition,
+		ID = "perk.legend_specialist_inquisition",
+		Script = "scripts/skills/perks/perk_legend_specialist_inquisition",
+		Name = this.Const.Strings.PerkName.LegendSpecialistInquisition,
+		Tooltip = this.Const.Strings.PerkDescription.LegendSpecialistInquisition,
 		Icon = "ui/perks/perk_spec_xbow.png",
 		IconDisabled = "ui/perks/perk_spec_xbow_bw.png",
-		Const = "SpecialistInquisition"
+		Const = "LegendSpecialistInquisition"
 	},
 	{
-		ID = "perk.specialist_club",
-		Script = "scripts/skills/perks/perk_specialist_club",
-		Name = this.Const.Strings.PerkName.SpecialistClub,
-		Tooltip = this.Const.Strings.PerkDescription.SpecialistClub,
+		ID = "perk.legend_specialist_club",
+		Script = "scripts/skills/perks/perk_legend_specialist_club",
+		Name = this.Const.Strings.PerkName.LegendSpecialistClub,
+		Tooltip = this.Const.Strings.PerkDescription.LegendSpecialistClub,
 		Icon = "ui/perks/perk_spec_mace.png",
 		IconDisabled = "ui/perks/perk_spec_mace_bw.png",
-		Const = "SpecialistClub"
+		Const = "LegendSpecialistClub"
 	},
 	{
-		ID = "perk.slinger_spins",
-		Script = "scripts/skills/perks/perk_slinger_spins",
-		Name = this.Const.Strings.PerkName.SlingerSpins,
-		Tooltip = this.Const.Strings.PerkDescription.SlingerSpins,
-		Icon = "ui/perks/sling_01.png",
-		IconDisabled = "ui/perks/sling_bw.png",
-		Const = "SlingerSpins"
+		ID = "perk.legend_slinger_spins",
+		Script = "scripts/skills/perks/perk_legend_slinger_spins",
+		Name = this.Const.Strings.PerkName.LegendSlingerSpins,
+		Tooltip = this.Const.Strings.PerkDescription.LegendSlingerSpins,
+		Icon = "ui/perks/perk_sling_2.png",
+		IconDisabled = "ui/perks/perk_sling_2_bw.png",
+		Const = "LegendSlingerSpins"
 	},
 	{
-		ID = "perk.barrage",
-		Script = "scripts/skills/perks/perk_barrage",
-		Name = this.Const.Strings.PerkName.Barrage,
-		Tooltip = this.Const.Strings.PerkDescription.Barrage,
-		Icon = "ui/perks/catapult_circle.png",
-		IconDisabled = "ui/perks/catapult_circle_bw.png",
-		Const = "Barrage"
+		ID = "perk.legend_barrage",
+		Script = "scripts/skills/perks/perk_legend_barrage",
+		Name = this.Const.Strings.PerkName.LegendBarrage,
+		Tooltip = this.Const.Strings.PerkDescription.LegendBarrage,
+		Icon = "ui/perks/perk_barrage.png",
+		IconDisabled = "ui/perks/perk_barrage_bw.png",
+		Const = "LegendBarrage"
+	},
+	{
+		ID = "perk.legend_staff_block",
+		Script = "scripts/skills/perks/perk_legend_staff_block",
+		Name = this.Const.Strings.PerkName.LegendStaffBlock,
+		Tooltip = this.Const.Strings.PerkDescription.LegendStaffBlock,
+		Icon = "ui/perks/staff_skill_circle.png",
+		IconDisabled = "ui/perks/staff_skill_circle_bw.png",
+		Const = "LegendStaffBlock"
+	},
+	{
+		ID = "perk.legend_minnesanger",
+		Script = "scripts/skills/perks/perk_legend_minnesanger",
+		Name = this.Const.Strings.PerkName.LegendMinnesanger,
+		Tooltip = this.Const.Strings.PerkDescription.LegendMinnesanger,
+		Icon = "ui/perks/drums_of_life.png",
+		IconDisabled = "ui/perks/drums_of_life_bw.png",
+		Const = "LegendMinnesanger"
+	},
+	{
+		ID = "perk.legend_meistersinger",
+		Script = "scripts/skills/perks/perk_legend_meistersinger",
+		Name = this.Const.Strings.PerkName.LegendMeistersinger,
+		Tooltip = this.Const.Strings.PerkDescription.LegendMeistersinger,
+		Icon = "ui/perks/drums_of_war.png",
+		IconDisabled = "ui/perks/drums_of_war_bw.png",
+		Const = "LegendMeistersinger"
 	}
 ]);
 
@@ -99,3 +126,6 @@
 
 ::Const.Perks.PerkDefObjects[::Const.Perks.PerkDefs.LegendSpecialistSlingSkill].Icon = "ui/perks/perk_spec_sling.png";
 ::Const.Perks.PerkDefObjects[::Const.Perks.PerkDefs.LegendSpecialistSlingSkill].IconDisabled = "ui/perks/perk_spec_sling_bw.png";
+
+::Const.Perks.PerkDefObjects[::Const.Perks.PerkDefs.LegendMasterySlings].Icon = "ui/perks/perk_sling_mastery.png";
+::Const.Perks.PerkDefObjects[::Const.Perks.PerkDefs.LegendMasterySlings].IconDisabled = "ui/perks/perk_sling_mastery_bw.png";

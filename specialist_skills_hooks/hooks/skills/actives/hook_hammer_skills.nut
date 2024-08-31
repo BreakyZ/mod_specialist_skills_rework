@@ -30,12 +30,13 @@ foreach (hammer_skill in [
 		q.getTooltip = @( __original ) function ()
 		{
 			local ret = this.getDefaultTooltip();
-			local bonus = getBonus();
+			local bonus = this.Math.max(this.getContainer().getActor().getCurrentProperties().DamageMinimum, 10);
+			bonus += this.getBonus();
 			ret.push({
 				id = 7,
 				type = "text",
 				icon = "ui/icons/special.png",
-				text = "Always inflicts at least [color=" + this.Const.UI.Color.DamageValue + "]" + 10 + bonus + "[/color] damage to hitpoints, regardless of armor"
+				text = "Always inflicts at least [color=" + this.Const.UI.Color.DamageValue + "]" + bonus + "[/color] damage to hitpoints, regardless of armor"
 			});
 			return ret;
 		}

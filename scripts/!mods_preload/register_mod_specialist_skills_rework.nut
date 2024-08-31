@@ -1,7 +1,7 @@
 ::ModSpecialistSkillsRework <- {
 	ID = "mod_specialist_skills_rework",
 	Name = "Mod Specialist Skills Rework",
-	Version = "1.3.5"
+	Version = "1.5.0"
 };
 
 ::ModSpecialistSkillsRework.HooksMod <- ::Hooks.register(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
@@ -13,7 +13,7 @@
 ::ModSpecialistSkillsRework.HooksMod.conflictWith("mod_legends_PTR");
 
 // like above you can add as many parameters to determine the queue order of the mod before adding the parameter to run the callback function. 
-::ModSpecialistSkillsRework.HooksMod.queue(">mod_msu", ">mod_legends", ">mod_sellswords", ">mod_breditor", ">mod_fantasybro_rotu", ">mod_legends_PTR", function()
+::ModSpecialistSkillsRework.HooksMod.queue(">mod_msu", ">mod_legends", ">mod_sellswords", ">mod_breditor", ">mod_fantasybro_rotu", ">mod_world_editor_legends", function()
 {
 	// define mod class of this mod
 	::ModSpecialistSkillsRework.Mod <- ::MSU.Class.Mod(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
@@ -25,6 +25,7 @@
 
 	if (!("Is_BR_Exist" in this.getroottable())) ::Is_BR_Exist <- ::mods_getRegisteredMod("mod_breditor") != null;
 	if (!("Is_SSU_Exist" in this.getroottable())) ::Is_SSU_Exist <- ::mods_getRegisteredMod("mod_sellswords") != null;
+	if (!("Is_World_Editor_Exists" in this.getroottable())) ::Is_World_Editor_Exists <- ::mods_getRegisteredMod("mod_world_editor_legends") != null;
 	// load hook files
 	::include("specialist_skills_hooks/load.nut");
 }, ::Hooks.QueueBucket.Normal);
