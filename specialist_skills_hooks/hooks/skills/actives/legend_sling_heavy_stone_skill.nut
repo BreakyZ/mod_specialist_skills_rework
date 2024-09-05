@@ -9,6 +9,42 @@
 	// 		this.m.IsShieldRelevant = true;
 	// }
 
+	q.getTooltip = @(__original) function()
+	{
+		local ret = this.getRangedTooltip(this.getDefaultTooltip());
+
+		if (this.getContainer().getActor().getCurrentProperties().IsSpecializedInStaffStun == true)
+		{
+			ret.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/special.png",
+				text = "Has a [color=" + this.Const.UI.Color.NegativeValue + "]100%[/color] chance to stun and daze target on a hit to the head if not immunue and always staggers the target"
+			});	
+		}
+		else
+		{
+			ret.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/special.png",
+				text = "Has a [color=" + this.Const.UI.Color.NegativeValue + "]100%[/color] chance to daze a target on a hit to the head and always staggers the target"
+			});	
+		}
+
+		if (this.Tactical.isActive() && this.getContainer().getActor().getTile().hasZoneOfControlOtherThan(this.getContainer().getActor().getAlliedFactions()))
+		{
+			ret.push({
+				id = 9,
+				type = "text",
+				icon = "ui/tooltips/warning.png",
+				text = "[color=" + this.Const.UI.Color.NegativeValue + "]Can not be used because this character is engaged in melee[/color]"
+			});
+		}
+
+		return ret;
+	}
+
 	q.onAfterUpdate = @( __original) function ( _properties )
 	{
 		this.m.FatigueCostMult = 1.0;
@@ -21,7 +57,7 @@
 			this.m.ActionPointCost += 1;
 			this.m.FatigueCost += 4;
 		}
-		if (this.getContainer().hasSkill("perk.barrage"))
+		if (this.getContainer().hasSkill("perk.legend_barrage"))
 		{
 			this.m.ActionPointCost += 1;
 			this.m.FatigueCost = 4;

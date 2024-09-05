@@ -1,7 +1,6 @@
 local instruments = [
 	"lute",
 	"named/named_lute",
-	"drum_item",
 	"barbarians/drum_item"
 ];
 foreach (instrument in instruments)

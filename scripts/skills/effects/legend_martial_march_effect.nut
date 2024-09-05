@@ -5,19 +5,19 @@ this.legend_martial_march_effect <- this.inherit("scripts/skills/skill", {
 	},
 	function create()
 	{
-		this.m.ID = "effects.legend_military_march";
-		this.m.Name = "Military March";
+		this.m.ID = "effects.legend_martial_march";
+		this.m.Name = "Martial March";
+		this.m.Description = "This character is being influenced by a martial march and is receiving stacking bonuses.";
 		this.m.Icon = "ui/effects/drums_of_war.png";
 		this.m.IconMini = "drums_of_war_mini.png";
-		this.m.Overlay = "drums_of_war";
-		this.m.Description = "This character is being influenced by a martial march and is receiving stacking bonuses.";
+		// this.m.Overlay = "drums_of_war";
 		this.m.Type = this.Const.SkillType.StatusEffect;
 		this.m.IsActive = false;
+		this.m.IsHidden = false;
 	}
 
 	function getTooltip()
 	{
-		local bonus = this.getCorpses();
 		return [
 			{
 				id = 1,
@@ -56,21 +56,21 @@ this.legend_martial_march_effect <- this.inherit("scripts/skills/skill", {
 		];
 	}
 
+	function onAdded()
+	{
+		this.m.songStacks += 1;
+	}
+
 	function onUpdate( _properties )
 	{	
 		local actorSkills = this.getContainer().getActor().getSkills();
 		if (actorSkills.hasSkill("effects.legend_drums_of_life"))
-		{
 			this.m.songStacks += 1;
-			this.m.turnsWithoutSong += 0;
-			actorSkills.removeByID("effects.legend_drums_of_life");
-		}
 		else if (actorSkills.hasSkill("effects.legend_drums_of_war"))
-		{
 			this.m.songStacks += 1;
-			this.m.turnsWithoutSong = 0;
-			actorSkills.removeByID("effects.legend_drums_of_war");
-		}
+
+		if (this.m.songStacks >= 10);
+			this.m.songStacks = 10;
 
 		_properties.Initiative += this.m.songStacks;
 		_properties.Bravery += this.m.songStacks;
@@ -83,7 +83,13 @@ this.legend_martial_march_effect <- this.inherit("scripts/skills/skill", {
 	function onTurnEnd()
 	{
 		this.m.turnsWithoutSong += 1;
-		if this.m.turnsWithoutSong = 2;
+
+		if (actorSkills.hasSkill("effects.legend_drums_of_life"))
+			this.m.turnsWithoutSong = 0;
+		if (actorSkills.hasSkill("effects.legend_drums_of_war"))
+			this.m.turnsWithoutSong = 0;
+		
+		if (this.m.turnsWithoutSong == 2)
 		{
 			this.m.songStacks = 0;
 			this.m.turnsWithoutSong = 0;

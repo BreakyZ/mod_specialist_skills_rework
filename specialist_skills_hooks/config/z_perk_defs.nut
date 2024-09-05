@@ -40,8 +40,8 @@
 		Script = "scripts/skills/perks/perk_legend_slinger_spins",
 		Name = this.Const.Strings.PerkName.LegendSlingerSpins,
 		Tooltip = this.Const.Strings.PerkDescription.LegendSlingerSpins,
-		Icon = "ui/perks/perk_sling_2.png",
-		IconDisabled = "ui/perks/perk_sling_2_bw.png",
+		Icon = "ui/perks/perk_slinger_spins.png",
+		IconDisabled = "ui/perks/perk_slinger_spins_bw.png",
 		Const = "LegendSlingerSpins"
 	},
 	{

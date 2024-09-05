@@ -13,7 +13,7 @@
 	{
 		local ret = this.getRangedTooltip(this.getDefaultTooltip());
 
-		if (!user.getSkills().hasSkill("perk.legend_barrage"))
+		if (!this.getContainer().getActor().getSkills().hasSkill("perk.legend_barrage"))
 		{
 			ret.push({
 				id = 7,
@@ -61,10 +61,9 @@
 	{
 		__original( _properties );
 		if (this.getContainer().hasSkill("perk.legend_slinger_spins"))
-		{
 			this.m.IsShieldRelevant = false;
-			this.m.MaxRange = this.m.Item.getRangeMax() + 1;
-		}
+		if (this.getContainer().hasSkill("effects.legend_slinger_spins"))
+			this.m.MaxRange += 1;
 	}
 
 	q.onTargetHit = @( __original ) function ( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
@@ -73,7 +72,7 @@
 		{
 			local targetTile = _targetEntity.getTile();
 			local user = this.getContainer().getActor();
-			local isApplied = _bodyPart == this.Const.BodyPart.Head ? true : this.math.Rand(1, 100) <= 33;
+			local isApplied = _bodyPart == this.Const.BodyPart.Head ? true : this.Math.Rand(1, 100) <= 33;
 			local effect = !_targetEntity.getCurrentProperties().IsImmuneToDaze ? this.new("scripts/skills/effects/dazed_effect") : this.new("scripts/skills/effects/staggered_effect");
 			local effectName = !_targetEntity.getCurrentProperties().IsImmuneToDaze ? "dazed" : "staggered";
 

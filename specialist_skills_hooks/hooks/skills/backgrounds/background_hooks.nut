@@ -240,14 +240,14 @@
 			this.Const.Perks.StaffTree,
 			this.Const.Perks.SlingTree
 		];
-		this.m.PerkTreeDynamic.Weapon =  [
+		this.m.PerkTreeDynamic.Class =  [
 			this.Const.Perks.HealerClassTree,
 			this.Const.Perks.FaithClassTree,
 			this.Const.Perks.SpecialistStaffTree
 		];
 	}
 });
-::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/slave_background", function( q ) {
+::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/backgrounds/legend_nun_background", function( q ) {
 
 	q.create = @(__original) function()
 	{

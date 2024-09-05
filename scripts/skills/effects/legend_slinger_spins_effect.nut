@@ -4,12 +4,13 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "effects.legend_slinger_spins";
 		this.m.Name = "Prepare Bullet";
-		this.m.Icon = "ui/effects/perk_slinger_spins.png";
+		this.m.Description = "This character is preparing a shot with a sling, increasing velocity and damage.";
+		this.m.Icon = "ui/effects/slinger_spins.png";
 		this.m.IconMini = "slinger_spins_mini.png";
-		this.m.Overlay = "slinger_spins";
-		this.m.Description = "This character is preparing a shot with a sling, increasing velocity and accuracy.";
+		// this.m.Overlay = "slinger_spins";
 		this.m.Type = this.Const.SkillType.StatusEffect;
 		this.m.IsActive = false;
+		this.m.IsHidden = false;
 	}
 
 	function getTooltip()
@@ -53,14 +54,9 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 	function onUpdate( _properties )
 	{
 		local weapon = this.getContainer().getActor().getMainhandItem();
-		if (!item.getID() == "weapon.legend_sling")
+		if (!(weapon.getID() == "weapon.legend_sling" && weapon.getID() == "weapon.named_sling"))
 			this.removeSelf();
 			return;
-		local sourcePerk = this.getContainer().getSkillByID("perk.legend_specialist_sling_skill");
-		if (sourcePerk)
-			_properties.DirectDamageAdd += sourcePerk.m.armorDamageApplied;
-		_properties.DamageRegularMin *= 1.2;
-		_properties.DamageRegularMax *= 1.2;
 	}
 
 	function onMovementCompleted( _tile )
@@ -75,8 +71,13 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
-		if (_skill.isGarbage() || (!_skill.isAttack() && !_skill.isRanged()))
+		if (_skill.isGarbage() || !_skill.getID() == "actives.sling_stone")
 			return;
+		_properties.DamageRegularMin *= 1.2;
+		_properties.DamageRegularMax *= 1.2;
+		local sourcePerk = this.getContainer().getSkillByID("perk.legend_specialist_sling_skill");
+		if (sourcePerk)
+			_properties.DirectDamageAdd += sourcePerk.m.armorDamageApplied;
 		this.removeSelf();
 	}
 });

@@ -23,5 +23,7 @@
 		this.weapon.onEquip();
 		this.addSkill(this.new("scripts/skills/actives/legend_sling_heavy_stone_skill"));
 		this.addSkill(this.new("scripts/skills/actives/legend_slingstaff_bash"));
+		
+		this.addSkill(this.new("scripts/skills/actives/launch_fire_bomb_skill"));
 	}
 });
