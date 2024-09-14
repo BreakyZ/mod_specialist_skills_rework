@@ -1,12 +1,12 @@
-this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
+this.launch_smoke_bomb_skill <- this.inherit("scripts/skills/skill", {
 	m = {
 		Item = null
 		},
 	function create()
 	{
-		this.m.ID = "actives.launch_fire_bomb";
-		this.m.Name = "Throw Fire Pot";
-		this.m.Description = "Ignite and launch, using your slingstaff, a pot filled with highly flammable liquids towards a target, where it will shatter and set the area ablaze. Anyone ending their turn inside the burning area will catch fire and take damage - friend and foe alike.";
+		this.m.ID = "actives.launch_smoke_bomb";
+		this.m.Name = "Launch Smoke Bomb";
+		this.m.Description = "Ignite and launch, using your slingstaff, a pot filled with substances that upon impact will quickly create a dense cloud.";
 		this.m.Icon = "skills/active_209.png";
 		this.m.IconDisabled = "skills/active_209_sw.png";
 		this.m.Overlay = "active_209";
@@ -17,10 +17,9 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 			"sounds/combat/dlc4/sling_use_04.wav"
 		];
 		this.m.SoundOnHit = [
-			"sounds/combat/dlc6/fire_pot_01.wav",
-			"sounds/combat/dlc6/fire_pot_02.wav",
-			"sounds/combat/dlc6/fire_pot_03.wav",
-			"sounds/combat/dlc6/fire_pot_04.wav"
+			"sounds/combat/dlc6/smoke_bomb_01.wav",
+			"sounds/combat/dlc6/smoke_bomb_02.wav",
+			"sounds/combat/dlc6/smoke_bomb_03.wav"
 		];
 		this.m.SoundOnHitDelay = 0;
 		this.m.Type = this.Const.SkillType.Active;
@@ -43,7 +42,7 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 		this.m.MinRange = 4;
 		this.m.MaxRange = 8;
 		this.m.MaxLevelDifference = 7;
-		this.m.ProjectileType = this.Const.ProjectileType.Bomb1;
+		this.m.ProjectileType = this.Const.ProjectileType.Bomb2;
 		this.m.ProjectileTimeScale = 1.5;
 		this.m.IsProjectileRotated = false;
 		this.m.IsHidden = true;
@@ -52,29 +51,30 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 	function getTooltip()
 	{
 		local ret = this.getDefaultUtilityTooltip();
-		ret.push({
+		ret.extend([
+		{
+			id = 5,
+			type = "text",
+			icon = "ui/icons/special.png",
+			text = "Covers [color=" + this.Const.UI.Color.DamageValue + "]7[/color] tiles in smoke for one round, allowing anyone inside to move freely and ignore zones of control"
+		},
+		{
+			id = 5,
+			type = "text",
+			icon = "ui/icons/special.png",
+			text = "Increases Ranged Defense by [color=" + this.Const.UI.Color.PositiveValue + "]+100%[/color], but lowers Ranged Skill by [color=" + this.Const.UI.Color.NegativeValue + "]-50%[/color] for anyone inside"
+		},
+		{
 			id = 6,
 			type = "text",
 			icon = "ui/icons/special.png",
-			text = "Set an area of [color=" + this.Const.UI.Color.DamageValue + "]7[/color] tiles ablaze with fire for 2 rounds. Water and snow can not burn."
-		});
-		ret.push({
-			id = 6,
-			type = "text",
-			icon = "ui/icons/special.png",
-			text = "Burns away existing tile effects like Smoke or Miasma"
-		});
-		ret.push({
-			id = 6,
-			type = "text",
-			icon = "ui/icons/special.png",
-			text = "This damage shown only occurs when an enemy ends turn inside of the area, it does not affect the enemy when thrown"
-		})
+			text = "Extinguishes existing tile effects like Fire or Miasma"
+		}]);
 
 		local ammo = 0;
 		foreach (item in this.getContainer().getActor().getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag))
 		{
-			if (item.getID() == "weapon.fire_bomb")
+			if (item.getID() == "weapon.smoke_bomb")
 			{
 				if (item.getAmmo() != 0)
 				{
@@ -143,33 +143,13 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 		return 0;
 	}
 
-	// function onUpdate(_properties)
-	// {
-	// 	foreach (item in this.getContainer().getActor().getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag))
-	// 	{
-	// 		if (item.getID() == "weapon.fire_bomb")
-	// 			this.setItem(item);
-	// 	}
-	// }
-
 	function consumeAmmo()
 	{
 		if (this.m.Item != null && !this.m.Item.isNull())
 			this.m.Item.consumeAmmo();
 	}
 
-	function onAnySkillUsed( _skill, _targetEntity, _properties )
-	{
-		local mhand = this.getContainer().getActor().getMainhandItem();
-
-		if (mhand != null)
-		{
-			_properties.DamageRegularMin -= mhand.m.RegularDamage;
-			_properties.DamageRegularMax -= mhand.m.RegularDamageMax;
-		}
-	}
-
-	function onVerifyTarget( _originTile, _targetTile )
+function onVerifyTarget( _originTile, _targetTile )
 	{
 		if (!this.skill.onVerifyTarget(_originTile, _targetTile))
 		{
@@ -206,13 +186,6 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 			this.Tactical.getHighlighter().addOverlayIcon(this.Const.Tactical.Settings.AreaOfEffectIcon, t, t.Pos.X, t.Pos.Y);
 		}
 	}
-
-	function onAfterUpdate( _properties )
-	{
-		this.m.MaxRange = this.m.MaxRange + (_properties.IsSpecializedInSlings ? 1 : 0);
-		this.m.FatigueCostMult = _properties.IsSpecializedInSlings ? this.Const.Combat.WeaponSpecFatigueMult : 1.0;
-	}
-
 	function onUse( _user, _targetTile )
 	{
 		if (this.m.IsShowingProjectile && this.m.ProjectileType != 0)
@@ -225,8 +198,7 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 			}
 		}
 
-		this.consumeAmmo();
-		
+		_user.getItems().unequip(_user.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand));
 		this.Time.scheduleEvent(this.TimeUnit.Real, 250, this.onApply.bindenv(this), {
 			Skill = this,
 			User = _user,
@@ -253,16 +225,16 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 
 		this.Sound.play(this.m.SoundOnHit[this.Math.rand(0, this.m.SoundOnHit.len() - 1)], 1.0, _data.TargetTile.Pos);
 		local p = {
-			Type = "fire",
-			Tooltip = "Fire rages here, melting armor and flesh alike",
-			IsPositive = false,
+			Type = "smoke",
+			Tooltip = "Dense smoke covers the area, allowing anyone inside to move freely and ignore zones of control, and granting protection from ranged attacks",
+			IsPositive = true,
 			IsAppliedAtRoundStart = false,
 			IsAppliedAtTurnEnd = true,
 			IsAppliedOnMovement = false,
-			IsAppliedOnEnter = false,
+			IsAppliedOnEnter = true,
 			IsByPlayer = _data.User.isPlayerControlled(),
-			Timeout = this.Time.getRound() + 2,
-			Callback = this.Const.Tactical.Common.onApplyFire,
+			Timeout = this.Time.getRound() + 1,
+			Callback = this.Const.Tactical.Common.onApplySmoke,
 			function Applicable( _a )
 			{
 				return true;
@@ -272,39 +244,38 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 
 		foreach( tile in targets )
 		{
-			if (tile.Subtype != this.Const.Tactical.TerrainSubtype.Snow && tile.Subtype != this.Const.Tactical.TerrainSubtype.LightSnow && tile.Type != this.Const.Tactical.TerrainType.ShallowWater && tile.Type != this.Const.Tactical.TerrainType.DeepWater)
+			if (tile.Properties.Effect != null && tile.Properties.Effect.Type == "smoke")
 			{
-				if (tile.Properties.Effect != null && tile.Properties.Effect.Type == "fire")
-				{
-					tile.Properties.Effect.Timeout = this.Time.getRound() + 2;
-				}
-				else
-				{
-					if (tile.Properties.Effect != null)
-					{
-						this.Tactical.Entities.removeTileEffect(tile);
-					}
-
-					tile.Properties.Effect = clone p;
-					local particles = [];
-
-					for( local i = 0; i < this.Const.Tactical.FireParticles.len(); i = ++i )
-					{
-						particles.push(this.Tactical.spawnParticleEffect(true, this.Const.Tactical.FireParticles[i].Brushes, tile, this.Const.Tactical.FireParticles[i].Delay, this.Const.Tactical.FireParticles[i].Quantity, this.Const.Tactical.FireParticles[i].LifeTimeQuantity, this.Const.Tactical.FireParticles[i].SpawnRate, this.Const.Tactical.FireParticles[i].Stages));
-					}
-
-					this.Tactical.Entities.addTileEffect(tile, tile.Properties.Effect, particles);
-					tile.clear(this.Const.Tactical.DetailFlag.Scorchmark);
-					tile.spawnDetail("impact_decal", this.Const.Tactical.DetailFlag.Scorchmark, false, true);
-				}
+				tile.Properties.Effect.Timeout = this.Time.getRound() + 1;
 			}
-
-			if (tile.IsOccupiedByActor)
+			else
 			{
-				this.Const.Tactical.Common.onApplyFire(tile, tile.getEntity());
+				if (tile.Properties.Effect != null)
+				{
+					this.Tactical.Entities.removeTileEffect(tile);
+				}
+
+				tile.Properties.Effect = clone p;
+				local particles = [];
+
+				for( local i = 0; i < this.Const.Tactical.SmokeParticles.len(); i = ++i )
+				{
+					particles.push(this.Tactical.spawnParticleEffect(true, this.Const.Tactical.SmokeParticles[i].Brushes, tile, this.Const.Tactical.SmokeParticles[i].Delay, this.Const.Tactical.SmokeParticles[i].Quantity, this.Const.Tactical.SmokeParticles[i].LifeTimeQuantity, this.Const.Tactical.SmokeParticles[i].SpawnRate, this.Const.Tactical.SmokeParticles[i].Stages));
+				}
+
+				this.Tactical.Entities.addTileEffect(tile, tile.Properties.Effect, particles);
+
+				if (tile.IsOccupiedByActor)
+				{
+					this.Const.Tactical.Common.onApplySmoke(tile, tile.getEntity());
+				}
 			}
 		}
 	}
 
+	function onAfterUpdate( _properties )
+	{
+		this.m.MaxRange = this.m.MaxRange + (_properties.IsSpecializedInSlings ? 1 : 0);
+		this.m.FatigueCostMult = _properties.IsSpecializedInSlings ? this.Const.Combat.WeaponSpecFatigueMult : 1.0;
+	}
 });
-

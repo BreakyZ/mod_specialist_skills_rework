@@ -72,13 +72,13 @@
 		Const = "LegendMinnesanger"
 	},
 	{
-		ID = "perk.legend_meistersinger",
-		Script = "scripts/skills/perks/perk_legend_meistersinger",
-		Name = this.Const.Strings.PerkName.LegendMeistersinger,
-		Tooltip = this.Const.Strings.PerkDescription.LegendMeistersinger,
+		ID = "perk.legend_meistersanger",
+		Script = "scripts/skills/perks/perk_legend_meistersanger",
+		Name = this.Const.Strings.PerkName.LegendMeistersanger,
+		Tooltip = this.Const.Strings.PerkDescription.LegendMeistersanger,
 		Icon = "ui/perks/drums_of_war.png",
 		IconDisabled = "ui/perks/drums_of_war_bw.png",
-		Const = "LegendMeistersinger"
+		Const = "LegendMeistersanger"
 	}
 ]);
 

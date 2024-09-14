@@ -5,7 +5,7 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "actives.launch_daze_bomb";
-		this.m.Name = "Throw Fire Pot";
+		this.m.Name = "Launch Daze Pot";
 		this.m.Description = "Launch a pot, with your slingstaff, filled with mysterious powders that react violently on impact to create a bright flash and loud bang, and will daze anyone close by - friend and foe alike";
 		this.m.Icon = "skills/active_209.png";
 		this.m.IconDisabled = "skills/active_209_sw.png";
@@ -157,21 +157,6 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 		}
 	}
 
-	function onVerifyTarget( _originTile, _targetTile )
-	{
-		if (!this.skill.onVerifyTarget(_originTile, _targetTile))
-		{
-			return false;
-		}
-
-		if (_originTile.Level + 1 < _targetTile.Level)
-		{
-			return false;
-		}
-
-		return true;
-	}
-
 	function onTargetSelected( _targetTile )
 	{
 		local affectedTiles = [];
@@ -195,13 +180,21 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 		}
 	}
 
-	function onAfterUpdate( _properties )
+	function onVerifyTarget( _originTile, _targetTile )
 	{
-		this.m.MaxRange = this.m.MaxRange + (_properties.IsSpecializedInSlings ? 1 : 0);
-		this.m.FatigueCostMult = _properties.IsSpecializedInSlings ? this.Const.Combat.WeaponSpecFatigueMult : 1.0;
-	}
+		if (!this.skill.onVerifyTarget(_originTile, _targetTile))
+		{
+			return false;
+		}
 
-	function onUse( _user, _targetTile )
+		if (_originTile.Level + 1 < _targetTile.Level)
+		{
+			return false;
+		}
+
+		return true;
+	}
+function onUse( _user, _targetTile )
 	{
 		if (this.m.IsShowingProjectile && this.m.ProjectileType != 0)
 		{
@@ -213,11 +206,9 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 			}
 		}
 
-		this.consumeAmmo();
-		
+		_user.getItems().unequip(_user.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand));
 		this.Time.scheduleEvent(this.TimeUnit.Real, 250, this.onApply.bindenv(this), {
 			Skill = this,
-			User = _user,
 			TargetTile = _targetTile
 		});
 	}
@@ -239,60 +230,28 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 			}
 		}
 
-		this.Sound.play(this.m.SoundOnHit[this.Math.rand(0, this.m.SoundOnHit.len() - 1)], 1.0, _data.TargetTile.Pos);
-		local p = {
-			Type = "fire",
-			Tooltip = "Fire rages here, melting armor and flesh alike",
-			IsPositive = false,
-			IsAppliedAtRoundStart = false,
-			IsAppliedAtTurnEnd = true,
-			IsAppliedOnMovement = false,
-			IsAppliedOnEnter = false,
-			IsByPlayer = _data.User.isPlayerControlled(),
-			Timeout = this.Time.getRound() + 2,
-			Callback = this.Const.Tactical.Common.onApplyFire,
-			function Applicable( _a )
-			{
-				return true;
-			}
-
-		};
+		if (_data.Skill.m.SoundOnHit.len() != 0)
+		{
+			this.Sound.play(_data.Skill.m.SoundOnHit[this.Math.rand(0, _data.Skill.m.SoundOnHit.len() - 1)], this.Const.Sound.Volume.Skill, _data.TargetTile.Pos);
+		}
 
 		foreach( tile in targets )
 		{
-			if (tile.Subtype != this.Const.Tactical.TerrainSubtype.Snow && tile.Subtype != this.Const.Tactical.TerrainSubtype.LightSnow && tile.Type != this.Const.Tactical.TerrainType.ShallowWater && tile.Type != this.Const.Tactical.TerrainType.DeepWater)
+			for( local i = 0; i < this.Const.Tactical.DazeParticles.len(); i = ++i )
 			{
-				if (tile.Properties.Effect != null && tile.Properties.Effect.Type == "fire")
-				{
-					tile.Properties.Effect.Timeout = this.Time.getRound() + 2;
-				}
-				else
-				{
-					if (tile.Properties.Effect != null)
-					{
-						this.Tactical.Entities.removeTileEffect(tile);
-					}
-
-					tile.Properties.Effect = clone p;
-					local particles = [];
-
-					for( local i = 0; i < this.Const.Tactical.FireParticles.len(); i = ++i )
-					{
-						particles.push(this.Tactical.spawnParticleEffect(true, this.Const.Tactical.FireParticles[i].Brushes, tile, this.Const.Tactical.FireParticles[i].Delay, this.Const.Tactical.FireParticles[i].Quantity, this.Const.Tactical.FireParticles[i].LifeTimeQuantity, this.Const.Tactical.FireParticles[i].SpawnRate, this.Const.Tactical.FireParticles[i].Stages));
-					}
-
-					this.Tactical.Entities.addTileEffect(tile, tile.Properties.Effect, particles);
-					tile.clear(this.Const.Tactical.DetailFlag.Scorchmark);
-					tile.spawnDetail("impact_decal", this.Const.Tactical.DetailFlag.Scorchmark, false, true);
-				}
+				this.Tactical.spawnParticleEffect(false, this.Const.Tactical.DazeParticles[i].Brushes, tile, this.Const.Tactical.DazeParticles[i].Delay, this.Const.Tactical.DazeParticles[i].Quantity, this.Const.Tactical.DazeParticles[i].LifeTimeQuantity, this.Const.Tactical.DazeParticles[i].SpawnRate, this.Const.Tactical.DazeParticles[i].Stages);
 			}
 
-			if (tile.IsOccupiedByActor)
+			if (tile.IsOccupiedByActor && !tile.getEntity().getCurrentProperties().IsImmuneToDaze)
 			{
-				this.Const.Tactical.Common.onApplyFire(tile, tile.getEntity());
+				tile.getEntity().getSkills().add(this.new("scripts/skills/effects/dazed_effect"));
 			}
 		}
 	}
 
+	function onAfterUpdate( _properties )
+	{
+		this.m.MaxRange = this.m.MaxRange + (_properties.IsSpecializedInSlings ? 1 : 0);
+		this.m.FatigueCostMult = _properties.IsSpecializedInSlings ? this.Const.Combat.WeaponSpecFatigueMult : 1.0;
+	}
 });
-

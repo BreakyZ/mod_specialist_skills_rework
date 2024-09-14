@@ -41,7 +41,7 @@
 	],
 	[::Const.Perks.PerkDefs.LegendPush],
 	[::Const.Perks.PerkDefs.LegendMinnesanger],
-	[::Const.Perks.PerkDefs.LegendMeistersinger]
+	[::Const.Perks.PerkDefs.LegendMeistersanger]
 ]
 
 ::Const.Perks.StaffTree.Tree = 

@@ -1,13 +1,12 @@
-this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
+this.launch_acid_flask_02 <- this.inherit("scripts/skills/skill", {
 	m = {
 		Item = null
 		},
 	function create()
 	{
 		this.m.ID = "actives.launch_fire_bomb";
-		this.m.Name = "Throw Fire Pot";
-		this.m.Description = "Ignite and launch, using your slingstaff, a pot filled with highly flammable liquids towards a target, where it will shatter and set the area ablaze. Anyone ending their turn inside the burning area will catch fire and take damage - friend and foe alike.";
-		this.m.Icon = "skills/active_209.png";
+		this.m.Name = "Launch Acid Flask";
+		this.m.Description = "Launch a flask of acid, with your slingstaff, towards a target, where it will shatter and spray its contents. The acid will slowly corrode away any armor of those hit - friend and foe alike.";		this.m.Icon = "skills/active_209.png";
 		this.m.IconDisabled = "skills/active_209_sw.png";
 		this.m.Overlay = "active_209";
 		this.m.SoundOnUse = [
@@ -17,10 +16,10 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 			"sounds/combat/dlc4/sling_use_04.wav"
 		];
 		this.m.SoundOnHit = [
-			"sounds/combat/dlc6/fire_pot_01.wav",
-			"sounds/combat/dlc6/fire_pot_02.wav",
-			"sounds/combat/dlc6/fire_pot_03.wav",
-			"sounds/combat/dlc6/fire_pot_04.wav"
+			"sounds/combat/acid_flask_impact_01.wav",
+			"sounds/combat/acid_flask_impact_02.wav",
+			"sounds/combat/acid_flask_impact_03.wav",
+			"sounds/combat/acid_flask_impact_04.wav"
 		];
 		this.m.SoundOnHitDelay = 0;
 		this.m.Type = this.Const.SkillType.Active;
@@ -43,7 +42,7 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 		this.m.MinRange = 4;
 		this.m.MaxRange = 8;
 		this.m.MaxLevelDifference = 7;
-		this.m.ProjectileType = this.Const.ProjectileType.Bomb1;
+		this.m.ProjectileType = this.Const.ProjectileType.Flask;
 		this.m.ProjectileTimeScale = 1.5;
 		this.m.IsProjectileRotated = false;
 		this.m.IsHidden = true;
@@ -52,29 +51,30 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 	function getTooltip()
 	{
 		local ret = this.getDefaultUtilityTooltip();
-		ret.push({
+		ret.extend([
+		{
 			id = 6,
 			type = "text",
 			icon = "ui/icons/special.png",
-			text = "Set an area of [color=" + this.Const.UI.Color.DamageValue + "]7[/color] tiles ablaze with fire for 2 rounds. Water and snow can not burn."
-		});
-		ret.push({
+			text = "Reduces the target\'s armor by [color=" + this.Const.UI.Color.DamageValue + "]25%[/color] each turn for 3 turns"
+		},
+		{
 			id = 6,
 			type = "text",
 			icon = "ui/icons/special.png",
-			text = "Burns away existing tile effects like Smoke or Miasma"
-		});
-		ret.push({
-			id = 6,
+			text = "Has a [color=" + this.Const.UI.Color.DamageValue + "]33%[/color] chance to hit bystanders at the same or lower height level as well"
+		},
+		{
+			id = 5,
 			type = "text",
 			icon = "ui/icons/special.png",
-			text = "This damage shown only occurs when an enemy ends turn inside of the area, it does not affect the enemy when thrown"
-		})
+			text = "Lasts for at least [color=" + this.Const.UI.Color.PositiveValue + "]" + 2 + "[/color] turns"
+		}]);
 
 		local ammo = 0;
 		foreach (item in this.getContainer().getActor().getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag))
 		{
-			if (item.getID() == "weapon.fire_bomb")
+			if (item.getID() == "weapon.acid_flask_02")
 			{
 				if (item.getAmmo() != 0)
 				{
@@ -143,15 +143,6 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 		return 0;
 	}
 
-	// function onUpdate(_properties)
-	// {
-	// 	foreach (item in this.getContainer().getActor().getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag))
-	// 	{
-	// 		if (item.getID() == "weapon.fire_bomb")
-	// 			this.setItem(item);
-	// 	}
-	// }
-
 	function consumeAmmo()
 	{
 		if (this.m.Item != null && !this.m.Item.isNull())
@@ -169,48 +160,33 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 		}
 	}
 
+	function applyAcid( _target )
+	{
+		if (_target.getFlags().has("lindwurm"))
+			return;
+
+		if ((_target.getFlags().has("body_immune_to_acid") || _target.getArmor(this.Const.BodyPart.Body) <= 0) && (_target.getFlags().has("head_immune_to_acid") || _target.getArmor(this.Const.BodyPart.Head) <= 0))
+			return;
+
+		local poison = _target.getSkills().getSkillByID("effects.acid_strong");
+
+		if (poison == null)
+			_target.getSkills().add(this.new("scripts/skills/effects/acid_effect_strong"));
+		else
+			poison.resetTime();
+
+		this.spawnIcon("status_effect_78", _target.getTile());
+	}
+
 	function onVerifyTarget( _originTile, _targetTile )
 	{
 		if (!this.skill.onVerifyTarget(_originTile, _targetTile))
-		{
 			return false;
-		}
 
 		if (_originTile.Level + 1 < _targetTile.Level)
-		{
 			return false;
-		}
 
 		return true;
-	}
-
-	function onTargetSelected( _targetTile )
-	{
-		local affectedTiles = [];
-		affectedTiles.push(_targetTile);
-
-		for( local i = 0; i != 6; i = ++i )
-		{
-			if (!_targetTile.hasNextTile(i))
-			{
-			}
-			else
-			{
-				local tile = _targetTile.getNextTile(i);
-				affectedTiles.push(tile);
-			}
-		}
-
-		foreach( t in affectedTiles )
-		{
-			this.Tactical.getHighlighter().addOverlayIcon(this.Const.Tactical.Settings.AreaOfEffectIcon, t, t.Pos.X, t.Pos.Y);
-		}
-	}
-
-	function onAfterUpdate( _properties )
-	{
-		this.m.MaxRange = this.m.MaxRange + (_properties.IsSpecializedInSlings ? 1 : 0);
-		this.m.FatigueCostMult = _properties.IsSpecializedInSlings ? this.Const.Combat.WeaponSpecFatigueMult : 1.0;
 	}
 
 	function onUse( _user, _targetTile )
@@ -234,77 +210,51 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 		});
 	}
 
-	function onApply( _data )
+	function onApplyAcid( _data )
 	{
-		local targets = [];
-		targets.push(_data.TargetTile);
+		local targetEntity = _data.TargetTile.getEntity();
 
-		for( local i = 0; i != 6; i = ++i )
+		if (_data.Skill.m.SoundOnHit.len() != 0)
+		{
+			this.Sound.play(_data.Skill.m.SoundOnHit[this.Math.rand(0, _data.Skill.m.SoundOnHit.len() - 1)], this.Const.Sound.Volume.Skill, targetEntity.getPos());
+		}
+
+		_data.Skill.applyAcid(targetEntity);
+
+		for( local i = 0; i < 6; i = ++i )
 		{
 			if (!_data.TargetTile.hasNextTile(i))
 			{
 			}
 			else
 			{
-				local tile = _data.TargetTile.getNextTile(i);
-				targets.push(tile);
-			}
-		}
+				local nextTile = _data.TargetTile.getNextTile(i);
 
-		this.Sound.play(this.m.SoundOnHit[this.Math.rand(0, this.m.SoundOnHit.len() - 1)], 1.0, _data.TargetTile.Pos);
-		local p = {
-			Type = "fire",
-			Tooltip = "Fire rages here, melting armor and flesh alike",
-			IsPositive = false,
-			IsAppliedAtRoundStart = false,
-			IsAppliedAtTurnEnd = true,
-			IsAppliedOnMovement = false,
-			IsAppliedOnEnter = false,
-			IsByPlayer = _data.User.isPlayerControlled(),
-			Timeout = this.Time.getRound() + 2,
-			Callback = this.Const.Tactical.Common.onApplyFire,
-			function Applicable( _a )
-			{
-				return true;
-			}
-
-		};
-
-		foreach( tile in targets )
-		{
-			if (tile.Subtype != this.Const.Tactical.TerrainSubtype.Snow && tile.Subtype != this.Const.Tactical.TerrainSubtype.LightSnow && tile.Type != this.Const.Tactical.TerrainType.ShallowWater && tile.Type != this.Const.Tactical.TerrainType.DeepWater)
-			{
-				if (tile.Properties.Effect != null && tile.Properties.Effect.Type == "fire")
+				if (this.Math.rand(1, 100) > 33)
 				{
-					tile.Properties.Effect.Timeout = this.Time.getRound() + 2;
+				}
+				else if (nextTile.Level > _data.TargetTile.Level)
+				{
+				}
+				else if (!nextTile.IsOccupiedByActor)
+				{
+					for( local i = 0; i < this.Const.Tactical.AcidParticles.len(); i = ++i )
+					{
+						this.Tactical.spawnParticleEffect(true, this.Const.Tactical.AcidParticles[i].Brushes, nextTile, this.Const.Tactical.AcidParticles[i].Delay, this.Const.Tactical.AcidParticles[i].Quantity, this.Const.Tactical.AcidParticles[i].LifeTimeQuantity, this.Const.Tactical.AcidParticles[i].SpawnRate, this.Const.Tactical.AcidParticles[i].Stages);
+					}
 				}
 				else
 				{
-					if (tile.Properties.Effect != null)
-					{
-						this.Tactical.Entities.removeTileEffect(tile);
-					}
-
-					tile.Properties.Effect = clone p;
-					local particles = [];
-
-					for( local i = 0; i < this.Const.Tactical.FireParticles.len(); i = ++i )
-					{
-						particles.push(this.Tactical.spawnParticleEffect(true, this.Const.Tactical.FireParticles[i].Brushes, tile, this.Const.Tactical.FireParticles[i].Delay, this.Const.Tactical.FireParticles[i].Quantity, this.Const.Tactical.FireParticles[i].LifeTimeQuantity, this.Const.Tactical.FireParticles[i].SpawnRate, this.Const.Tactical.FireParticles[i].Stages));
-					}
-
-					this.Tactical.Entities.addTileEffect(tile, tile.Properties.Effect, particles);
-					tile.clear(this.Const.Tactical.DetailFlag.Scorchmark);
-					tile.spawnDetail("impact_decal", this.Const.Tactical.DetailFlag.Scorchmark, false, true);
+					local entity = nextTile.getEntity();
+					_data.Skill.applyAcid(entity);
 				}
-			}
-
-			if (tile.IsOccupiedByActor)
-			{
-				this.Const.Tactical.Common.onApplyFire(tile, tile.getEntity());
 			}
 		}
 	}
 
+	function onAfterUpdate( _properties )
+	{
+		this.m.MaxRange = this.m.MaxRange + (_properties.IsSpecializedInSlings ? 1 : 0);
+		this.m.FatigueCostMult = _properties.IsSpecializedInSlings ? this.Const.Combat.WeaponSpecFatigueMult : 1.0;
+	}
 });
-

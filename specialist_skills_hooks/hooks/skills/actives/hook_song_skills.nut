@@ -48,28 +48,26 @@
 
 		foreach( a in actors )
 		{
-			if (a.getID() == _user.getID())
+			switch (true)
 			{
-				continue;
-			}
-
-			if (a.getFatigue() == 0)
-			{
-				continue;
-			}
-
-			if (a.getFaction() == _user.getFaction() && !a.getSkills().hasSkill("effects.legend_drums_of_life"))
-			{
-				a.getSkills().add(skill);
-			}
-
-			if (a.getFaction() == _user.getFaction() && march != null && !a.getSkills().hasSkill("effects.legend_martial_march"))
-			{ 
-				a.getSkills().add(march);
+				case a.getID() == _user.getID():
+				case a.getFaction() != _user.getFaction():
+				case myTile.getDistanceTo(a.getTile()) > 8:
+					continue;
+				case !a.getSkills().hasSkill("effects.legend_drums_of_life"):
+					a.getSkills().add(skill);
+				case march != null && !a.getSkills().hasSkill("effects.legend_martial_march"):
+					a.getSkills().add(march);
+				case march != null && a.getSkills().hasSkill("effects.legend_martial_march"):
+					local actor_skill = a.getSkills().getSkillByID("effects.legend_martial_march");
+					actor_skill.incrementStacks();
+					actor_skill.resetTurnsWithoutSong();
 			}
 		}
 
 		this.getContainer().add(skill);
+		if (march != null && !a.getSkills().hasSkill("effects.legend_martial_march"))
+			this.getContainer().add(march);
 		return true;
 	}
 });
@@ -84,7 +82,7 @@
 	else
 	{
 		q.m.specialistEffect <- 1;
-		q.m.minnesangerEffect <- 1;
+		q.m.minnesangerEffect <- 2;
 	}
 
 	q.getDescription <- function()
@@ -125,28 +123,28 @@
 
 		foreach( a in actors )
 		{
-			if (a.getID() == _user.getID())
+			switch (true)
 			{
-				continue;
-			}
-
-			if (a.getFatigue() == 0)
-			{
-				continue;
-			}
-
-			if (a.getFaction() == _user.getFaction() && !a.getSkills().hasSkill("effects.legend_drums_of_war"))
-			{
-				a.getSkills().add(skill);
-			}
-
-			if (a.getFaction() == _user.getFaction() && march != null && !a.getSkills().hasSkill("effects.legend_martial_march_effect"))
-			{ 
-				a.getSkills().add(march);
+				case a.getID() == _user.getID():
+				case a.getFatigue() == 0:
+				case a.getFaction() != _user.getFaction():
+				case myTile.getDistanceTo(a.getTile()) > 8:
+					continue;
+				case !a.getSkills().hasSkill("effects.legend_drums_of_war"):
+					a.getSkills().add(skill);
+				case march != null && !a.getSkills().hasSkill("effects.legend_martial_march"):
+					a.getSkills().add(march);
+				case march != null && a.getSkills().hasSkill("effects.legend_martial_march"):
+					local actor_skill = a.getSkills().getSkillByID("effects.legend_martial_march");
+					actor_skill.incrementStacks();
+					actor_skill.resetTurnsWithoutSong();
 			}
 		}
 
 		this.getContainer().add(skill);
+		if (march != null && !a.getSkills().hasSkill("effects.legend_martial_march"))
+			this.getContainer().add(march);
+
 		return true;
 	}
 });

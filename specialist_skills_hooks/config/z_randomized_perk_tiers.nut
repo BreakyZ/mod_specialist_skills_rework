@@ -41,6 +41,14 @@
 		case _item.getID() == "weapon.legend_longsword":
 			return this.Const.Perks.SpecialistBodyguardTree;
 
+	//Slings
+		case _item.getID() == "weapon.legend_sling":
+			return this.Const.Perks.SpecialistSlingTree;
+
+	//Staves
+		case _item.getID() == "weapon.legend_staff":
+			return this.Const.Perks.SpecialistStaffTree;
+
 	//Inquisition
 		case _item.getID() == "weapon.legend_wooden_stake":
 			return this.Const.Perks.SpecialistInquisitionTree;

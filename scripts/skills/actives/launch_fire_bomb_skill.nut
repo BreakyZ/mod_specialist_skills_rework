@@ -52,24 +52,25 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 	function getTooltip()
 	{
 		local ret = this.getDefaultUtilityTooltip();
-		ret.push({
+		ret.extend([
+		{
 			id = 6,
 			type = "text",
 			icon = "ui/icons/special.png",
 			text = "Set an area of [color=" + this.Const.UI.Color.DamageValue + "]7[/color] tiles ablaze with fire for 2 rounds. Water and snow can not burn."
-		});
-		ret.push({
+		},
+		{
 			id = 6,
 			type = "text",
 			icon = "ui/icons/special.png",
 			text = "Burns away existing tile effects like Smoke or Miasma"
-		});
-		ret.push({
+		},
+		{
 			id = 6,
 			type = "text",
 			icon = "ui/icons/special.png",
 			text = "This damage shown only occurs when an enemy ends turn inside of the area, it does not affect the enemy when thrown"
-		})
+		}]);
 
 		local ammo = 0;
 		foreach (item in this.getContainer().getActor().getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag))

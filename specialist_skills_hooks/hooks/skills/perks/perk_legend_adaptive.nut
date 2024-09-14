@@ -3,8 +3,6 @@
 	q.getWeaponPerkTree = @(__original) function( _item )
 	{
 		switch(true) {
-			// check the special weapon types first then the generic weapon types
-
 			//Shovel
 				case _item.getID() == "weapon.legend_shovel" || _item.getID() == "weapon.legend_named_shovel":
 					return this.Const.Perks.ShovelClassTree;
@@ -37,10 +35,6 @@
 				case _item.getID() == "weapon.knife" || _item.getID() == "weapon.legend_shiv":
 					return this.Const.Perks.KnifeClassTree;
 
-			//Banner
-				case _item.getID() == "weapon.player_banner":
-					return this.Const.Perks.InspirationalTree;
-
 			//Inventor
 				case _item.isWeaponType(this.Const.Items.WeaponType.Firearm):
 					return this.Const.Perks.SpecialistInventorTree;
@@ -48,6 +42,14 @@
 			//Bodyguard
 				case _item.getID() == "weapon.legend_longsword":
 					return this.Const.Perks.SpecialistBodyguardTree;
+
+			//Slings
+				case _item.getID() == "weapon.legend_sling":
+					return this.Const.Perks.SpecialistSlingTree;
+
+			//Staves
+				case _item.getID() == "weapon.legend_staff":
+					return this.Const.Perks.SpecialistStaffTree;
 
 			//Inquisition
 				case _item.getID() == "weapon.legend_wooden_stake":
@@ -64,14 +66,6 @@
 			//Shortbow
 				case _item.isItemType(this.Const.Items.ItemType.Shortbow):
 					return this.Const.Perks.ShortbowClassTree;
-
-			//Sling
-				case _item.getID() == "weapon.wooden_stick" || _item.getID() == "weapon.legend_slingshot":
-					return this.Const.Perks.SpecialistSlingTree;
-
-			//Staff
-				case _item.getID() == "weapon.legend_staff" || _item.getID() == "weapon.legend_tipstaff":
-					return this.Const.Perks.SpecialistStaffTree;
 
 			//Militia
 				case _item.getID() == "weapon.militia_spear" || _item.getID() == "weapon.legend_wooden_spear" || _item.getID() == "weapon.ancient_spear":

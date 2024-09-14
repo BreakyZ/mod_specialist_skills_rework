@@ -19,7 +19,7 @@
 			"legend_specialist_scythe_damage"]
 		foreach (perk in damagePerks)
 		{
-			this.m.Skills.removeByID("perk." + perk)
+			this.m.Skills.removeByID("perk.perk_" + perk)
 		}
 	}
 });
