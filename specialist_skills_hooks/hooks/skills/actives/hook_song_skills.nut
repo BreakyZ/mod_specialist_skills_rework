@@ -43,7 +43,7 @@
 			effect += this.m.minnesangerEffect;
 		skill.setEffect(effect);
 
-		if (_user.getSkills().hasSkill("perk.legend_meistersinger"))
+		if (_user.getSkills().hasSkill("perk.legend_meistersаnger"))
 			local march = this.new("scripts/skills/effects/legend_martial_march_effect");
 
 		foreach( a in actors )
@@ -56,18 +56,31 @@
 					continue;
 				case !a.getSkills().hasSkill("effects.legend_drums_of_life"):
 					a.getSkills().add(skill);
-				case march != null && !a.getSkills().hasSkill("effects.legend_martial_march"):
+				case march == null:
+					continue;
+				case !a.getSkills().hasSkill("effects.legend_martial_march"):
+				{
 					a.getSkills().add(march);
-				case march != null && a.getSkills().hasSkill("effects.legend_martial_march"):
+					continue;
+				}
+				case a.getSkills().hasSkill("effects.legend_martial_march"):
+				{
 					local actor_skill = a.getSkills().getSkillByID("effects.legend_martial_march");
 					actor_skill.incrementStacks();
 					actor_skill.resetTurnsWithoutSong();
+				}
 			}
 		}
 
 		this.getContainer().add(skill);
-		if (march != null && !a.getSkills().hasSkill("effects.legend_martial_march"))
+		if (march != null && !this.getContainer().hasSkill("effects.legend_martial_march"))
 			this.getContainer().add(march);
+		if (march != null && a.getSkills().hasSkill("effects.legend_martial_march"))
+		{
+			local actor_skill = this.getContainer().getSkillByID("effects.legend_martial_march");
+			actor_skill.incrementStacks();
+			actor_skill.resetTurnsWithoutSong();
+		}
 		return true;
 	}
 });
@@ -116,7 +129,7 @@
 		if (this.getContainer().getActor().getSkills().hasSkill("perk.legend_minnesanger"))
 			effect += this.m.minnesangerEffect;
 
-		if (_user.getSkills().hasSkill("perk.legend_meistersinger"))
+		if (_user.getSkills().hasSkill("perk.legend_meistersаnger"))
 			local march = this.new("scripts/skills/effects/legend_martial_march_effect");
 
 		skill.setEffect(effect);
@@ -132,19 +145,31 @@
 					continue;
 				case !a.getSkills().hasSkill("effects.legend_drums_of_war"):
 					a.getSkills().add(skill);
-				case march != null && !a.getSkills().hasSkill("effects.legend_martial_march"):
+				case march == null:
+					continue;
+				case !a.getSkills().hasSkill("effects.legend_martial_march"):
+				{
 					a.getSkills().add(march);
-				case march != null && a.getSkills().hasSkill("effects.legend_martial_march"):
+					continue;
+				}
+				case a.getSkills().hasSkill("effects.legend_martial_march"):
+				{
 					local actor_skill = a.getSkills().getSkillByID("effects.legend_martial_march");
 					actor_skill.incrementStacks();
 					actor_skill.resetTurnsWithoutSong();
+				}
 			}
 		}
 
 		this.getContainer().add(skill);
-		if (march != null && !a.getSkills().hasSkill("effects.legend_martial_march"))
+		if (march != null && !this.getContainer().hasSkill("effects.legend_martial_march"))
 			this.getContainer().add(march);
-
+		if (march != null && a.getSkills().hasSkill("effects.legend_martial_march"))
+		{
+			local actor_skill = this.getContainer().getSkillByID("effects.legend_martial_march");
+			actor_skill.incrementStacks();
+			actor_skill.resetTurnsWithoutSong();
+		}
 		return true;
 	}
 });

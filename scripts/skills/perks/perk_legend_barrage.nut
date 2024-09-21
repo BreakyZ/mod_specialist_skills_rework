@@ -15,11 +15,16 @@ this.perk_legend_barrage <- this.inherit("scripts/skills/skill", {
 
 	function onUpdate(_properties)
 	{
-		_properties.HitChanceAdditionalWithEachTile += 2;
 		local item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-		if (item == null)
-			return;
-		if (item.getID() == "weapon.legend_slingstaff" || item.getID() == "weapon.named_northern_sling" || item.getID() == "weapon.nomad_sling")
+		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Sling))
+		{
+			_properties.HitChanceAdditionalWithEachTile += 2;
+		}
+	}
+
+	function onAnySkillUsed( _skill, _targetEntity, _properties )
+	{
+		if (_skill.getID() == "actives.legend_sling_heavy_stone")
 		{
 			_properties.DamageRegularMin += 15;
 			_properties.DamageRegularMax += 30;

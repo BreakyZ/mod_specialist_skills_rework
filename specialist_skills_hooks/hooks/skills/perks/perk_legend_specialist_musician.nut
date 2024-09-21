@@ -3,6 +3,8 @@
 	q.create = @(__original) function()
 	{
 		__original();
+		this.m.Icon = "ui/perks/perk_spec_bard.png";
+		// this.m.IconMini = "perk_spec_bard_mini.png";
 		this.m.Type = this.Const.SkillType.Perk | this.Const.SkillType.StatusEffect;
 	}
 

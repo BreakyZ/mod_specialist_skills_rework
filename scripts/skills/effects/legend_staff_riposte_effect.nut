@@ -5,7 +5,7 @@ this.legend_staff_riposte_effect <- this.inherit("scripts/skills/skill", {
 		this.m.ID = "effects.legend_staff_riposte";
 		this.m.Name = "Staff Riposte";
 		this.m.Icon = "skills/status_effect_33.png";
-		this.m.IconMini = "status_effect_33_mini";
+		// this.m.IconMini = "status_effect_33_mini";
 		this.m.Overlay = "status_effect_33";
 		this.m.Type = this.Const.SkillType.StatusEffect;
 		this.m.IsActive = false;

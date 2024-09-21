@@ -154,7 +154,7 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 	{
 		local mhand = this.getContainer().getActor().getMainhandItem();
 
-		if (mhand != null)
+		if (mhand != null && _skill == this)
 		{
 			_properties.DamageRegularMin -= mhand.m.RegularDamage;
 			_properties.DamageRegularMax -= mhand.m.RegularDamageMax;

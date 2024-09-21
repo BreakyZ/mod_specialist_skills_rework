@@ -3,6 +3,8 @@
 	q.create = @(__original) function()
 	{
 		__original();
+		this.m.Icon = "ui/perks/perk_spec_sickle.png";
+		// this.m.IconMini = "perk_spec_sickle_mini.png";
 		this.m.Type = this.Const.SkillType.Perk | this.Const.SkillType.StatusEffect;
 	}
 
@@ -110,15 +112,15 @@
 		{
 			item.addSkill(this.new("scripts/skills/actives/knock_out"));
 		}
-		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Mace) && item.isItemType(this.Const.Items.ItemType.TwoHanded) && !actor.getSkills().hasSkill("effects.gravedigging_effect"))
+		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Mace) && item.isItemType(this.Const.Items.ItemType.TwoHanded) && !actor.getSkills().hasSkill("effects.legend_gravedigging"))
 		{
-			actor.getSkills().add(this.new("scripts/skills/effects/gravedigging_effect"));
+			actor.getSkills().add(this.new("scripts/skills/effects/legend_gravedigging_effect"));
 		}
 	}
 
 	q.onRemoved = @( __original ) function()
 	{
 		this.getContainer().getActor().getSkills().removeByID("actives.knock_out");
-		this.getContainer().getActor().getSkills().removeByID("effects.gravedigging_effect");
+		this.getContainer().getActor().getSkills().removeByID("effects.legend_gravedigging");
 	}
 });

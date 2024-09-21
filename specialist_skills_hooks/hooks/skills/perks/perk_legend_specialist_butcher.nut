@@ -14,6 +14,8 @@
 	q.create = @(__original) function()
 	{
 		__original();
+		this.m.Icon = "ui/perks/perk_spec_butcher.png";
+		// this.m.IconMini = "perk_spec_butcher_mini.png";
 		this.m.Type = this.Const.SkillType.Perk | this.Const.SkillType.StatusEffect;
 	}
 
@@ -112,55 +114,92 @@
 		}
 	}
 
-	q.onAnySkillUsed <- function( _skill, _targetEntity, _properties )
-	{	
-		local actor = this.getContainer().getActor();
-		local item = actor.getMainhandItem();
+	q.onTargetHit <- function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	{
+
+		if (!_targetEntity.isAlive() || _targetEntity.isDying())
+		{
+			return false;
+		}
+		
+		if (_targetEntity.getCurrentProperties().IsImmuneToBleeding)
+		{
+			return false;
+		}
+
+		if (_targetEntity.isNonCombatant())
+		{
+			return false;
+		}
+
+		local user = _skill.getContainer().getActor();
+		local item = user.getMainhandItem();
 		if (item == null || item.isWeaponType(this.Const.Items.WeaponType.Whip) || !item.isWeaponType(this.Const.Items.WeaponType.Cleaver))
 			return;
 
-		this.spawnAttackEffect(_targetEntity.getTile(), this.Const.Tactical.AttackEffectChop);
-		local hp = _targetEntity.getHitpoints();
-		local success = this.attackEntity(_user, _targetEntity);
+		_targetEntity.getSkills().add(this.new("scripts/skills/effects/legend_grazed_effect"));
 
-		if (!_user.isAlive() || _user.isDying())
+		if (!user.isHiddenToPlayer() && _targetEntity.getTile().IsVisibleForPlayer)
 		{
-			return;
+			this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " filleted " + this.Const.UI.getColorizedEntityName(_targetEntity) + " leaving them grazed");
 		}
-
-		if (success)
-		{
-			if (!_targetEntity.isAlive() || _targetEntity.isDying())
-			{
-				if (this.isKindOf(_targetEntity, "lindwurm_tail") || !_targetEntity.getCurrentProperties().IsImmuneToBleeding)
-				{
-					this.Sound.play(this.m.SoundsA[this.Math.rand(0, this.m.SoundsA.len() - 1)], this.Const.Sound.Volume.Skill, _user.getPos());
-				}
-				else
-				{
-					this.Sound.play(this.m.SoundsB[this.Math.rand(0, this.m.SoundsB.len() - 1)], this.Const.Sound.Volume.Skill, _user.getPos());
-				}
-			}
-			else if (!_targetEntity.getCurrentProperties().IsImmuneToBleeding && hp - _targetEntity.getHitpoints() >= this.Const.Combat.MinDamageToApplyBleeding )
-			{
-				local effect = this.new("scripts/skills/effects/legend_grazed_effect");
-				if (_user.getFaction() == this.Const.Faction.Player )
-				{
-					effect.setActor(this.getContainer().getActor());
-				}
-				_targetEntity.getSkills().add(effect);
-				if (!user.isHiddenToPlayer() && _targetEntity.getTile().IsVisibleForPlayer)
-				{
-					this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " filleted " + this.Const.UI.getColorizedEntityName(_targetEntity) + " leaving them grazed");
-				}
-				this.Sound.play(this.m.SoundsA[this.Math.rand(0, this.m.SoundsA.len() - 1)], this.Const.Sound.Volume.Skill, _user.getPos());
-			}
-			else
-			{
-				this.Sound.play(this.m.SoundsB[this.Math.rand(0, this.m.SoundsB.len() - 1)], this.Const.Sound.Volume.Skill, _user.getPos());
-			}
-		}
-
-		return success;
+	
+		return true;	
 	}
+
+	// q.onTargetHit <- function ( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	// {	
+	// 	if (_targetEntity == null)
+	// 		return;
+
+	// 	local actor = this.getContainer().getActor();
+	// 	local item = actor.getMainhandItem();
+	// 	if (item == null || item.isWeaponType(this.Const.Items.WeaponType.Whip) || !item.isWeaponType(this.Const.Items.WeaponType.Cleaver))
+	// 		return;
+
+	// 	this.spawnAttackEffect(_targetEntity.getTile(), this.Const.Tactical.AttackEffectChop);
+	// 	local hp = _targetEntity.getHitpoints();
+	// 	local success = this.attackEntity(actor, _targetEntity);
+
+	// 	if (!actor.isAlive() || actor.isDying())
+	// 	{
+	// 		return;
+	// 	}
+
+	// 	if (success)
+	// 	{
+	// 		if (!_targetEntity.isAlive() || _targetEntity.isDying())
+	// 		{
+	// 			if (this.isKindOf(_targetEntity, "lindwurm_tail") || !_targetEntity.getCurrentProperties().IsImmuneToBleeding)
+	// 			{
+	// 				this.Sound.play(this.m.SoundsA[this.Math.rand(0, this.m.SoundsA.len() - 1)], this.Const.Sound.Volume.Skill, actor.getPos());
+	// 			}
+	// 			else
+	// 			{
+	// 				this.Sound.play(this.m.SoundsB[this.Math.rand(0, this.m.SoundsB.len() - 1)], this.Const.Sound.Volume.Skill, actor.getPos());
+	// 			}
+	// 		}
+	// 		else if (!_targetEntity.getCurrentProperties().IsImmuneToBleeding && hp - _targetEntity.getHitpoints() >= this.Const.Combat.MinDamageToApplyBleeding )
+	// 		{
+	// 			local effect = this.new("scripts/skills/effects/bleeding_effect");
+	// 			effect.setDamage(2);
+	// 			if (actor.getFaction() == this.Const.Faction.Player )
+	// 			{
+	// 				effect.setActor(actor);
+	// 			}
+	// 			_targetEntity.getSkills().add(effect);
+	// 			if (!_targetEntity.isHiddenToPlayer() && _targetEntity.getTile().IsVisibleForPlayer)
+	// 			{
+	// 				this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " filleted " + this.Const.UI.getColorizedEntityName(_targetEntity) + " leaving them grazed");
+	// 			}
+	// 			this.Sound.play(this.m.SoundsA[this.Math.rand(0, this.m.SoundsA.len() - 1)], this.Const.Sound.Volume.Skill, actor.getPos());
+	// 		}
+	// 		else
+	// 		{
+	// 			this.Sound.play(this.m.SoundsB[this.Math.rand(0, this.m.SoundsB.len() - 1)], this.Const.Sound.Volume.Skill, actor.getPos());
+	// 		}
+	// 	}
+
+	// 	return success;
+	// }
 });

@@ -5,7 +5,8 @@ this.perk_legend_specialist_bodyguard <- this.inherit("scripts/skills/skill", {
 		this.m.ID = "perk.legend_specialist_bodyguard";
 		this.m.Name = this.Const.Strings.PerkName.LegendSpecialistBodyguard;
 		this.m.Description = this.Const.Strings.PerkDescription.LegendSpecialistBodyguard;
-		this.m.Icon = "ui/perks/favoured_knight_01.png";
+		this.m.Icon = "ui/perks/perk_spec_2hsword.png";
+		// this.m.IconMini = "perk_spec_2hsword_mini.png";
 		this.m.Type = this.Const.SkillType.Perk | this.Const.SkillType.StatusEffect;
 		this.m.Order = this.Const.SkillOrder.Perk;
 		this.m.IsActive = false;

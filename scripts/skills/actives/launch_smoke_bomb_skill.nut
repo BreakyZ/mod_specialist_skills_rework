@@ -149,7 +149,18 @@ this.launch_smoke_bomb_skill <- this.inherit("scripts/skills/skill", {
 			this.m.Item.consumeAmmo();
 	}
 
-function onVerifyTarget( _originTile, _targetTile )
+	function onAnySkillUsed( _skill, _targetEntity, _properties )
+	{
+		local mhand = this.getContainer().getActor().getMainhandItem();
+
+		if (mhand != null && _skill == this)
+		{
+			_properties.DamageRegularMin -= mhand.m.RegularDamage;
+			_properties.DamageRegularMax -= mhand.m.RegularDamageMax;
+		}
+	}
+
+	function onVerifyTarget( _originTile, _targetTile )
 	{
 		if (!this.skill.onVerifyTarget(_originTile, _targetTile))
 		{

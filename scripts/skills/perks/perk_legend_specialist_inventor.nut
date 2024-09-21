@@ -5,7 +5,8 @@ this.perk_legend_specialist_inventor <- this.inherit("scripts/skills/skill", {
 		this.m.ID = "perk.legend_specialist_inventor";
 		this.m.Name = this.Const.Strings.PerkName.LegendSpecialistInventor;
 		this.m.Description = this.Const.Strings.PerkDescription.LegendSpecialistInventor;
-		this.m.Icon = "ui/perks/specialist_inventor.png";
+		this.m.Icon = "ui/perks/perk_spec_firearm.png";
+		// this.m.IconMini = "perk_spec_firearm_mini.png";
 		this.m.Type = this.Const.SkillType.Perk | this.Const.SkillType.StatusEffect;
 		this.m.Order = this.Const.SkillOrder.Perk;
 		this.m.IsActive = false;

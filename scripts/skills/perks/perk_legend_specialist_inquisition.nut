@@ -5,7 +5,8 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 		this.m.ID = "perk.legend_specialist_inquisition";
 		this.m.Name = this.Const.Strings.PerkName.LegendSpecialistInquisition;
 		this.m.Description = this.Const.Strings.PerkDescription.LegendSpecialistInquisition;
-		this.m.Icon = "ui/perks/specialist_inquisition.png";
+		this.m.Icon = "ui/perks/perk_spec_xbow.png";
+		// this.m.IconMini = "perk_spec_xbow_mini.png";
 		this.m.Type = this.Const.SkillType.Perk | this.Const.SkillType.StatusEffect;
 		this.m.Order = this.Const.SkillOrder.Perk;
 		this.m.IsActive = false;
@@ -25,17 +26,20 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 		local item = actor.getMainhandItem();
 		local off = actor.getOffhandItem(); 
 		local specialistWeapon = false;
-		switch (true) 
+		switch (true)
 		{
-			case item == null:
+			case item == null && off == null:
+			{
 				tooltip.push({
 					id = 6,
 					type = "text",
 					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
 				});
 				return tooltip;
-			case item.getID() == "weapon.legend_wooden_stake":
+			}
+			case item != null && item.getID() == "weapon.legend_wooden_stake":
+			{
 				tooltip.extend([
 				{
 					id = 6,
@@ -50,7 +54,10 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(10, specialistWeapon) + "[/color] Damage"
 				}]);
 				return tooltip;
-			case !item.isWeaponType(this.Const.Items.WeaponType.Crossbow): 
+			}
+			case off != null && off.getID() != "weapon.legend_hand_crossbow":
+			case item != null && !item.isWeaponType(this.Const.Items.WeaponType.Crossbow):
+			{
 				tooltip.push({
 					id = 6,
 					type = "text",
@@ -58,7 +65,9 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
 				});
 				return tooltip;
-			case (off.getID() == "weapon.legend_hand_crossbow" || item.getID() == "weapon.goblin_crossbow"):
+			}
+			case off != null && off.getID() == "weapon.legend_hand_crossbow":
+			case item != null && item.getID() == "weapon.goblin_crossbow":
 				specialistWeapon = true;
 		}
 
@@ -80,7 +89,7 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 				icon = "ui/icons/ranged_skill.png",
 				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Ranged Skill"
 			});
-			if (actor.getCurrentProperties().IsSpecializedInCleavers)
+			if (actor.getCurrentProperties().IsSpecializedInCrossbows)
 			{
 				tooltip.push({
 					id = 7,
@@ -103,9 +112,7 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 	function validTarget( _targetID)
 	{
 		if (_targetID == this.Const.EntityType.Hexe || _targetID == this.Const.EntityType.Alp)
-		{
 			return true;
-		}
 		return false;
 	}
 
@@ -119,16 +126,10 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 		local off = actor.getOffhandItem();
 		local specialistWeapon = false;
 
-		if (item == null || !item.isWeaponType(this.Const.Items.WeaponType.Crossbow))
-			return;
-
-		if (off.getID() == "weapon.legend_hand_crossbow" || item.getID() == "weapon.goblin_crossbow")
-		{
-			specialistWeapon = true;
-		}
-
 		if (_skill.getID() == "actives.shoot_bolt" || _skill.getID() == "actives.shoot_stake" || _skill.getID() == "actives.legend_piercing_bolt")
 		{
+			if ((off != null && off.getID() == "weapon.legend_hand_crossbow") || (item != null && item.getID() == "weapon.goblin_crossbow"))
+				specialistWeapon = true;
 			if (this.validTarget(_targetEntity.getType()))
 			{
 				_properties.RangedSkill += actor.calculateSpecialistBonus(24, specialistWeapon);

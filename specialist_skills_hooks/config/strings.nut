@@ -17,19 +17,11 @@
 
 // new staff perks
 ::Const.Strings.PerkName.LegendStaffBlock <- "Staff Block";
-::Const.Strings.PerkDescription.LegendStaffBlock <- "Tae Bonk!\n\n[color=#4f1800][u]Active:[/u][/color]\n• Grants the [color=#400080]Staff Riposte[/color] ability which allows counterattack any opponent that misses you in melee.\n\n[color=#4f1800][u]Passive:[/u][/color]\n• Additionally the defense malus due to being surrounded by opponents is reduced by [color=" + this.Const.UI.Color.NegativeValue + "]3[/color].\n\n• If you have [color=#993b00]Underdog[/color] or [color=#993b00]Battleheart[/color], this perk will instead increase defenses by [color=" + this.Const.UI.Color.PositiveValue + "]5[/color].";
+::Const.Strings.PerkDescription.LegendStaffBlock <- "Tae Bonk!\n\n[color=#4f1800][u]Active:[/u][/color]\n• Grants the [color=#400080]Staff Riposte[/color] ability which allows counterattack any opponent that misses you in melee.\n\n[color=#4f1800][u]Passive:[/u][/color]\n• Additionally, while wielding a staff, the defense malus due to being surrounded by opponents is reduced by [color=" + this.Const.UI.Color.NegativeValue + "]3[/color].\n\n• If you have [color=#993b00]Underdog[/color] or [color=#993b00]Battleheart[/color], this perk will instead increase defenses by [color=" + this.Const.UI.Color.PositiveValue + "]5[/color].";
 
 // new song perks
-if (::Is_SSU_Exist)
-{
-	::Const.Strings.PerkName.LegendMinnesanger <- "Minnesänger";
-	::Const.Strings.PerkDescription.LegendMinnesanger <- "\'Step outside mine walls, wearing an expensive tunic. Thee sayeth thou art highborn, but I heareth thou art eunich.\'\n\n[color=#4f1800][u]Passive:[/u][/color]\n• Grants [color=" + this.Const.UI.Color.PositiveValue + "]4[/color] Hitpoints or [color=" + this.Const.UI.Color.PositiveValue + "]2[/color] Fatigue bonus to [color=#400080]Song of Life[/color] and [color=#400080]War Chant[/color] effect, respectively.";
-}
-else
-{
-	::Const.Strings.PerkName.LegendMinnesanger <- "Minnesänger";
-	::Const.Strings.PerkDescription.LegendMinnesanger <- "\'Step outside mine walls, wearing an expensive tunic. Thee sayeth thou art highborn, but I heareth thou art eunich.\'\n\n[color=#4f1800][u]Passive:[/u][/color]\n• Grants  [color=" + this.Const.UI.Color.PositiveValue + "]2[/color] Hitpoints or Fatigue bonus to [color=#400080]Song of Life[/color] and [color=#400080]War Chant[/color] effect, respectively.";
-}
+::Const.Strings.PerkName.LegendMinnesanger <- "Minnesänger";
+::Const.Strings.PerkDescription.LegendMinnesanger <- "\'Step outside mine walls, wearing an expensive tunic. Thee sayeth thou art highborn, but I heareth thou art eunich.\'\n\n[color=#4f1800][u]Passive:[/u][/color]\n• Grants  [color=" + this.Const.UI.Color.PositiveValue + "]2[/color] Hitpoints or Fatigue bonus to [color=#400080]Song of Life[/color] and [color=#400080]War Chant[/color] effect, respectively.";
 ::Const.Strings.PerkName.LegendMinnesanger <- "Minnesänger";
 ::Const.Strings.PerkDescription.LegendMinnesanger <- "\'Step outside mine walls, wearing an expensive tunic. Thee sayeth thou art highborn, but I heareth thou art eunich.\'\n\n[color=#4f1800][u]Passive:[/u][/color]\n• Grants  [color=" + this.Const.UI.Color.PositiveValue + "]2[/color] Hitpoints or Fatigue bonus to [color=#400080]Song of Life[/color] and [color=#400080]War Chant[/color] effect, respectively.";
 ::Const.Strings.PerkName.LegendMeistersanger <- "Meistersänger";

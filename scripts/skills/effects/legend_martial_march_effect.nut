@@ -10,9 +10,10 @@ this.legend_martial_march_effect <- this.inherit("scripts/skills/skill", {
 		this.m.Name = "Martial March";
 		this.m.Description = "This character is being influenced by a martial march and has a chance to recover Action Points with every skill used.";
 		this.m.Icon = "ui/effects/drums_of_war.png";
-		this.m.IconMini = "drums_of_war_mini.png";
+		// this.m.IconMini = "drums_of_war_mini.png";
 		// this.m.Overlay = "drums_of_war";
 		this.m.Type = this.Const.SkillType.StatusEffect;
+		this.m.Order = this.Const.SkillOrder.VeryLast;
 		this.m.IsActive = false;
 		this.m.IsHidden = false;
 	}

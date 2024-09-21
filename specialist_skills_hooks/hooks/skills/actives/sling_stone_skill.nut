@@ -72,7 +72,7 @@
 		{
 			local targetTile = _targetEntity.getTile();
 			local user = this.getContainer().getActor();
-			local isApplied = _bodyPart == this.Const.BodyPart.Head ? true : this.Math.Rand(1, 100) <= 33;
+			local isApplied = _bodyPart == this.Const.BodyPart.Head ? true : this.Math.rand(1, 100) <= 33;
 			local effect = !_targetEntity.getCurrentProperties().IsImmuneToDaze ? this.new("scripts/skills/effects/dazed_effect") : this.new("scripts/skills/effects/staggered_effect");
 			local effectName = !_targetEntity.getCurrentProperties().IsImmuneToDaze ? "dazed" : "staggered";
 

@@ -1,5 +1,6 @@
 local instruments = [
 	"lute",
+	"legend_drum"
 	"named/named_lute",
 	"barbarians/drum_item"
 ];
@@ -10,7 +11,6 @@ foreach (instrument in instruments)
 		q.onEquip = @(__original) function()
 		{
 			__original();
-
 			this.addSkill(this.new("scripts/skills/actives/legend_drums_of_war_skill"));
 			this.addSkill(this.new("scripts/skills/actives/legend_drums_of_life_skill"));
 		}

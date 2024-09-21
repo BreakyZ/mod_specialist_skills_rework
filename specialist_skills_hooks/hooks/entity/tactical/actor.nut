@@ -16,7 +16,7 @@
 		}
 		else if (this.getLevel() - 5 > 0)
 		{
-			return this.Math.floor((this.Math.min(14, this.getLevel()) - 5) * 0.1 * _stat);
+			return this.Math.floor((this.Math.min(15, this.getLevel()) - 5) * 0.1 * _stat);
 		}
 		else
 		{

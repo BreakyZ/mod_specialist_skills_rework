@@ -22,9 +22,9 @@ local slingstaves = [
 	"legend_slingstaff"
 ];
 if (::Is_SSU_Exist)
-	slings.push("named/named_northern_sling");
+	slingstaves.push("named/named_northern_sling");
 
-foreach (sling in slings)
+foreach (sling in slingstaves)
 {
 	::ModSpecialistSkillsRework.HooksMod.hook("scripts/items/weapons/" + sling, function( q )
 	{	
@@ -38,7 +38,7 @@ foreach (sling in slings)
 			this.addSkill(this.new("scripts/skills/actives/launch_daze_bomb_skill"));
 			this.addSkill(this.new("scripts/skills/actives/launch_fire_bomb_skill"));
 			this.addSkill(this.new("scripts/skills/actives/launch_holy_water"));
-			this.addSkill(this.new("scripts/skills/actives/launch_smoke_bomb"));
+			this.addSkill(this.new("scripts/skills/actives/launch_smoke_bomb_skill"));
 			if (::Is_SSU_Exist)
 				this.addSkill(this.new("scripts/skills/actives/launch_acid_flask_02"));
 		}
@@ -75,7 +75,7 @@ foreach (sling in slings)
 		this.addSkill(this.new("scripts/skills/actives/launch_daze_bomb_skill"));
 		this.addSkill(this.new("scripts/skills/actives/launch_fire_bomb_skill"));
 		this.addSkill(this.new("scripts/skills/actives/launch_holy_water"));
-		this.addSkill(this.new("scripts/skills/actives/launch_smoke_bomb"));
+		this.addSkill(this.new("scripts/skills/actives/launch_smoke_bomb_skill"));
 		if (::Is_SSU_Exist)
 			this.addSkill(this.new("scripts/skills/actives/launch_acid_flask_02"));
 	}

@@ -6,7 +6,7 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 		this.m.Name = "Prepare Bullet";
 		this.m.Description = "This character is preparing a shot with a sling, increasing velocity and damage.";
 		this.m.Icon = "ui/effects/slinger_spins.png";
-		this.m.IconMini = "slinger_spins_mini.png";
+		// this.m.IconMini = "slinger_spins_mini.png";
 		// this.m.Overlay = "slinger_spins";
 		this.m.Type = this.Const.SkillType.StatusEffect;
 		this.m.IsActive = false;
@@ -77,7 +77,7 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 		_properties.DamageRegularMax *= 1.2;
 		local sourcePerk = this.getContainer().getSkillByID("perk.legend_specialist_sling_skill");
 		if (sourcePerk)
-			_properties.DirectDamageAdd += sourcePerk.m.armorDamageApplied;
+			_properties.DamageDirectAdd += sourcePerk.m.armorDamageApplied;
 		this.removeSelf();
 	}
 });
