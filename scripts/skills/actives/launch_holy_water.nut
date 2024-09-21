@@ -7,9 +7,9 @@ this.launch_holy_water <- this.inherit("scripts/skills/skill", {
 		this.m.ID = "actives.launch_holy_water";
 		this.m.Name = "Launch Blessed Water";
 		this.m.Description = "Launch a flask of blessed water, with your slingstaff, towards a target, where it will shatter and spray its contents. The blessed water will burn the undead, but will not affect other targets.";
-		this.m.Icon = "skills/active_209.png";
-		this.m.IconDisabled = "skills/active_209_sw.png";
-		this.m.Overlay = "active_209";
+		this.m.Icon = "skills/active_97.png";
+		this.m.IconDisabled = "skills/active_97_sw.png";
+		this.m.Overlay = "active_97";
 		this.m.SoundOnUse = [
 			"sounds/combat/dlc4/sling_use_01.wav",
 			"sounds/combat/dlc4/sling_use_02.wav",
@@ -113,13 +113,15 @@ this.launch_holy_water <- this.inherit("scripts/skills/skill", {
 
 	function isHidden()
 	{
+		if (!this.getContainer().hasSkill("perk.legend_slinger_spins"))
+			return true;
 		if (this.m.Item != null && !this.m.Item.isNull())
 			if (this.m.Item.getAmmo() != 0)
 				return false;
 
 		foreach (item in this.getContainer().getActor().getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag))
 		{
-			if (item.getID() == "weapon.fire_bomb")
+			if (item.getID() == "weapon.holy_water")
 			{
 				if (item.getAmmo() != 0)
 				{
@@ -152,16 +154,14 @@ this.launch_holy_water <- this.inherit("scripts/skills/skill", {
 
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
-		local mhand = this.getContainer().getActor().getMainhandItem();
-
-		if (mhand != null)
+		if (_skill == this)
 		{
-			_properties.DamageRegularMin -= mhand.m.RegularDamage;
-			_properties.DamageRegularMax -= mhand.m.RegularDamageMax;
+			_properties.DamageRegularMin = 0;
+			_properties.DamageRegularMax = 0;
 		}
 	}
 
-function applyEffect( _target )
+	function applyEffect( _target )
 	{
 		if (!_target.getFlags().has("undead"))
 		{
@@ -194,6 +194,7 @@ function applyEffect( _target )
 
 		return true;
 	}
+
 	function onUse( _user, _targetTile )
 	{
 		local targetEntity = _targetTile.getEntity();

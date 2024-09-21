@@ -7,9 +7,9 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 		this.m.ID = "actives.launch_daze_bomb";
 		this.m.Name = "Launch Daze Pot";
 		this.m.Description = "Launch a pot, with your slingstaff, filled with mysterious powders that react violently on impact to create a bright flash and loud bang, and will daze anyone close by - friend and foe alike";
-		this.m.Icon = "skills/active_209.png";
-		this.m.IconDisabled = "skills/active_209_sw.png";
-		this.m.Overlay = "active_209";
+		this.m.Icon = "skills/active_207.png";
+		this.m.IconDisabled = "skills/active_207_sw.png";
+		this.m.Overlay = "active_207";
 		this.m.SoundOnUse = [
 			"sounds/combat/dlc4/sling_use_01.wav",
 			"sounds/combat/dlc4/sling_use_02.wav",
@@ -100,13 +100,15 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 
 	function isHidden()
 	{
+		if (!this.getContainer().hasSkill("perk.legend_slinger_spins"))
+			return true;
 		if (this.m.Item != null && !this.m.Item.isNull())
 			if (this.m.Item.getAmmo() != 0)
 				return false;
 
 		foreach (item in this.getContainer().getActor().getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag))
 		{
-			if (item.getID() == "weapon.fire_bomb")
+			if (item.getID() == "weapon.daze_bomb")
 			{
 				if (item.getAmmo() != 0)
 				{
@@ -131,15 +133,6 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 		return 0;
 	}
 
-	// function onUpdate(_properties)
-	// {
-	// 	foreach (item in this.getContainer().getActor().getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag))
-	// 	{
-	// 		if (item.getID() == "weapon.fire_bomb")
-	// 			this.setItem(item);
-	// 	}
-	// }
-
 	function consumeAmmo()
 	{
 		if (this.m.Item != null && !this.m.Item.isNull())
@@ -148,12 +141,10 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
-		local mhand = this.getContainer().getActor().getMainhandItem();
-
-		if (mhand != null && _skill == this)
+		if (_skill == this)
 		{
-			_properties.DamageRegularMin -= mhand.m.RegularDamage;
-			_properties.DamageRegularMax -= mhand.m.RegularDamageMax;
+			_properties.DamageRegularMin = 0;
+			_properties.DamageRegularMax = 0;
 		}
 	}
 
@@ -194,7 +185,8 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 
 		return true;
 	}
-function onUse( _user, _targetTile )
+
+	function onUse( _user, _targetTile )
 	{
 		if (this.m.IsShowingProjectile && this.m.ProjectileType != 0)
 		{

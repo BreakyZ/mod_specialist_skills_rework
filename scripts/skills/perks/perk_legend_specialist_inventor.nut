@@ -95,7 +95,7 @@ this.perk_legend_specialist_inventor <- this.inherit("scripts/skills/skill", {
 					id = 7,
 					type = "text",
 					icon = "ui/icons/ranged_skill.png",
-					text = "Reduces Reload AP cost for Handgonnes and Crossbows by [color=" + this.Const.UI.Color.NegativeValue + "]1[/color] Minimum Damage Dealt"
+					text = "Reduces Reload AP cost for Handgonnes and Crossbows by [color=" + this.Const.UI.Color.NegativeValue + "]1[/color]"
 				});
 			}
 		}

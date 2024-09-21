@@ -7,8 +7,9 @@ this.launch_acid_flask_02 <- this.inherit("scripts/skills/skill", {
 		this.m.ID = "actives.launch_fire_bomb";
 		this.m.Name = "Launch Acid Flask";
 		this.m.Description = "Launch a flask of acid, with your slingstaff, towards a target, where it will shatter and spray its contents. The acid will slowly corrode away any armor of those hit - friend and foe alike.";		this.m.Icon = "skills/active_209.png";
-		this.m.IconDisabled = "skills/active_209_sw.png";
-		this.m.Overlay = "active_209";
+		this.m.Icon = "skills/active_106.png";
+		this.m.IconDisabled = "skills/active_106_sw.png";
+		this.m.Overlay = "active_106";
 		this.m.SoundOnUse = [
 			"sounds/combat/dlc4/sling_use_01.wav",
 			"sounds/combat/dlc4/sling_use_02.wav",
@@ -112,13 +113,15 @@ this.launch_acid_flask_02 <- this.inherit("scripts/skills/skill", {
 
 	function isHidden()
 	{
+		if (!this.getContainer().hasSkill("perk.legend_slinger_spins"))
+			return true;
 		if (this.m.Item != null && !this.m.Item.isNull())
 			if (this.m.Item.getAmmo() != 0)
 				return false;
 
 		foreach (item in this.getContainer().getActor().getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag))
 		{
-			if (item.getID() == "weapon.fire_bomb")
+			if (item.getID() == "weapon.acid_flask_02")
 			{
 				if (item.getAmmo() != 0)
 				{
@@ -151,12 +154,10 @@ this.launch_acid_flask_02 <- this.inherit("scripts/skills/skill", {
 
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
-		local mhand = this.getContainer().getActor().getMainhandItem();
-
-		if (mhand != null && _skill == this)
+		if (_skill == this)
 		{
-			_properties.DamageRegularMin -= mhand.m.RegularDamage;
-			_properties.DamageRegularMax -= mhand.m.RegularDamageMax;
+			_properties.DamageRegularMin = 0;
+			_properties.DamageRegularMax = 0;
 		}
 	}
 

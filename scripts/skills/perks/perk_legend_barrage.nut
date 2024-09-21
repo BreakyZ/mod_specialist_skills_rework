@@ -21,14 +21,4 @@ this.perk_legend_barrage <- this.inherit("scripts/skills/skill", {
 			_properties.HitChanceAdditionalWithEachTile += 2;
 		}
 	}
-
-	function onAnySkillUsed( _skill, _targetEntity, _properties )
-	{
-		if (_skill.getID() == "actives.legend_sling_heavy_stone")
-		{
-			_properties.DamageRegularMin += 15;
-			_properties.DamageRegularMax += 30;
-			_properties.DamageArmorMult += 0.50;
-		}
-	}
 });

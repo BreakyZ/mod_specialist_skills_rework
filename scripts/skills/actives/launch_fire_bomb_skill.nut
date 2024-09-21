@@ -113,6 +113,8 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 
 	function isHidden()
 	{
+		if (!this.getContainer().hasSkill("perk.legend_slinger_spins"))
+			return true;
 		if (this.m.Item != null && !this.m.Item.isNull())
 			if (this.m.Item.getAmmo() != 0)
 				return false;
@@ -152,12 +154,10 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
-		local mhand = this.getContainer().getActor().getMainhandItem();
-
-		if (mhand != null && _skill == this)
+		if (_skill == this)
 		{
-			_properties.DamageRegularMin -= mhand.m.RegularDamage;
-			_properties.DamageRegularMax -= mhand.m.RegularDamageMax;
+			_properties.DamageRegularMin = 0;
+			_properties.DamageRegularMax = 0;
 		}
 	}
 

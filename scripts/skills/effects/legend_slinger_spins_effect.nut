@@ -75,9 +75,6 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 			return;
 		_properties.DamageRegularMin *= 1.2;
 		_properties.DamageRegularMax *= 1.2;
-		local sourcePerk = this.getContainer().getSkillByID("perk.legend_specialist_sling_skill");
-		if (sourcePerk)
-			_properties.DamageDirectAdd += sourcePerk.m.armorDamageApplied;
 		this.removeSelf();
 	}
 });

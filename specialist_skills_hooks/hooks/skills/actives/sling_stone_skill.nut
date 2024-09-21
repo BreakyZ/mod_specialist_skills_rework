@@ -96,7 +96,7 @@
 				{
 					_targetEntity.getSkills().add(this.new("scripts/skills/effects/stunned_effect"));
 					if (!user.isHiddenToPlayer() && targetTile.IsVisibleForPlayer)
-						this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " struck a hit that leaves the already reeling" + this.Const.UI.getColorizedEntityName(_targetEntity) + " stunned");
+						this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " struck a hit that leaves the already reeling " + this.Const.UI.getColorizedEntityName(_targetEntity) + " stunned");
 					return;
 				}
 				else

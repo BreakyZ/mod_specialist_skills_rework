@@ -82,8 +82,35 @@
 		return tooltip;
 	}
 
-	q.onUpdate = @( __original ) function( _properties )
-	{
+	// q.onUpdate = @( __original ) function( _properties )
+	// {
+	// 	local actor = this.getContainer().getActor();
+	// 	local item = actor.getMainhandItem();
+	// 	local specialistWeapon = false;
+
+	// 	switch (true) 
+	// 	{
+	// 		case item == null:
+	// 			return;
+	// 		case !item.isWeaponType(this.Const.Items.WeaponType.Sling):
+	// 			return;
+	// 		case item.getID() == "weapon.legend_sling" || item.getID() == "weapon.legend_slingshot":
+	// 			specialistWeapon = true;
+	// 	}
+	// 	_properties.RangedSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+	// 	this.m.armorDamageApplied = 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon)
+
+	// 	if (actor.getCurrentProperties().IsSpecializedInSlings)
+	// 	{
+	// 		this.m.minDamageApplied = actor.calculateSpecialistBonus(6, specialistWeapon);
+	// 		this.m.maxDamageApplied = actor.calculateSpecialistBonus(16, specialistWeapon);
+	// 		_properties.DamageRegularMin += this.m.minDamageApplied;
+	// 		_properties.DamageRegularMax += this.m.maxDamageApplied;
+	// 	}
+	// }
+
+	function onAnySkillUsed( _skill, _targetEntity, _properties )
+	{	
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false;
@@ -97,29 +124,18 @@
 			case item.getID() == "weapon.legend_sling" || item.getID() == "weapon.legend_slingshot":
 				specialistWeapon = true;
 		}
-		_properties.RangedSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
-		this.m.armorDamageApplied = 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon)
+		if (_skill.getID() == "actives.legend_sling_heavy_stone" || _skill.getID() == "actives.legend_shoot_stone" || _skill.getID() == "actives.legend_shoot_precise_stone" || _skill.getID() == "actives.sling_stone")
+		{
+			_properties.RangedSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
+			_properties.DamageArmorMult += 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon);
+			if (_skill.getID() == "actives.sling_stone" && this.getContainer().hasSkill("effects.legend_slinger_spins"))
+				_properties.DamageDirectAdd += 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon);
 
-		if (actor.getCurrentProperties().IsSpecializedInSlings)
-		{
-			this.m.minDamageApplied = actor.calculateSpecialistBonus(6, specialistWeapon);
-			this.m.maxDamageApplied = actor.calculateSpecialistBonus(16, specialistWeapon);
-			_properties.DamageRegularMin += this.m.minDamageApplied;
-			_properties.DamageRegularMax += this.m.maxDamageApplied;
-		}
-	}
-
-	function onAnySkillUsed( _skill, _targetEntity, _properties )
-	{	
-		local actor = this.getContainer().getActor();
-		if (_skill.getID() == "actives.legend_slingstaff_bash" && actor.getCurrentProperties().IsSpecializedInSlings)
-		{
-			_properties.DamageRegularMin -= this.m.minDamageApplied;
-			_properties.DamageRegularMax -= this.m.maxDamageApplied;
-		}
-		if (_skill.getID() == "actives.legend_sling_heavy_stone")
-		{
-			_properties.DamageArmorMult += this.m.armorDamageApplied;
+			if (actor.getCurrentProperties().IsSpecializedInSlings)
+			{
+				_properties.DamageRegularMin += actor.calculateSpecialistBonus(6, specialistWeapon);
+				_properties.DamageRegularMax += actor.calculateSpecialistBonus(16, specialistWeapon);
+			}
 		}
 	}
 });

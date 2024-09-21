@@ -3,12 +3,6 @@
 	q.m.AdditionalAccuracy = 0;
 	q.m.AdditionalHitChance = -6;
 
-	// q.create = @( __original ) function ()
-	// {
-	// 	__original();
-	// 		this.m.IsShieldRelevant = true;
-	// }
-
 	q.getTooltip = @(__original) function()
 	{
 		local ret = this.getRangedTooltip(this.getDefaultTooltip());
@@ -19,7 +13,7 @@
 				id = 7,
 				type = "text",
 				icon = "ui/icons/special.png",
-				text = "Has a [color=" + this.Const.UI.Color.NegativeValue + "]100%[/color] chance to stun and daze target on a hit to the head if not immunue and always staggers the target"
+				text = "Has a [color=" + this.Const.UI.Color.NegativeValue + "]100%[/color] chance to stun and daze target on a hit to the head if not immune and always staggers the target"
 			});	
 		}
 		else
@@ -73,9 +67,15 @@
 	{
 		if (_skill == this)
 		{
-			// replaces the damage portion as it'll be handled in the perk
 			_properties.RangedSkill += this.m.AdditionalAccuracy;
 			_properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+
+			if (this.getContainer().hasSkill("perk.legend_barrage"))
+			{
+				_properties.DamageRegularMin += 15;
+				_properties.DamageRegularMax += 30;
+				_properties.DamageArmorMult *= 0.50;
+			}
 		}
 	}
 

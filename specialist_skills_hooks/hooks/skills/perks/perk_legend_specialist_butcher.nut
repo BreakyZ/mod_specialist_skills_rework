@@ -21,7 +21,7 @@
 
 	q.getDescription <- function()
 	{
-		return "Diligent practice with the hammer each day has proven to be equally good at crafting armor and finding it\'s weak points.";
+		return "Your skill on the butcher\'s block seems to be easily translated to chopping limbs on the battlefield.";
 	}
 
 	q.getTooltip <- function()
