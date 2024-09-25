@@ -130,6 +130,7 @@ this.launch_fire_bomb_skill <- this.inherit("scripts/skills/skill", {
 				}
 			}
 		}
+		this.m.Item = null;
 		return true;
 	}
 

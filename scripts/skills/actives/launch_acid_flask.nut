@@ -123,6 +123,7 @@ this.launch_acid_flask <- this.inherit("scripts/skills/skill", {
 				}
 			}
 		}
+		this.m.Item = null;
 		return true;
 	}
 

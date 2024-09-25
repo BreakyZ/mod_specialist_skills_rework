@@ -23,7 +23,33 @@
 		{
 			case item == null:
 			case !item.isWeaponType(this.Const.Items.WeaponType.Hammer):
-			case !(item.getID() == "weapon.pickaxe" || item.getID() == "weapon.military_pick" || item.getID() == "weapon.heavy_mining_pick"):
+			{
+				tooltip.push({
+					id = 6,
+					type = "text",
+					icon = "ui/icons/warning.png",
+					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
+				});
+				return tooltip;
+			}
+			case (item.getID() == "weapon.pickaxe" || item.getID() == "weapon.military_pick" || item.getID() == "weapon.heavy_mining_pick"):
+			{
+				tooltip.push({
+				id = 6,
+				type = "text",
+				icon = "ui/icons/melee_skill.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+12[/color] Melee Skill"
+				});
+				if (actor.getCurrentProperties().IsSpecializedInHammers)
+				{
+					tooltip.push({
+						id = 7,
+						type = "text",
+						icon = "ui/icons/damage_dealt.png",
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+6-16[/color] Damage"
+					});
+				}
+			}
 			case !item.isItemType(this.Const.Items.ItemType.TwoHanded):
 			{
 				tooltip.push({
@@ -34,8 +60,6 @@
 				});
 				return tooltip;
 			}
-			case item.getID() == "weapon.pickaxe" || item.getID() == "weapon.military_pick" || item.getID() == "weapon.heavy_mining_pick":
-				specialistWeapon = true;
 		}
 
 		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)

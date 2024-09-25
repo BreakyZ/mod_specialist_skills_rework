@@ -130,6 +130,7 @@ this.launch_holy_water <- this.inherit("scripts/skills/skill", {
 				}
 			}
 		}
+		this.m.Item = null;
 		return true;
 	}
 

@@ -1,4 +1,4 @@
-::Mod_Sellswords.HooksMod.hook("scripts/skills/actives/throw_holy_water", function( q ) {
+::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/actives/throw_holy_water", function( q ) {
 
 	q.m.Item = null;
 	q.setItem <- function( _i )

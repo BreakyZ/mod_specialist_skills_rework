@@ -4,7 +4,6 @@ local staves = [
 	"legend_staff_gnarled",
 	"legend_staff",
 	"legend_tipstaff",
-	"named/named_staff",
 	"legendary/obsidian_dagger",
 	"named/named_dagger"
 ];
@@ -13,6 +12,7 @@ if (Is_SSU_Exist)
 	staves.extend([
 		"dryad/dryad_staff",
 		"greenskins/cr_orc_staff"
+		"named/named_staff",
 	])
 };
 foreach (staff in staves)

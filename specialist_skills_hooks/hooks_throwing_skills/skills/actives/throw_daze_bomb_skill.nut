@@ -1,4 +1,4 @@
-::Mod_Sellswords.HooksMod.hook("scripts/skills/actives/throw_daze_bomb_skill", function ( q ) {
+::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/actives/throw_daze_bomb_skill", function ( q ) {
 
 	q.m.Item = null;
 	q.setItem <- function( _i )

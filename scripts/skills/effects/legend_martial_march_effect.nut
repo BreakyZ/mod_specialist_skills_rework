@@ -18,6 +18,11 @@ this.legend_martial_march_effect <- this.inherit("scripts/skills/skill", {
 		this.m.IsHidden = false;
 	}
 
+	function getDescription()
+	{
+		return "This character is being influenced by a martial march and has a chance to recover Action Points with every skill used.";
+	}
+
 	function incrementStacks()
 	{
 		this.m.songStacks += 1;

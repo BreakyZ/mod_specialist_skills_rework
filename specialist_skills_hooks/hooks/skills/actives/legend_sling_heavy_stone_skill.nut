@@ -54,13 +54,8 @@
 		if (this.getContainer().hasSkill("perk.legend_barrage"))
 		{
 			this.m.ActionPointCost += 1;
-			this.m.FatigueCost = 4;
+			this.m.FatigueCost += 4;
 		}
-		// doesn't make sense for this skill
-		// if (this.getContainer().hasSkill("perk.legend_slinger_spins"))
-		// {
-		// 	this.m.IsShieldRelevant = false;
-		// }
 	}
 
 	q.onAnySkillUsed = @(__original) function( _skill, _targetEntity, _properties )
