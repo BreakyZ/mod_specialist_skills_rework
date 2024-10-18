@@ -210,7 +210,8 @@ this.launch_holy_water <- this.inherit("scripts/skills/skill", {
 			}
 		}
 
-		_user.getItems().unequip(_user.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand));
+		this.consumeAmmo();
+
 		this.Time.scheduleEvent(this.TimeUnit.Real, 200, this.onApplyEffect.bindenv(this), {
 			Skill = this,
 			TargetTile = _targetTile

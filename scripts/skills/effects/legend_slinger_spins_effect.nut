@@ -30,7 +30,7 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 				id = 12,
 				type = "text",
 				icon = "ui/icons/damage_dealt.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] Ranged Damage"
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]" + this.getBonus() + "%[/color] Ranged Damage"
 			},
 			{
 				id = 12,
@@ -49,6 +49,11 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 					text = "[color=" + this.Const.UI.Color.PositiveValue + "]" + sourcePerk.m.armorDamageApplied +"%[/color] Armor Penetration"
 			});
 		return ret;
+	}
+
+	function getBonus()
+	{
+		return this.getContainer().getActor().RangedSkill * 0.2;
 	}
 
 	function onUpdate( _properties )
@@ -73,8 +78,8 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 	{
 		if (_skill.isGarbage() || !_skill.getID() == "actives.sling_stone")
 			return;
-		_properties.DamageRegularMin *= 1.2;
-		_properties.DamageRegularMax *= 1.2;
+		_properties.DamageRegularMin *= 1.0 + this.getBonus();
+		_properties.DamageRegularMax *= 1.0 + this.getBonus();
 		this.removeSelf();
 	}
 });

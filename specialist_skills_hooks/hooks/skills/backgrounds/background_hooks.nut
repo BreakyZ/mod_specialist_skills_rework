@@ -23,7 +23,7 @@
 			this.Const.Perks.MaceTree,
 			this.Const.Perks.HammerTree,
 			this.Const.Perks.CleaverTree,
-			this.Const.Perks.StaffTree,
+			this.Const.Perks.StaffTree
 
 		];
 		local rand = this.Math.rand(0, classTrees.len() - 1);
@@ -47,7 +47,9 @@
 			this.Const.Perks.HammerClassTree,
 			this.Const.Perks.ShovelClassTree,
 			this.Const.Perks.PickaxeClassTree,
-			this.Const.Perks.ButcherClassTree
+			this.Const.Perks.ButcherClassTree,
+			this.Const.Perks.SpecialistStaffTree,
+			this.Const.Perks.SpecialistStaffTree
 		];
 		local weaponTrees =
 		[
@@ -58,6 +60,7 @@
 			this.Const.Perks.MaceTree,
 			this.Const.Perks.HammerTree,
 			this.Const.Perks.CleaverTree,
+			this.Const.Perks.StaffTree
 
 		];
 		local rand = this.Math.rand(0, classTrees.len() - 1);

@@ -216,7 +216,7 @@ this.launch_acid_flask <- this.inherit("scripts/skills/skill", {
 
 		this.consumeAmmo();
 		
-		this.Time.scheduleEvent(this.TimeUnit.Real, 250, this.onApply.bindenv(this), {
+		this.Time.scheduleEvent(this.TimeUnit.Real, 250, this.onApplyAcid.bindenv(this), {
 			Skill = this,
 			User = _user,
 			TargetTile = _targetTile

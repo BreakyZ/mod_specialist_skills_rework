@@ -4,10 +4,10 @@ this.launch_acid_flask_02 <- this.inherit("scripts/skills/skill", {
 		},
 	function create()
 	{
-		this.m.ID = "actives.launch_fire_bomb";
+		this.m.ID = "actives.launch_acid_flask_02";
 		this.m.Name = "Launch Acid Flask";
 		this.m.Description = "Launch a flask of acid, with your slingstaff, towards a target, where it will shatter and spray its contents. The acid will slowly corrode away any armor of those hit - friend and foe alike.";		this.m.Icon = "skills/active_209.png";
-		this.m.Icon = "skills/active_106.png";
+		this.m.Icon = "skills/active_cr_03.png";
 		this.m.IconDisabled = "skills/active_106_sw.png";
 		this.m.Overlay = "active_106";
 		this.m.SoundOnUse = [
@@ -205,7 +205,7 @@ this.launch_acid_flask_02 <- this.inherit("scripts/skills/skill", {
 
 		this.consumeAmmo();
 		
-		this.Time.scheduleEvent(this.TimeUnit.Real, 250, this.onApply.bindenv(this), {
+		this.Time.scheduleEvent(this.TimeUnit.Real, 250, this.onApplyAcid.bindenv(this), {
 			Skill = this,
 			User = _user,
 			TargetTile = _targetTile

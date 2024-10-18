@@ -1,6 +1,6 @@
 ::ModSpecialistSkillsRework.HooksMod.hook("scripts/skills/actives/legend_sling_heavy_stone_skill", function ( q )
 {
-	q.m.AdditionalAccuracy = 0;
+	q.m.AdditionalAccuracy = -5;
 	q.m.AdditionalHitChance = -6;
 
 	q.getTooltip = @(__original) function()

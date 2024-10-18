@@ -199,7 +199,8 @@ this.launch_daze_bomb_skill <- this.inherit("scripts/skills/skill", {
 			}
 		}
 
-		_user.getItems().unequip(_user.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand));
+		this.consumeAmmo();
+
 		this.Time.scheduleEvent(this.TimeUnit.Real, 250, this.onApply.bindenv(this), {
 			Skill = this,
 			TargetTile = _targetTile
