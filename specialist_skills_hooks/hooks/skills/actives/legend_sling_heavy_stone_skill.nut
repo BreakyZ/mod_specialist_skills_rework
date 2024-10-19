@@ -69,7 +69,7 @@
 			{
 				_properties.DamageRegularMin += 15;
 				_properties.DamageRegularMax += 30;
-				_properties.DamageArmorMult *= 0.50;
+				_properties.DamageArmorMult *= 1.50;
 			}
 		}
 	}

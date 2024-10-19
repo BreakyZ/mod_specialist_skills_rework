@@ -29,7 +29,7 @@ foreach (sling in slingstaves)
 		{
 			this.weapon.onEquip();
 			this.addSkill(this.new("scripts/skills/actives/legend_sling_heavy_stone_skill"));
-			this.addSkill(this.new("scripts/skills/actives/legend_slingstaff_bash_skill"));
+			this.addSkill(this.new("scripts/skills/actives/legend_slingstaff_bash"));
 			
 			this.addSkill(this.new("scripts/skills/actives/launch_acid_flask"));
 			this.addSkill(this.new("scripts/skills/actives/launch_daze_bomb_skill"));
