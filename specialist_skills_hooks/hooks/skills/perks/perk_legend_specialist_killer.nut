@@ -10,7 +10,40 @@
 
 	q.getDescription <- function()
 	{
-		return "Life on the streets has shown you how to properly bury a knife in another person.";
+		return this.getDefaultSpecialistSkillDescription("Daggers");
+	}
+
+	q.specialistWeaponTooltip <- function (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(12, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/melee_skill.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Melee Skill"
+		});
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/special.png",
+			text = "You acquire the Deathblow ability when wielding any dagger" 
+		});
+		if (actor.getCurrentProperties().IsSpecializedInDaggers)
+		{
+			tooltip.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/damage_dealt.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, _specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, _specialistWeapon) + "[/color] Damage"
+			});
+		}
+		return tooltip;
 	}
 
 	q.getTooltip <- function()
@@ -23,56 +56,11 @@
 		{
 			case item == null:
 			case !item.isWeaponType(this.Const.Items.WeaponType.Dagger):
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
-			}
+				return this.getNoSpecialistWeaponTooltip();
 			case item.getID() == "weapon.knife" || item.getID() == "weapon.legend_shiv":
 				specialistWeapon = true;
 		}
-
-		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-			return tooltip;
-		}
-		else
-		{
-			tooltip.push({
-				id = 6,
-				type = "text",
-				icon = "ui/icons/melee_skill.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Melee Skill"
-			});
-			tooltip.push({
-				id = 6,
-				type = "text",
-				icon = "ui/icons/special.png",
-				text = "You acquire the Deathblow ability when wielding any dagger" 
-			});
-			if (actor.getCurrentProperties().IsSpecializedInDaggers)
-			{
-				tooltip.push({
-					id = 7,
-					type = "text",
-					icon = "ui/icons/damage_dealt.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, specialistWeapon) + "[/color] Damage"
-				});
-			}
-
-		}
-
-		return tooltip;
+		return this.specialistWeaponTooltip(specialistWeapon);
 	}
 
 	q.onUpdate = @( __original ) function( _properties )

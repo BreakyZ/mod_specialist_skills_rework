@@ -14,9 +14,36 @@ this.perk_legend_specialist_inventor <- this.inherit("scripts/skills/skill", {
 		this.m.IsHidden = false;
 	}
 
-	function getDescription()
+	function getDescription ()
 	{
-		return "Using your wits and tools, you\'ve managed to create aids, which help you use unwieldy mechanical weapons with skill and dexterity.";
+		return this.getDefaultSpecialistSkillDescription("Melee Firearms and Attack Skill and Reload Action Point reduction while using Ranged Firearms.");
+	}
+
+	function specialistWeaponTooltip (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(12, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+		
+		tooltip.push({
+			id = 7,
+			type = "text",
+			icon = "ui/icons/ranged_skill.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Ranged Skill"
+		})
+		if (actor.getCurrentProperties().IsSpecializedInCrossbows)
+		{
+			tooltip.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/ranged_skill.png",
+				text = "Reduces Reload AP cost for Handgonnes and Crossbows by [color=" + this.Const.UI.Color.NegativeValue + "]1[/color]"
+			});
+		}
+		return tooltip;
 	}
 
 	function getTooltip()
@@ -29,15 +56,7 @@ this.perk_legend_specialist_inventor <- this.inherit("scripts/skills/skill", {
 		switch (true) 
 		{
 			case item == null:
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
-			}
+				return getNoSpecialistWeaponTooltip();
 			case item.isWeaponType(this.Const.Items.WeaponType.Spear) && item.isWeaponType(this.Const.Items.WeaponType.Firearm):
 			{
 				tooltip.push({
@@ -55,52 +74,15 @@ this.perk_legend_specialist_inventor <- this.inherit("scripts/skills/skill", {
 						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, specialistWeapon) + "[/color] Damage"
 					});
 				}
+				return tooltip;
 			}
 			case !(item.isWeaponType(this.Const.Items.WeaponType.Firearm) || item.isWeaponType(this.Const.Items.WeaponType.Crossbow)):
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
+				return getNoSpecialistWeaponTooltip();
 			case item.isWeaponType(this.Const.Items.WeaponType.Firearm):
 				specialistWeapon = true;
 		}
 
-		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-			return tooltip;
-		}
-		else
-		{
-			if (actor.getCurrentProperties().IsSpecializedInCrossbows)
-			{
-				tooltip.push({
-					id = 7,
-					type = "text",
-					icon = "ui/icons/ranged_skill.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Ranged Skill"
-				})
-			}
-			if (actor.getCurrentProperties().IsSpecializedInCrossbows)
-			{
-				tooltip.push({
-					id = 7,
-					type = "text",
-					icon = "ui/icons/ranged_skill.png",
-					text = "Reduces Reload AP cost for Handgonnes and Crossbows by [color=" + this.Const.UI.Color.NegativeValue + "]1[/color]"
-				});
-			}
-		}
-
-		return tooltip;
+		return specialistWeaponTooltip(specialistWeapon);
 	}
 
 

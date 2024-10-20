@@ -21,8 +21,41 @@
 
 	q.getDescription <- function()
 	{
-		return "Your skill on the butcher\'s block seems to be easily translated to chopping limbs on the battlefield.";
+		return this.getDefaultSpecialistSkillDescription("Cleavers (but not Whips)");
 	}
+
+	q.specialistWeaponTooltip <- function (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(12, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+		
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/melee_skill.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Melee Skill"
+		});
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/special.png",
+			text = "Applies [color=" + this.Const.UI.Color.PositiveValue + "]2[/color] Bleeding Damage to every attack" 
+		});
+		if (actor.getCurrentProperties().IsSpecializedInCleavers)
+		{
+			tooltip.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/damage_dealt.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, _specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, _specialistWeapon) + "[/color] Damage"
+			});
+		}
+	}
+	
 
 	q.getTooltip <- function()
 	{
@@ -35,56 +68,12 @@
 			case item == null:
 			case item.isWeaponType(this.Const.Items.WeaponType.Whip):
 			case !item.isWeaponType(this.Const.Items.WeaponType.Cleaver):
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
-			}
+				return getNoSpecialistWeaponTooltip();
 			case item.getID() == "weapon.butchers_cleaver" || item.getID() == "weapon.legend_named_butchers_cleaver":
 				specialistWeapon = true;
 		}
 
-		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-			return tooltip;
-		}
-		else
-		{
-			tooltip.push({
-				id = 6,
-				type = "text",
-				icon = "ui/icons/melee_skill.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Melee Skill"
-			});
-			tooltip.push({
-				id = 6,
-				type = "text",
-				icon = "ui/icons/special.png",
-				text = "Applies [color=" + this.Const.UI.Color.PositiveValue + "]2[/color] Bleeding Damage to every attack" 
-			});
-			if (actor.getCurrentProperties().IsSpecializedInCleavers)
-			{
-				tooltip.push({
-					id = 7,
-					type = "text",
-					icon = "ui/icons/damage_dealt.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, specialistWeapon) + "[/color] Damage"
-				});
-			}
-
-		}
-
-		return tooltip;
+		return specialistWeaponTooltip(specialistWeapon);
 	}
 
 	q.onUpdate = @( __original ) function( _properties )

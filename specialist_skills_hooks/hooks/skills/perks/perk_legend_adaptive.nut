@@ -41,6 +41,9 @@
 
 			//Bodyguard
 				case _item.getID() == "weapon.legend_longsword":
+				case _item.getID() == "weapon.legend_named_longsword":
+				case _item.getID() == "weapon.longsword":
+				case _item.getID() == "weapon.named_longsword":
 					return this.Const.Perks.SpecialistBodyguardTree;
 
 			//Slings

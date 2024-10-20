@@ -10,7 +10,7 @@
 
 	q.getDescription <- function()
 	{
-		return "Practicing with the unwieldy scythe has taught you how to twist your torso to produce repeatable smooth strokes.";
+		return this.getDefaultSpecialistSkillDescription("Scythe or Warscythe");
 	}
 
 	q.getTooltip <- function()
@@ -20,15 +20,8 @@
 		local item = actor.getMainhandItem();
 		local specialistWeapon = false;
 		if (item == null || !(item.getID() == "weapon.legend_grisly_scythe" || item.getID() == "weapon.legend_scythe" || item.getID() == "weapon.warscythe" || item.getID() == "weapon.named_warscythe"))
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon"
-				});
-			return tooltip;
-		}
+			return this.getNoSpecialistWeaponTooltip();
+
 		tooltip.push({
 			id = 6,
 			type = "text",

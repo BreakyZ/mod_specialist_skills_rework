@@ -10,7 +10,41 @@
 
 	q.getDescription <- function()
 	{
-		return "Years of using farming tools have given you an understanding of how to stab true and slash in smooth strokes.";
+		return this.getDefaultSpecialistSkillDescription("Polearms and Farming Tools");
+	}
+
+	q.specialistWeaponTooltip <- function (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(12, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+		
+		tooltip.extend([
+		{
+			id = 6,
+			type = "text",
+			icon = "ui/icons/melee_skill.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Melee Skill"
+		},
+		{
+			id = 6,
+			type = "text",
+			icon = "ui/icons/armor_damage.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]" + actor.calculateSpecialistBonus(25, _specialistWeapon) + "%[/color] Bonus Armor Damage"
+		}]);
+		if (actor.getCurrentProperties().IsSpecializedInPolearms)
+		{
+			tooltip.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/damage_dealt.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(9, _specialistWeapon) + "-" + actor.calculateSpecialistBonus(24, _specialistWeapon) + "[/color] Damage"
+			});
+		}
+		return tooltip;
 	}
 
 	q.getTooltip <- function()
@@ -23,55 +57,12 @@
 		{
 			case item == null:
 			case !(item.isWeaponType(this.Const.Items.WeaponType.Polearm) || item.isItemType(this.Const.Items.ItemType.Pitchfork)):
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
+				return this.getNoSpecialistWeaponTooltip();
 			case item.isItemType(this.Const.Items.ItemType.Pitchfork):
 				specialistWeapon = true;
 		}
 
-		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-			return tooltip;
-		}
-		else
-		{
-			tooltip.extend([
-			{
-				id = 6,
-				type = "text",
-				icon = "ui/icons/melee_skill.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Melee Skill"
-			},
-			{
-				id = 6,
-				type = "text",
-				icon = "ui/icons/armor_damage.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]" + actor.calculateSpecialistBonus(25, specialistWeapon) + "%[/color] Bonus Armor Damage"
-			}]);
-			if (actor.getCurrentProperties().IsSpecializedInPolearms)
-			{
-				tooltip.push({
-					id = 7,
-					type = "text",
-					icon = "ui/icons/damage_dealt.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(9, specialistWeapon) + "-" + actor.calculateSpecialistBonus(24, specialistWeapon) + "[/color] Damage"
-				});
-			}
-
-		}
-
-		return tooltip;
+		return this.specialistWeaponTooltip(specialistWeapon);
 	}
 
 	q.onUpdate = @( __original ) function( _properties )

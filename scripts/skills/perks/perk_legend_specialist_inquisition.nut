@@ -14,9 +14,42 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 		this.m.IsHidden = false;
 	}
 
-	function getDescription()
+	function getDescription ()
 	{
-		return "Nobody expects the Inquisition!";
+		return this.getDefaultSpecialistSkillDescription("Crossbows");
+	}
+
+	function specialistWeaponTooltip (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(12, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+		
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/ranged_skill.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Ranged Skill"
+		});
+		if (actor.getCurrentProperties().IsSpecializedInCrossbows)
+		{
+			tooltip.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/damage_dealt.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, _specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, _specialistWeapon) + "[/color] Damage"
+			});
+		}
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/special.png",
+			text = "Doubles these bonuses against Alps and Hexe"
+		});
+		return tooltip;
 	}
 
 	function getTooltip()
@@ -29,15 +62,7 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 		switch (true)
 		{
 			case item == null && off == null:
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-				return tooltip;
-			}
+				return getNoSpecialistWeaponTooltip();
 			case item != null && item.getID() == "weapon.legend_wooden_stake":
 			{
 				tooltip.extend([
@@ -57,56 +82,13 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 			}
 			case off != null && off.getID() != "weapon.legend_hand_crossbow":
 			case item != null && !item.isWeaponType(this.Const.Items.WeaponType.Crossbow):
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
-			}
+				return getNoSpecialistWeaponTooltip();
 			case off != null && off.getID() == "weapon.legend_hand_crossbow":
 			case item != null && item.getID() == "weapon.goblin_crossbow":
 				specialistWeapon = true;
 		}
 
-		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-			return tooltip;
-		}
-		else
-		{
-			tooltip.push({
-				id = 6,
-				type = "text",
-				icon = "ui/icons/ranged_skill.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Ranged Skill"
-			});
-			if (actor.getCurrentProperties().IsSpecializedInCrossbows)
-			{
-				tooltip.push({
-					id = 7,
-					type = "text",
-					icon = "ui/icons/damage_dealt.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, specialistWeapon) + "[/color] Damage"
-				});
-			}
-			tooltip.push({
-				id = 6,
-				type = "text",
-				icon = "ui/icons/special.png",
-				text = "Doubles these bonuses against Alps and Hexe"
-			});
-		}
-
-		return tooltip;
+		return specialistWeaponTooltip(specialistWeapon);
 	}
 
 	function validTarget( _targetID)

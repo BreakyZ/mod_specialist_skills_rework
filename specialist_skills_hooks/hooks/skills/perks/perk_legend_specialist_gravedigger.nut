@@ -10,9 +10,41 @@
 
 	q.getDescription <- function()
 	{
-		return "You used to dig up graves, now you're digging graves.";
+		return this.getDefaultSpecialistSkillDescription("One Handed Maces");
 	}
 
+	q.specialistWeaponTooltip <- function (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(12, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+		
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/melee_skill.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Melee Skill"
+		});
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/tooltips/special.png",
+			text = "Grants the Gravedigging Effect Shovels or Two Handed Maces"
+		});
+		if (actor.getCurrentProperties().IsSpecializedInMaces)
+		{
+			tooltip.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/damage_dealt.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, _specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, _specialistWeapon) + "[/color] Damage"
+			});
+		}
+		return tooltip;
+	}
 	q.getTooltip <- function()
 	{
 		local tooltip = this.skill.getTooltip();
@@ -24,56 +56,12 @@
 			case item == null:
 			case !item.isItemType(this.Const.Items.ItemType.TwoHanded):
 			case !item.isWeaponType(this.Const.Items.WeaponType.Mace):
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
-			}
+				return getNoSpecialistWeaponTooltip();
 			case item.getID() == "weapon.legend_shovel" || item.getID() == "weapon.legend_named_shovel":
 				specialistWeapon = true;
 		}
 
-		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-			return tooltip;
-		}
-		else
-		{
-			tooltip.push({
-				id = 6,
-				type = "text",
-				icon = "ui/icons/melee_skill.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Melee Skill"
-			});
-			tooltip.push({
-				id = 6,
-				type = "text",
-				icon = "ui/tooltips/special.png",
-				text = "Grants the Gravedigging Effect Shovels or Two Handed Maces"
-			});
-			if (actor.getCurrentProperties().IsSpecializedInMaces)
-			{
-				tooltip.push({
-					id = 7,
-					type = "text",
-					icon = "ui/icons/damage_dealt.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, specialistWeapon) + "[/color] Damage"
-				});
-			}
-
-		}
-
-		return tooltip;
+		return specialistWeaponTooltip(specialistWeapon);
 	}
 
 	q.onUpdate = @( __original ) function( _properties )

@@ -10,7 +10,61 @@
 
 	q.getDescription <- function()
 	{
-		return "Twist and thrust with your staff to deflect blows and intercept strikes.";
+		return this.getDefaultSpecialistSkillDescription("Staves and Musical Instruments");
+	}
+
+	q.specialistWeaponTooltip <- function (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(12, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/melee_defense.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(16, _specialistWeapon) + "[/color] Defense"
+		});
+		if (actor.getCurrentProperties().IsSpecializedInStaves)
+		{
+			tooltip.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/melee_skill.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Melee Skill"
+			});
+		}
+		return tooltip;
+	}
+
+	q.hybridWeaponTooltip <- function (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(8, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+
+		tooltip.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/melee_defense.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(8, _specialistWeapon) + "[/color] Defense"
+		});
+		if (actor.getCurrentProperties().IsSpecializedInStaves)
+		{
+			tooltip.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/melee_skill.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, _specialistWeapon) + "[/color] Melee Skill"
+			});
+		}
+		return tooltip;
 	}
 
 	q.getTooltip <- function()
@@ -22,78 +76,17 @@
 		switch (true) 
 		{
 			case item == null:
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
-			}
+				return this.getNoSpecialistWeaponTooltip();
 			case item.isWeaponType(this.Const.Items.WeaponType.Staff) && item.isWeaponType(this.Const.Items.WeaponType.Sling):
 			case item.isWeaponType(this.Const.Items.WeaponType.Staff) && item.isWeaponType(this.Const.Items.WeaponType.Sword):
 			case item.isWeaponType(this.Const.Items.WeaponType.Musical):
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/melee_defense.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(8, specialistWeapon) + "[/color] Defense"
-				});
-				if (actor.getCurrentProperties().IsSpecializedInStaves)
-				{
-					tooltip.push({
-						id = 7,
-						type = "text",
-						icon = "ui/icons/melee_skill.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, specialistWeapon) + "[/color] Melee Skill"
-					});
-				}
-			}
+				return this.hybridWeaponTooltip(false);
 			case (!item.isWeaponType(this.Const.Items.WeaponType.Staff)):
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
+				return this.getNoSpecialistWeaponTooltip();
 			case (!item.isWeaponType(this.Const.Items.WeaponType.MagicStaff)):
 				specialistWeapon = true;
 		}
-
-		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-			return tooltip;
-		}
-		else
-		{
-			tooltip.push({
-				id = 6,
-				type = "text",
-				icon = "ui/icons/melee_defense.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(16, specialistWeapon) + "[/color] Defense"
-			});
-			if (actor.getCurrentProperties().IsSpecializedInStaves)
-			{
-				tooltip.push({
-					id = 7,
-					type = "text",
-					icon = "ui/icons/melee_skill.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(16, specialistWeapon) + "[/color] Melee Skill"
-				});
-			}
-
-		}
-
-		return tooltip;
+		return this.specialistWeaponTooltip(specialistWeapon);
 	}
 
 	q.onUpdate = @( __original ) function( _properties )

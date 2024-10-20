@@ -14,9 +14,49 @@ this.perk_legend_specialist_bodyguard <- this.inherit("scripts/skills/skill", {
 		this.m.IsHidden = false;
 	}
 
-	function getDescription()
+	function getDescription ()
 	{
-		return "Eating and sleeping with your blade has turned it into an extension of your arm.";
+		return this.getDefaultSpecialistSkillDescription("Two Handed Swords");
+	}
+
+	function specialistWeaponTooltip (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(12, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+		
+		tooltip.extend([
+		{
+			id = 6,
+			type = "text",
+			icon = "ui/icons/melee_skill.png",
+			text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Melee Skill"
+		},
+		{
+			id = 7,
+			type = "text",
+			icon = "ui/icons/armor_damage.png",
+			text = "[color=" + this.Const.UI.Color.DamageValue + "]" + actor.calculateSpecialistBonus(10, _specialistWeapon) + "%[/color] Armor Damage"
+		},
+		{
+			id = 8,
+			type = "text",
+			icon = "ui/icons/damage_dealt.png",
+			text = "[color=" + this.Const.UI.Color.DamageValue + "]" + actor.calculateSpecialistBonus(10, _specialistWeapon) + "%[/color] Armor Penetration"
+		}]);
+		if (actor.getCurrentProperties().IsSpecializedInGreatSwords)
+		{
+			tooltip.push({
+				id = 9,
+				type = "text",
+				icon = "ui/icons/damage_dealt.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, _specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, _specialistWeapon) + "[/color] Damage"
+			});
+		}
+		return tooltip;
 	}
 
 	function getTooltip()
@@ -30,15 +70,7 @@ this.perk_legend_specialist_bodyguard <- this.inherit("scripts/skills/skill", {
 			case item == null:
 			case !item.isItemType(this.Const.Items.ItemType.TwoHanded):
 			case !item.isWeaponType(this.Const.Items.WeaponType.Sword):
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
-			}
+				return getNoSpecialistWeaponTooltip();
 			case item.getID() == "weapon.legend_longsword":
 			case item.getID() == "weapon.legend_named_longsword":
 			case item.getID() == "weapon.longsword":
@@ -46,50 +78,7 @@ this.perk_legend_specialist_bodyguard <- this.inherit("scripts/skills/skill", {
 				specialistWeapon = true;
 		}
 
-		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-			return tooltip;
-		}
-		else
-		{
-			tooltip.extend([
-			{
-				id = 6,
-				type = "text",
-				icon = "ui/icons/melee_skill.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Melee Skill"
-			},
-			{
-				id = 7,
-				type = "text",
-				icon = "ui/icons/armor_damage.png",
-				text = "[color=" + this.Const.UI.Color.DamageValue + "]" + actor.calculateSpecialistBonus(10, specialistWeapon) + "%[/color] Armor Damage"
-			},
-			{
-				id = 8,
-				type = "text",
-				icon = "ui/icons/damage_dealt.png",
-				text = "[color=" + this.Const.UI.Color.DamageValue + "]" + actor.calculateSpecialistBonus(10, specialistWeapon) + "%[/color] Armor Penetration"
-			}]);
-			if (actor.getCurrentProperties().IsSpecializedInGreatSwords)
-			{
-				tooltip.push({
-					id = 9,
-					type = "text",
-					icon = "ui/icons/damage_dealt.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, specialistWeapon) + "[/color] Damage"
-				});
-			}
-
-		}
-
-		return tooltip;
+		return specialistWeaponTooltip(specialistWeapon);
 	}
 
 	function onUpdate( _properties )

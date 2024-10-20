@@ -10,7 +10,46 @@
 
 	q.getDescription <- function()
 	{
-		return "Timber!";
+		return this.getDefaultSpecialistSkillDescription("Axes");
+	}
+
+	q.specialistWeaponTooltip <- function (_specialistWeapon = false)
+	{
+		local actor = this.getContainer().getActor();
+		if (actor.calculateSpecialistBonus(12, _specialistWeapon) == 0)
+			return this.getNoSpecialistWeaponTooltip();
+
+		local item = actor.getMainhandItem();
+		local tooltip = this.skill.getTooltip();
+
+		if (item.isWeaponType(this.Const.Items.WeaponType.Throwing))
+		{
+			tooltip.push({
+				id = 6,
+				type = "text",
+				icon = "ui/icons/ranged_skill.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Ranged Skill"
+			});
+		}
+		else
+		{
+			tooltip.push({
+				id = 6,
+				type = "text",
+				icon = "ui/icons/melee_skill.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, _specialistWeapon) + "[/color] Melee Skill"
+			});
+		}
+		if (actor.getCurrentProperties().IsSpecializedInAxes)
+		{
+			tooltip.push({
+				id = 7,
+				type = "text",
+				icon = "ui/icons/damage_dealt.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, _specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, _specialistWeapon) + "[/color] Damage"
+			});
+		}
+		return tooltip;
 	}
 
 	q.getTooltip <- function()
@@ -18,67 +57,18 @@
 		local tooltip = this.skill.getTooltip();
 		local actor = this.getContainer().getActor();
 		local item = actor.getMainhandItem();
-		local specialistWeapon = false;
 		switch (true) 
 		{
 			case item == null:
-			case !item.isWeaponType(this.Const.Items.WeaponType.Axe) && !item.getID() == "weapon.legend_saw":
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "This character is not using the specialist weapon or hasn\'t accumulated a bonus yet"
-				});
-				return tooltip;
-			}
-			case item.getID() == "weapon.woodcutters_axe" || item.getID() == "weapon.legend_saw":
-				specialistWeapon = true;
+				return this.getNoSpecialistWeaponTooltip();
+			case item.getID() == "weapon.legend_saw":
+			case item.getID() == "weapon.woodcutters_axe":
+				return this.specialistWeaponTooltip(true);
+			case !item.isWeaponType(this.Const.Items.WeaponType.Axe):
+				return this.getNoSpecialistWeaponTooltip();
 		}
 
-		if (actor.calculateSpecialistBonus(12, specialistWeapon) == 0)
-		{
-			tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/warning.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character is not using the specialist weapon or hasn\'t accumulated a bonus yet[/color]"
-				});
-			return tooltip;
-		}
-		else
-		{
-			if (item.isWeaponType(this.Const.Items.WeaponType.Throwing))
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/ranged_skill.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Ranged Skill"
-				});
-			}
-			else
-			{
-				tooltip.push({
-					id = 6,
-					type = "text",
-					icon = "ui/icons/melee_skill.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(12, specialistWeapon) + "[/color] Melee Skill"
-				});
-			}
-			if (actor.getCurrentProperties().IsSpecializedInAxes)
-			{
-				tooltip.push({
-					id = 7,
-					type = "text",
-					icon = "ui/icons/damage_dealt.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, specialistWeapon) + "[/color] Damage"
-				});
-			}
-
-		}
-
-		return tooltip;
+		return this.specialistWeaponTooltip(false);
 	}
 
 	q.onUpdate = @( __original ) function( _properties )
