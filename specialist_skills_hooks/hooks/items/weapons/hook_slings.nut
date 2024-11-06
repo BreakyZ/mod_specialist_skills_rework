@@ -11,6 +11,10 @@ foreach (sling in slings)
 
 			this.m.RangeMax = 6;
 			this.m.RangeIdeal = 6;
+			this.m.ArmorDamageMult = 0.75;
+			this.m.DirectDamageMult = 0.4;
+			this.m.RegularDamage = 20;
+			this.m.RegularDamageMax = 30;
 		}
 	});
 }

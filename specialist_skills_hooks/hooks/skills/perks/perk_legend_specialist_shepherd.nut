@@ -123,8 +123,8 @@
 		{
 			_properties.RangedSkill += actor.calculateSpecialistBonus(12, specialistWeapon);
 			_properties.DamageArmorMult += 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon);
-			if (_skill.getID() == "actives.sling_stone" && this.getContainer().hasSkill("effects.legend_slinger_spins"))
-				_properties.DamageDirectAdd += 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon);
+			// if (_skill.getID() == "actives.sling_stone" && this.getContainer().hasSkill("effects.legend_slinger_spins"))
+			// 	_properties.DamageDirectAdd += 0.01 * actor.calculateSpecialistBonus(25, specialistWeapon);
 
 			if (actor.getCurrentProperties().IsSpecializedInSlings)
 			{

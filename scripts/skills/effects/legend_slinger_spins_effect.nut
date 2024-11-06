@@ -40,13 +40,13 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 			}
 		];
 		local sourcePerk = this.getContainer().getSkillByID("perk.legend_specialist_sling_skill");
-		if (source_perk && sourcePerk.m.armorDamageApplied > 0)
+		if (this.getContainer().getSkillByID("perk.ballistics"))
 			ret.push(
 			{
-					id = 12,
-					type = "text",
-					icon = "ui/icons/damage_dealt.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]" + sourcePerk.m.armorDamageApplied +"%[/color] Armor Penetration"
+				id = 12,
+				type = "text",
+				icon = "ui/icons/direct_damage.png",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]" + this.getBonus() + "%[/color] Armor Penetration"
 			});
 		return ret;
 	}
@@ -62,6 +62,16 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 		if (!(weapon.getID() == "weapon.legend_sling" && weapon.getID() == "weapon.named_sling"))
 			this.removeSelf();
 			return;
+	}
+
+	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	{
+		this.removeSelf();
+	}
+
+	function onTargetMissed( _skill, _targetEntity )
+	{
+		this.removeSelf();
 	}
 
 	function onMovementCompleted( _tile )
@@ -80,6 +90,6 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 			return;
 		_properties.DamageRegularMin *= 1.0 + this.getBonus();
 		_properties.DamageRegularMax *= 1.0 + this.getBonus();
-		this.removeSelf();
+		_properties.DirectDamageAdd += this.getBonus();
 	}
 });

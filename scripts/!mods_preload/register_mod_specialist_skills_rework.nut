@@ -1,7 +1,7 @@
 ::ModSpecialistSkillsRework <- {
 	ID = "mod_specialist_skills_rework",
 	Name = "Mod Specialist Skills Rework",
-	Version = "1.6.2"
+	Version = "1.6.7"
 };
 
 ::ModSpecialistSkillsRework.HooksMod <- ::Hooks.register(::ModSpecialistSkillsRework.ID, ::ModSpecialistSkillsRework.Version, ::ModSpecialistSkillsRework.Name);
@@ -25,6 +25,7 @@
 
 	if (!("Is_BR_Exist" in this.getroottable())) ::Is_BR_Exist <- ::mods_getRegisteredMod("mod_breditor") != null;
 	if (!("Is_SSU_Exist" in this.getroottable())) ::Is_SSU_Exist <- ::mods_getRegisteredMod("mod_sellswords") != null;
+	if (!("Is_ROTU_Exist" in this.getroottable())) ::Is_ROTU_Exist <- ::mods_getRegisteredMod("mod_ROTU") != null;
 	if (!("Is_World_Editor_Exists" in this.getroottable())) ::Is_World_Editor_Exists <- ::mods_getRegisteredMod("mod_world_editor_legends") != null;
 	// load hook files
 	::include("specialist_skills_hooks/load.nut");

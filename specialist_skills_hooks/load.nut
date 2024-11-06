@@ -14,7 +14,7 @@ if (::Is_World_Editor_Exists)
 	foreach (file in ::IO.enumerateFiles("specialist_skills_hooks/hooks_world_editor"))
 		::include(file);
 
-if (!::Is_SSU_Exist)
+if (!::Is_SSU_Exist && !::Is_ROTU_Exist)
 	foreach (file in ::IO.enumerateFiles("specialist_skills_hooks/hooks_throwing_skills"))
 		::include(file);
 
