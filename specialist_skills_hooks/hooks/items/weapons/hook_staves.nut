@@ -4,10 +4,9 @@ local staves = [
 	"legend_staff_gnarled",
 	"legend_staff",
 	"legend_tipstaff",
-	"legendary/obsidian_dagger",
-	"named/named_dagger"
+	"legend_mystic_staff",
 ];
-if (Is_SSU_Exist)
+if (::Is_SSU_Exist)
 {
 	staves.extend([
 		"dryad/dryad_staff",
@@ -15,6 +14,10 @@ if (Is_SSU_Exist)
 		"named/named_staff",
 	])
 };
+if (::Is_MC_Exist)
+{
+	staves.push("named/nggh_mod_named_staff")
+}
 foreach (staff in staves)
 {
 	::ModSpecialistSkillsRework.HooksMod.hook("scripts/items/weapons/" + staff, function( q )

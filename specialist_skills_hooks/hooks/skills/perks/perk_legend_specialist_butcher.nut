@@ -54,6 +54,7 @@
 				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + actor.calculateSpecialistBonus(6, _specialistWeapon) + "-" + actor.calculateSpecialistBonus(16, _specialistWeapon) + "[/color] Damage"
 			});
 		}
+		return tooltip;
 	}
 	
 

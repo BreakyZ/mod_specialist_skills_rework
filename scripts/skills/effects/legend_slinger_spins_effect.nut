@@ -53,7 +53,7 @@ this.legend_slinger_spins_effect <- this.inherit("scripts/skills/skill", {
 
 	function getBonus()
 	{
-		return this.getContainer().getActor().RangedSkill * 0.2;
+		return this.getContainer().getActor().getCurrentProperties().RangedSkill * 0.2;
 	}
 
 	function onUpdate( _properties )
