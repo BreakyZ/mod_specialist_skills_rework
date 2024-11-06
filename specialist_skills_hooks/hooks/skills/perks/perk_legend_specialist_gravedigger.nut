@@ -45,6 +45,7 @@
 		}
 		return tooltip;
 	}
+
 	q.getTooltip <- function()
 	{
 		local tooltip = this.skill.getTooltip();
