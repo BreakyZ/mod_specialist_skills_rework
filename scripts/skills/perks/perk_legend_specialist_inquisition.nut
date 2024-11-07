@@ -108,6 +108,9 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 		local off = actor.getOffhandItem();
 		local specialistWeapon = false;
 
+		if (item == null && off == null)
+			return;
+
 		if (_skill.getID() == "actives.shoot_bolt" || _skill.getID() == "actives.shoot_stake" || _skill.getID() == "actives.legend_piercing_bolt")
 		{
 			if ((off != null && off.getID() == "weapon.legend_hand_crossbow") || (item != null && item.getID() == "weapon.goblin_crossbow"))
@@ -133,7 +136,7 @@ this.perk_legend_specialist_inquisition <- this.inherit("scripts/skills/skill", 
 				}
 			}
 		}
-		if (item.getID() == "weapon.legend_wooden_stake" && (_skill.getID() == "actives.puncture" || _skill.getID() == "actives.legend_wooden_stake_stab"))
+		if (item != null && item.getID() == "weapon.legend_wooden_stake" && (_skill.getID() == "actives.puncture" || _skill.getID() == "actives.legend_wooden_stake_stab"))
 		{
 			if (this.validTarget(_targetEntity.getType()))
 			{
