@@ -1,12 +1,12 @@
 Mod that reworks almost all the specialist weapon perks (Poacher's arm ie).  
 
-* Will scale 10% per level with 0 bonuses for non specialist weapon at 1 and 100% at 11. Has a menu option if you want to have it scale by 5% weekly (SSU style).
+* Will scale 10% per level with 0 bonuses for non specialist weapon at 5 and 100% at 15. Has a menu option if you want to have it scale by 5% weekly (SSU style).
 * The specialist weapons will always receive 100%.
 * Damage specialist perks are merged into skill specialist perks and will unlock when you take the respective weapon mastery.
 * Slinger and Staff perks got the specialist treatment.
 * Butcher's perk will apply to all cleavers and do up to 2 extra bleed on each attack that applies bleed.
 * Ninetails perk have overall been nerfed since now there's a scaling ceiling so I gave them 15% headshot chance. Will apply to 3 headed flail and berserker chain now.
-* Militia perk give 6 bonus defense. Glaives will receive 12 bonus defense when double gripped.
+* Militia perk give 6 bonus defense.
 * Shortbow perk will deal double damage when fighting beasts but remove the armor penetration bonus. Unchanged against other enemies.
 * Hammer perk will deal extra hp damage that ignores armor.
 * Knife perk will give deathblow to any knife equipped and a bonus to Qatal daggers. They lose their direct damage bonus.
@@ -29,4 +29,4 @@ TODO:
 
 
 
-Requires Modern Hooks and is maybe/probably not safe to add mid run. Compatible with SSU, PTR and added Breditor compatibility. If you are upgrading from the test builds - this is save compatible.
+Requires Modern Hooks and is not safe to add mid run. Compatible with SSU, ROTU and Breditor compatibility. Incompatible with PTR, I simply don't have the energy to sort it out. 
